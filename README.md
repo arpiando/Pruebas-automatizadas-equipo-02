@@ -7,10 +7,12 @@ El nombre y correos uniandes de los estudiantes que participaron en la entrega.
 - Andrés Romero (a.romerop2@uniandes.edu.co)
 - Yuely Adriana Arce (y.arcea@uniandes.edu.co)
 
+Debe tener corriendo Ghost en el puerto: localhost:2368
+
 1.El paso a paso para la instalación y ejecución de las pruebas en Kraken.
 
 Antes de comenzar, asegúrate de tener instalados los siguientes programas:
-- **Node.js**
+node.js
 Kraken: Instala Kraken globalmente usando el siguiente comando: npm install kraken-node -g
 Appium: Instala Appium globalmente con el siguiente comando: npm install -g appium
 
