@@ -79,7 +79,7 @@ export class PostCreatePage {
     await this.page.click(this.updateButton);
 
   }
-  async ConfirmPostIsUpdated() { 
+  async ConfirmPostIsUpdated(): Promise<string | null> { 
     await this.page.waitForSelector(this.updateWindow, { state: 'visible' });
     const updateNotification = await this.page.locator(this.updateWindow).textContent();
     return updateNotification;
