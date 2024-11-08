@@ -10,6 +10,10 @@ export class PostCreatePage {
   private confirmButton: string = '[data-test-button="confirm-publish"]';
   private header: string = 'header.modal-header h1[data-test-complete-title] span';
   private successMessage: string = 'Boom! It\'s out there.';
+  private headerCloseButton: string = '[data-test-button="close-publish-flow"]';
+  private Post: string = '.gh-posts-list-item-group'
+  private updateButton: string = '[data-test-button="publish-save"]'
+  private updateWindow: string = '.gh-notification-content'
 
   constructor(page: Page) {
     this.page = page;
@@ -50,5 +54,34 @@ export class PostCreatePage {
     
     const successText = await this.page.locator(this.header, { hasText: this.successMessage }).textContent();
     return successText
+  }
+
+  async closeHeaderPost(): Promise<void> {
+    await this.page.waitForSelector(this.headerCloseButton, { state: 'visible' });
+    await this.page.click(this.headerCloseButton);
+  }
+
+  async ClickPostToEdit(): Promise<void>{
+    await this.page.click(this.Post);
+    await this.page.waitForSelector(this.titleInput, { state: 'visible' });
+    await this.page.waitForSelector(this.contentInput, { state: 'visible' });
+
+  }
+
+  async EditPost(title: string, content: string): Promise<void>{
+    await this.page.fill(this.titleInput, '');
+    await this.page.fill(this.titleInput, title);
+
+    await this.page.fill(this.contentInput, '');
+    await this.page.fill(this.contentInput, content);
+
+    await this.page.isVisible(this.updateButton);
+    await this.page.click(this.updateButton);
+
+  }
+  async ConfirmPostIsUpdated() { 
+    await this.page.waitForSelector(this.updateWindow, { state: 'visible' });
+    const updateNotification = await this.page.locator(this.updateWindow).textContent();
+    return updateNotification;
   }
 }
