@@ -10,6 +10,7 @@ export class Member {
     private CreatedtextSelector: string = '.gh-member-details-attribution p';
     private MemberSelector: string = '.gh-members-list-name-container';
     private memberNameSelector: string = '.gh-members-list-name-container .gh-members-list-name';
+    private ButtonFailure: string = '[data-test-button="save"] span[data-test-task-button-state="failure"]';
 
 
     constructor(page: Page) {
@@ -57,6 +58,14 @@ export class Member {
         await this.navigateToCreateMember();
 
         const memberName = await this.page.locator(this.memberNameSelector).first().textContent();
+        return memberName;
+
+    }
+
+    async ValidateMemberIsInvalid(): Promise<string | null>{
+        await this.navigateToCreateMember();
+
+        const memberName = await this.page.locator(this.ButtonFailure).textContent();
         return memberName;
 
     }
