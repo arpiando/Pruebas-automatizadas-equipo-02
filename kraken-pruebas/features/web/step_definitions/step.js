@@ -29,9 +29,8 @@ Then('I should see the dashboard page', async function () {
 });
 
 When('I navigate to the "Pages" section', async function () {
-    const link = await this.driver.$('a[href="#/pages/"]'); // Busca el enlace con href="#/pages/"
+    const link = await this.driver.$('a[href="#/pages/"]'); 
     try {
-        // Espera hasta que el enlace sea visible
         await link.waitForDisplayed({ timeout: 5000 });
     } catch (error) {
         throw new Error('El enlace con href="#/pages/" no se mostró en la página');
@@ -41,15 +40,13 @@ When('I navigate to the "Pages" section', async function () {
     if (!isVisible) {
         throw new Error('El enlace con href="#/pages/" no es visible en la página');
     }
-
-    // Haz clic en el enlace una vez que sea visible
     await link.click();
 });
 
 When('I click on "New page"', async function () {
-    const link = await this.driver.$('a[href="#/editor/page/"]'); // Busca el enlace con href="#/editor/page/"
+    const link = await this.driver.$('a[href="#/editor/page/"]'); 
     try {
-        // Espera hasta que el enlace sea visible
+
         await link.waitForDisplayed({ timeout: 5000 });
     } catch (error) {
         throw new Error('El enlace con href="#/editor/page/" no se mostró en la página');
@@ -60,7 +57,6 @@ When('I click on "New page"', async function () {
         throw new Error('El enlace con href="#/editor/page/" no es visible en la página');
     }
 
-    // Haz clic en el enlace una vez que sea visible
     await link.click();
 });
 
@@ -71,18 +67,13 @@ When('I enter {string} in the title field', async function (title) {
 });
 
 When('I enter {string} in the content field', async function (content) {
-    const contentField = await this.driver.$('p[data-koenig-dnd-droppable="true"]'); // Selecciona el <p> con el atributo data-koenig-dnd-droppable="true"
-    
-    // Espera que el elemento esté visible
+    const contentField = await this.driver.$('p[data-koenig-dnd-droppable="true"]');
+
     await contentField.waitForDisplayed({ timeout: 5000 });
 
-    // Hace clic en el elemento para habilitar la edición
     await contentField.click();
 
-    // Espera un poco para asegurarse de que el campo esté listo para editar
-    await this.driver.pause(500); // Pausa por medio segundo
-
-    // Escribe el contenido dentro del campo
+    await this.driver.pause(500); 
     await contentField.setValue(content);
 });
 
@@ -94,22 +85,17 @@ When('I click on "Publish"', async function () {
 
 
 Then('I should see "Continue, final review" confirmation message and "Publish page, right now"', async function () {
-    // Espera hasta que el botón que abre el modal sea visible
+
     const continueButton = await this.driver.$('.gh-btn.gh-btn-black.gh-btn-large');
     await continueButton.waitForDisplayed({ timeout: 5000 });
-    
-    // Hacemos clic en el botón para abrir el modal
     await continueButton.click();
 
-    // Esperamos a que el contenedor del modal sea visible
     const modalContainer = await this.driver.$('.gh-publish-settings-container.fade-in');
     await modalContainer.waitForDisplayed({ timeout: 5000 });
 
-    // Intentamos esperar hasta que el botón dentro del modal sea visible
     const confirmButton = await modalContainer.$('.gh-btn.gh-btn-large.gh-btn-pulse.ember-view');
     await confirmButton.waitForDisplayed({ timeout: 5000 });
 
-    // Verificamos si el botón está visible y hacemos clic en él
     const isVisible = await confirmButton.isDisplayed();
     if (!isVisible) {
         throw new Error('El botón "Continue, final review" no se mostró después de hacer clic.');
