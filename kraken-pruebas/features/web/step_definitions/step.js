@@ -106,6 +106,25 @@ Then('I should see "Continue, final review" confirmation message and "Publish pa
     }
     await confirmButton.click();
 });
+When('I enter incorrect credentials in the login fields', async function () {
+    const emailField = await this.driver.$('#identification');
+    const passwordField = await this.driver.$('#password');
+    await emailField.waitForDisplayed({ timeout: 5000 });
+    await emailField.setValue('incorrect@example.com');
+    await passwordField.waitForDisplayed({ timeout: 5000 });
+    await passwordField.setValue('wrongpassword');
+});
+Then('I should see an error message', async function () {
+    const errorMessage = await this.driver.$('p.main-error');
+    await errorMessage.waitForDisplayed({ timeout: 5000 });
+    const messageText = await errorMessage.getText();
+    if (!messageText.includes("There is no user with that email address")) {
+        throw new Error('El mensaje de error esperado no se mostró.');
+    }
+});
+
+
+
 
 
 
