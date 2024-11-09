@@ -8,6 +8,8 @@ export class Member {
     private InputEmail: string = '[data-test-input="member-email"]';
     private ButtonSaveMember: string = '[data-test-button="save"]';
     private CreatedtextSelector: string = '.gh-member-details-attribution p';
+    private MemberSelector: string = '.gh-members-list-name-container';
+    private memberNameSelector: string = '.gh-members-list-name-container .gh-members-list-name';
 
 
     constructor(page: Page) {
@@ -38,5 +40,24 @@ export class Member {
 
     }
 
+    async EditAMember(name: string): Promise<void>{
+        await this.navigateToCreateMember();
 
+        await this.page.click(this.MemberSelector);
+
+        await this.page.waitForSelector(this.InputName, {state: 'visible'});
+        await this.page.fill(this.InputName,'');
+        await this.page.fill(this.InputName,name);
+
+        await this.page.click(this.ButtonSaveMember);
+
+    }
+
+    async ValidateMemberIsModified(): Promise<string | null>{
+        await this.navigateToCreateMember();
+
+        const memberName = await this.page.locator(this.memberNameSelector).first().textContent();
+        return memberName;
+
+    }
 }
