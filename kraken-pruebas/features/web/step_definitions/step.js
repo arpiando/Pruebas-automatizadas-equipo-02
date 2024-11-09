@@ -1,6 +1,10 @@
+require('dotenv').config();
 const { Given, When, Then } = require('@cucumber/cucumber');
 
-When('I enter {string} in the "email" field and {string} in the "password" field', async function (email, password) {
+When('I enter the credentials in the login fields', async function () {
+    const email = process.env.GHOST_EMAIL;
+    const password = process.env.GHOST_PASSWORD;
+
     const emailField = await this.driver.$('#identification');
     const passwordField = await this.driver.$('#password');
     await emailField.waitForDisplayed({ timeout: 5000 });
