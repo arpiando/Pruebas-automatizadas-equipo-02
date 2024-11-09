@@ -8,6 +8,7 @@ export class Tag {
     private SaveTagButton: string = '[data-test-button="save"]';
     private tagNameSelector: string = '.gh-canvas-title';
     private TagSelector = 'a.gh-list-data.gh-tag-list-title.gh-list-cellwidth-70';
+    private ButtonFailure: string = '[data-test-button="save"] span[data-test-task-button-state="failure"]';
 
     constructor(page: Page) {
         this.page = page;
@@ -41,10 +42,20 @@ export class Tag {
         await this.page.fill(this.nameInputSelector,tagName);
 
         await this.page.click(this.SaveTagButton);
-
-
-
     }
 
+    
+    async CreateInvalidTag(): Promise<void>{
+        await this.page.click(this.newTagButton);
 
+        await this.page.waitForSelector(this.nameInputSelector, {state: 'visible'});
+
+        await this.page.click(this.SaveTagButton);
+    }
+
+    async confirmedNewTagIsNotCreated(): Promise<string | null> {
+        await this.page.waitForSelector(this.ButtonFailure, {state: 'visible'});
+        const failureText = await this.page.locator(this.ButtonFailure).textContent();
+        return failureText;
+    }
 }
