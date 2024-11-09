@@ -7,6 +7,7 @@ export class Tag {
     private nameInputSelector: string = '[data-test-input="tag-name"]';
     private SaveTagButton: string = '[data-test-button="save"]';
     private tagNameSelector: string = '.gh-canvas-title';
+    private TagSelector = 'a.gh-list-data.gh-tag-list-title.gh-list-cellwidth-70';
 
     constructor(page: Page) {
         this.page = page;
@@ -29,6 +30,19 @@ export class Tag {
         await this.page.waitForSelector(this.tagNameSelector, {state: 'visible'});
         const tagName = await this.page.locator(this.tagNameSelector).textContent();
         return tagName;
+
+    }
+
+    async editTag(tagName: string):  Promise<void>{
+        await this.page.click(this.TagSelector);
+
+        await this.page.waitForSelector(this.nameInputSelector, {state: 'visible'});
+        await this.page.fill(this.nameInputSelector,'');
+        await this.page.fill(this.nameInputSelector,tagName);
+
+        await this.page.click(this.SaveTagButton);
+
+
 
     }
 
