@@ -75,7 +75,7 @@ test.describe('Modificar una etiqueta (tag)', () => {
 
     // Then: El sistema debe mostrar que la etiqueta ha sido modificada.
     const createdTagName = await tagPage.confirmedNewTagIsCreated();
-    expect(createdTagName).toContain(TagModified);
+    expect(createdTagName?.trim()).toContain(TagModified);
   });
 });
 

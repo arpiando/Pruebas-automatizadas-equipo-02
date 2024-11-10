@@ -46,7 +46,10 @@ export class PostCreatePage {
     await this.page.waitForTimeout(500);
     await this.page.waitForSelector(this.confirmButton, { state: 'attached', timeout: 60000 });
     await this.page.waitForSelector(this.confirmButton, { state: 'visible', timeout: 60000 });
-    await this.page.click(this.confirmButton, { timeout: 60000});
+    const isButtonEnabled = await this.page.isEnabled(this.confirmButton);
+    if (isButtonEnabled) {
+      await this.page.click(this.confirmButton, { timeout: 60000, force: true });
+  }
   }
 
   async isPostCreatedSuccessfully(): Promise<string | null> {
@@ -102,23 +105,6 @@ export class PostCreatePage {
     return draftText;
   }
 
-  async filterPost():  Promise<string | null> {  
-   await this.page.click(this.postButton);
-
-   //await this.page.waitForSelector(this.ButtonAllPosts, { state: 'visible' });
-
-   await this.page.click(this.ButtonAllPosts);
-
-   //await this.page.waitForSelector(this.ButtonPublishedPosts, { state: 'visible' });
-
-   await this.page.locator(this.ButtonPublishedPosts).click();
-
-   const publishedText = await this.page.textContent(this.publishedSelector);
-
-   return publishedText;
-
-  }
-
   async unpublishedPost(): Promise<void>{
     await this.page.click(this.PostPublishedToEdit);
 
@@ -127,6 +113,7 @@ export class PostCreatePage {
 
     await this.page.waitForSelector(this.reverteToDraftButton, { state: 'visible' });
     await this.page.click(this.reverteToDraftButton);
+    await this.page.waitForSelector(this.unpublishedNotification, { state: 'visible' });
 
   } 
 

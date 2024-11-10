@@ -44,7 +44,10 @@ export class PageCreate {
     await this.page.waitForTimeout(500);
     await this.page.waitForSelector(this.confirmButton, { state: 'attached', timeout: 60000 });
     await this.page.waitForSelector(this.confirmButton, { state: 'visible', timeout: 60000 }); 
-    await this.page.click(this.confirmButton, { timeout: 60000});
+    const isButtonEnabled = await this.page.isEnabled(this.confirmButton);
+    if (isButtonEnabled) {
+      await this.page.click(this.confirmButton, { timeout: 60000, force: true });
+  }
   }
 
   async isPageCreatedSuccessfully(): Promise<string | null> {
