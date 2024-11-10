@@ -20,6 +20,9 @@ export class PostCreatePage {
   private ButtonPublishedPosts: string = 'li.ember-power-select-option[id="ember1636-2"]';
   private publishedSelector: string = '.gh-content-entry-status .published';
   private postButton: string = '[data-test-nav="posts"]';
+  private unpublishedButton: string = '[data-test-button="update-flow"]';
+  private reverteToDraftButton: string = '[data-test-button="revert-to-draft"]';
+  private unpublishedNotification: string = '[data-test-text="notification-content"]';
 
 
   constructor(page: Page) {
@@ -112,5 +115,24 @@ export class PostCreatePage {
 
    return publishedText;
 
+  }
+
+  async unpublishedPost(): Promise<void>{
+    await this.page.click(this.PostPublishedToEdit);
+
+    await this.page.waitForSelector(this.titleInput, { state: 'visible' });
+    await this.page.click(this.unpublishedButton);
+
+    await this.page.waitForSelector(this.reverteToDraftButton, { state: 'visible' });
+    await this.page.click(this.reverteToDraftButton);
+
+  } 
+
+  async isRevertToDraftSuccess():  Promise<string | null>{
+    await this.page.waitForSelector(this.unpublishedNotification, { state: 'visible' });
+
+    const draftText = await this.page.textContent(this.unpublishedNotification);
+
+    return draftText;
   }
 }

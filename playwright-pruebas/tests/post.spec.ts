@@ -81,6 +81,17 @@ test.describe('Modificar un post', () => {
     const updateNotification = await postCreatePage.ConfirmPostIsUpdated()
     expect(updateNotification).toContain(successMessageModified);
   });
+
+  test('MP002 - El usuario deberia revertir la publicacion de un post', async ({ page }) => {
+    const unpublishedext = 'Post reverted to a draft.'
+
+    // When: El usuario revierte el estatus de publicado del post.
+    await postCreatePage.unpublishedPost()
+
+    // Then: El sistema debe mostrar un mensaje de confirmacion.
+    const unpublishedNotification = await postCreatePage.isRevertToDraftSuccess()
+    expect(unpublishedNotification).toContain(unpublishedext);
+  })
 });
 
 test.describe('Filtrar un post', () => {
