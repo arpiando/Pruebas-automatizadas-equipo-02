@@ -18,6 +18,9 @@ export class PageCreate {
   private ButtonPageBackToMenu: string = '[data-test-link="pages"]';
   private draftSelector: string = '.gh-content-entry-status .draft';
   private PagePublishedToEdit: string = 'li[data-test-post-id][class*="gh-post-list-plain-status"] >> text="Published"';
+  private unpublishedButton: string = '[data-test-button="update-flow"]';
+  private reverteToDraftButton: string = '[data-test-button="revert-to-draft"]';
+  private unpublishedNotification: string = '[data-test-text="notification-content"]';
 
   constructor(page: Page) {
     this.page = page;
@@ -87,6 +90,25 @@ export class PageCreate {
     await this.page.waitForSelector(this.draftSelector, { state: 'visible' });
 
     const draftText = await this.page.textContent(this.draftSelector);
+
+    return draftText;
+  }
+
+  async unpublishedPage(): Promise<void>{
+    await this.page.click(this.PagePublishedToEdit);
+
+    await this.page.waitForSelector(this.titleInput, { state: 'visible' });
+    await this.page.click(this.unpublishedButton);
+
+    await this.page.waitForSelector(this.reverteToDraftButton, { state: 'visible' });
+    await this.page.click(this.reverteToDraftButton);
+
+  } 
+
+  async isRevertToDraftSuccess():  Promise<string | null>{
+    await this.page.waitForSelector(this.unpublishedNotification, { state: 'visible' });
+
+    const draftText = await this.page.textContent(this.unpublishedNotification);
 
     return draftText;
   }

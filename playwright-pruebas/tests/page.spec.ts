@@ -83,4 +83,15 @@ test.describe('Modificar una pagina', () => {
     const updateNotification = await Page.ConfirmPageIsUpdated()
     expect(updateNotification).toContain(successMessage);
   });
+
+  test('MP002 - El usuario deberia revertir la publicacion de una pagina', async ({ page }) => {
+    const unpublishedext = 'Page reverted to a draft.'
+
+    // When: El usuario revierte el estatus de publicado de la pagina.
+    await Page.unpublishedPage()
+
+    // Then: El sistema debe mostrar un mensaje de confirmacion.
+    const unpublishedNotification = await Page.isRevertToDraftSuccess()
+    expect(unpublishedNotification).toContain(unpublishedext);
+  })
 });
