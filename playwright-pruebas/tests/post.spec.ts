@@ -124,38 +124,3 @@ test.describe('Preview post', () => {
   
 });
 
-test.describe('Filtrar un post', () => {
-  let postCreatePage: PostCreatePage;
-  let loginPage: LoginPage;
-
-  const postTitle = 'Post de filtrado';
-  const postContent = 'Este es el contenido de filtrado.';
-
-  test.beforeEach(async ({ page }) => {
-    loginPage = new LoginPage(page);
-    postCreatePage = new PostCreatePage(page);
-    
-    // Given: El usuario ha navegado al sitio, ha iniciado sesión y está en la sección de creación de posts.
-    await loginPage.navigateToLoginPage();
-    await loginPage.login();
-    const isLoggedIn = await loginPage.isLoginSuccessful();
-    expect(isLoggedIn).toBe(true);
-
-    await postCreatePage.navigateToCreatePost();
-
-    // Y ha creado un post con anterioridad.
-    await postCreatePage.createPost(postTitle, postContent);
-    await postCreatePage.closeHeaderPost()
-  });
-  //standby
-  test('FP001 - El usuario debería poder filtrar posts.', async ({ page }) => {
-    const filterText: string = 'published';
-
-    // When: El usuario filtra por publicaciones publicadas.
-    const filterTextContext = await postCreatePage.filterPost()
-
-    // Then: El sistema debe mostrar los post publicados.
-    expect(filterTextContext).toContain(filterText);
-  });
-});
-

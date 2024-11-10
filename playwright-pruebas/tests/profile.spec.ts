@@ -18,7 +18,7 @@ test.describe('Modificar el profile', () => {
     await profile.navigateToProfile();
   });
 
-  test('MP001 - El usuario deberia modificar el nombre de su profile', async ({ page }) => {
+  test('MPR001 - El usuario deberia modificar el nombre de su profile', async ({ page }) => {
     const NameModified = 'Usuario modificado';
 
     // When: El usuario modifica su nombre.
@@ -29,7 +29,7 @@ test.describe('Modificar el profile', () => {
     expect(successHeader).toContain(NameModified);
   });
 
-  test('MP002 - El usuario modifica el correo con datos invalidos', async ({ page }) => {
+  test('MPR002 - El usuario modifica el correo con datos invalidos', async ({ page }) => {
     const EmailInvalid = 'f.cucinauniandes.edu.co';
     const failureText = 'Retry';
     

@@ -18,7 +18,7 @@ test.describe('Crear un pagina', () => {
     await Page.navigateToCreatePage();
   });
 
-  test('CP001 - El usuario deberia crear una pagina', async ({ page }) => {
+  test('CPA001 - El usuario deberia crear una pagina', async ({ page }) => {
     const postTitle = 'Nueva Pagina de Prueba';
     const postContent = 'Este es el contenido de prueba para la nueva pagina.';
     const successMessage = 'Boom! It\'s out there.';
@@ -31,7 +31,7 @@ test.describe('Crear un pagina', () => {
     expect(successHeader).toContain(successMessage);
   });
 
-  test('CP002 - El usuario debería guardar una pagina creada como borrador', async ({ page }) => {
+  test('CPA002 - El usuario debería guardar una pagina creada como borrador', async ({ page }) => {
     const postTitle = 'Borrador de pagina';
     const postContent = 'Este es un borrador de pagina.';
     const draftText = 'Draft'
@@ -71,7 +71,7 @@ test.describe('Modificar una pagina', () => {
     await Page.closeHeaderPage()
   });
 
-  test('MP001 - El usuario debería poder modificar una pagina', async ({ page }) => {
+  test('MPA001 - El usuario debería poder modificar una pagina', async ({ page }) => {
     const postTitleModified = 'Nuevo Titulo Modificado de la pagina';
     const postContentModified = 'Este es el contenido modificado de la pagina.';
     const successMessage = 'Page updated';
@@ -84,7 +84,7 @@ test.describe('Modificar una pagina', () => {
     expect(updateNotification).toContain(successMessage);
   });
 
-  test('MP002 - El usuario deberia revertir la publicacion de una pagina', async ({ page }) => {
+  test('MPA002 - El usuario deberia revertir la publicacion de una pagina', async ({ page }) => {
     const unpublishedext = 'Page reverted to a draft.'
 
     // When: El usuario revierte el estatus de publicado de la pagina.
@@ -112,7 +112,7 @@ test.describe('Preview page', () => {
     await Page.navigateToCreatePage();
   });
 
-  test('PP001 - El usuario debería poder ver el preview de la pagina', async ({ page }) => {
+  test('PPA001 - El usuario debería poder ver el preview de la pagina', async ({ page }) => {
     const postTitle = 'Pagina de preview';
     const postContent = 'Este es el contenido de preview.';
   
