@@ -94,6 +94,36 @@ test.describe('Modificar un post', () => {
   })
 });
 
+test.describe('Preview post', () => {
+  let postCreatePage: PostCreatePage;
+  let loginPage: LoginPage;
+
+  test.beforeEach(async ({ page }) => {
+    loginPage = new LoginPage(page);
+    postCreatePage = new PostCreatePage(page);
+    
+    // Given: El usuario ha navegado al sitio, ha iniciado sesión y está en la sección de creación de posts.
+    await loginPage.navigateToLoginPage();
+    await loginPage.login();
+    const isLoggedIn = await loginPage.isLoginSuccessful();
+    expect(isLoggedIn).toBe(true);
+    await postCreatePage.navigateToCreatePost();
+  });
+
+  test('PP001 - El usuario debería poder ver el preview del post', async ({ page }) => {
+    const postTitle = 'Post de preview';
+    const postContent = 'Este es el contenido de preview.';
+  
+    // When: El usuario crea un post draft.
+    await postCreatePage.PreviewPost(postTitle, postContent);
+  
+    // Then: El usuario previsualiza la publicacion.
+    const isPreviewSuccessful = await postCreatePage.IsPreviewSuccessful();
+    expect(isPreviewSuccessful).toBe(true);
+  });
+  
+});
+
 test.describe('Filtrar un post', () => {
   let postCreatePage: PostCreatePage;
   let loginPage: LoginPage;

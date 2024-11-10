@@ -23,6 +23,8 @@ export class PostCreatePage {
   private unpublishedButton: string = '[data-test-button="update-flow"]';
   private reverteToDraftButton: string = '[data-test-button="revert-to-draft"]';
   private unpublishedNotification: string = '[data-test-text="notification-content"]';
+  private PreviewButton: string = '[data-test-button="publish-preview"]';;
+  private PreviewTitlePost: string = '.gh-browserpreview-browser';
 
 
   constructor(page: Page) {
@@ -135,4 +137,19 @@ export class PostCreatePage {
 
     return draftText;
   }
+
+  async PreviewPost(title: string, content: string): Promise<void>{
+    await this.page.waitForSelector(this.titleInput, { state: 'visible' });
+    await this.page.fill(this.titleInput, title);
+    await this.page.fill(this.contentInput, content);
+    await this.page.waitForSelector(this.PreviewButton, { state: 'visible' });
+    await this.page.click(this.PreviewButton);
+    await this.page.waitForTimeout(500);
+  }
+
+  async IsPreviewSuccessful(): Promise<boolean> {
+    const previewTitle = await this.page.waitForSelector(this.PreviewTitlePost, { state: 'visible' });
+    return previewTitle !== null;
+  }
+  
 }
