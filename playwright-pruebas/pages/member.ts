@@ -30,12 +30,11 @@ export class Member {
         await this.page.fill(this.InputEmail,email);
 
         await this.page.click(this.ButtonSaveMember);
+        await this.page.waitForSelector(this.CreatedtextSelector, {state: 'visible',timeout:50000});
     }
 
     async ValidateMemberIsCreated(): Promise<string | null> {
-
-        await this.page.waitForSelector(this.CreatedtextSelector, {state: 'visible'});
-        const createdText = await this.page.locator('.gh-member-details-attribution p').textContent();
+        const createdText = await this.page.locator(this.CreatedtextSelector).textContent();
         return createdText;
 
 
@@ -68,5 +67,15 @@ export class Member {
         const memberName = await this.page.locator(this.ButtonFailure).textContent();
         return memberName;
 
+    }
+
+    async CreateMemberInvalid(name: string, email: string): Promise<void>{
+        await this.page.click(this.ButtonNewMember);
+
+        await this.page.waitForSelector(this.InputName, {state: 'visible'});
+        await this.page.fill(this.InputName,name);
+        await this.page.fill(this.InputEmail,email);
+
+        await this.page.click(this.ButtonSaveMember);
     }
 }

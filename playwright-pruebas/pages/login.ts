@@ -16,7 +16,7 @@ export class LoginPage {
         this.page = page;
     }
 
-    async navigateTo(): Promise<void> {
+    async navigateToLoginPage(): Promise<void> {
         await this.page.goto(this.urlLogin);
     }
 
