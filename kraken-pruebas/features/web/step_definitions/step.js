@@ -115,8 +115,8 @@ When('I click on "Publish", and is finished', async function () {
 // });
 
 When('I enter incorrect credentials in the login fields', async function () {
-    const emailField = await this.driver.$('#identification');
-    const passwordField = await this.driver.$('#password');
+    const emailField = await this.driver.$('#ember7');
+    const passwordField = await this.driver.$('#ember9');
     await emailField.waitForDisplayed({ timeout: 5000 });
     await emailField.setValue('incorrect@example.com');
     await passwordField.waitForDisplayed({ timeout: 5000 });
@@ -131,17 +131,35 @@ Then('I should see an error message', async function () {
     }
 });
 
+When('I click on the dark mode button', async function () {
+    const darkModeButton = await this.driver.$('.nightshift-toggle ');
+    await darkModeButton.waitForDisplayed({ timeout: 5000 });
+    await darkModeButton.click();
+});
 
+Then('I should see the dark mode theme', async function () {
+    const darkModeButton = await this.driver.$('.nightshift-toggle.on');
+    await darkModeButton.waitForDisplayed({ timeout: 5000 });
+    const isVisible = await darkModeButton.isDisplayed();
+    if (!isVisible) {
+        throw new Error('El botón de dark mode no se activó correctamente');
+    }
+});
 
+When('I click on the light mode button', async function () {
+    const lightModeButton = await this.driver.$('.nightshift-toggle ');
+    await lightModeButton.waitForDisplayed({ timeout: 5000 });
+    await lightModeButton.click();
+});
 
-
-
-
-
-
-
-
-
+Then('I should see the light mode theme', async function () {
+    const lightModeButton = await this.driver.$('.nightshift-toggle');
+    await lightModeButton.waitForDisplayed({ timeout: 5000 });
+    const isVisible = await lightModeButton.isDisplayed();
+    if (!isVisible) {
+        throw new Error('El botón de light mode no se activó correctamente');
+    }
+});
 
 
 
