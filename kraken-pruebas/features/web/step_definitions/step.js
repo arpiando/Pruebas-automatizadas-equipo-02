@@ -5,30 +5,33 @@ When('I enter the credentials in the login fields', async function () {
     const email = process.env.GHOST_EMAIL;
     const password = process.env.GHOST_PASSWORD;
 
-    const emailField = await this.driver.$('#identification');
-    const passwordField = await this.driver.$('#password');
+    const emailField = await this.driver.$('#ember7');  // Actualizado al nuevo ID
+    const passwordField = await this.driver.$('#ember9');  // Actualizado al nuevo ID
+
     await emailField.waitForDisplayed({ timeout: 5000 });
     await emailField.setValue(email);
+
     await passwordField.waitForDisplayed({ timeout: 5000 });
     await passwordField.setValue(password);
 });
 
+
 When('I click on sign in', async function () {
-    const signInButton = await this.driver.$('[data-test-button="sign-in"]');
+    const signInButton = await this.driver.$('#ember11');  // Actualizado al nuevo ID del botón
     await signInButton.waitForClickable({ timeout: 5000 });
     await signInButton.click();
 });
 
 Then('I should see the dashboard page', async function () {
-    const element = await this.driver.$('#ember16');
+    const element = await this.driver.$('#ember19');
     try {
         await element.waitForDisplayed({ timeout: 5000 });
     } catch (error) {
-        throw new Error('El elemento con id="ember16" no se mostró en la página del dashboard');
+        throw new Error('El elemento con id="ember19" no se mostró en la página del dashboard');
     }
     const isVisible = await element.isDisplayed();
     if (!isVisible) {
-        throw new Error('El elemento con id="ember16" no es visible en la página del dashboard');
+        throw new Error('El elemento con id="ember19" no es visible en la página del dashboard');
     }
 });
 
@@ -81,31 +84,36 @@ When('I enter {string} in the content field', async function (content) {
     await contentField.setValue(content);
 });
 
-When('I click on "Publish"', async function () {
-    const publishButton = await this.driver.$('.gh-btn.gh-btn-editor.darkgrey.gh-publish-trigger');
+When('I click on "Publish", and is finished', async function () {
+    const publishButton = await this.driver.$('.gh-btn.gh-btn-editor.gh-publishmenu-trigger');
     await publishButton.waitForDisplayed({ timeout: 5000 });
     await publishButton.click();
-});
-
-
-Then('I should see "Continue, final review" confirmation message and "Publish page, right now"', async function () {
-
-    const continueButton = await this.driver.$('.gh-btn.gh-btn-black.gh-btn-large');
-    await continueButton.waitForDisplayed({ timeout: 5000 });
-    await continueButton.click();
-
-    const modalContainer = await this.driver.$('.gh-publish-settings-container.fade-in');
-    await modalContainer.waitForDisplayed({ timeout: 5000 });
-
-    const confirmButton = await modalContainer.$('.gh-btn.gh-btn-large.gh-btn-pulse.ember-view');
+    const confirmButton = await this.driver.$('.gh-btn.gh-btn-black.gh-publishmenu-button');
     await confirmButton.waitForDisplayed({ timeout: 5000 });
-
-    const isVisible = await confirmButton.isDisplayed();
-    if (!isVisible) {
-        throw new Error('El botón "Continue, final review" no se mostró después de hacer clic.');
-    }
     await confirmButton.click();
+
 });
+
+
+// Then('I should see "Continue, final review" confirmation message and "Publish page, right now"', async function () {
+//
+//     const continueButton = await this.driver.$('.gh-btn.gh-btn-black.gh-btn-large');
+//     await continueButton.waitForDisplayed({ timeout: 5000 });
+//     await continueButton.click();
+//
+//     const modalContainer = await this.driver.$('.gh-publish-settings-container.fade-in');
+//     await modalContainer.waitForDisplayed({ timeout: 5000 });
+//
+//     const confirmButton = await modalContainer.$('.gh-btn.gh-btn-large.gh-btn-pulse.ember-view');
+//     await confirmButton.waitForDisplayed({ timeout: 5000 });
+//
+//     const isVisible = await confirmButton.isDisplayed();
+//     if (!isVisible) {
+//         throw new Error('El botón "Continue, final review" no se mostró después de hacer clic.');
+//     }
+//     await confirmButton.click();
+// });
+
 When('I enter incorrect credentials in the login fields', async function () {
     const emailField = await this.driver.$('#identification');
     const passwordField = await this.driver.$('#password');
