@@ -95,3 +95,32 @@ test.describe('Modificar una pagina', () => {
     expect(unpublishedNotification).toContain(unpublishedext);
   })
 });
+
+test.describe('Preview page', () => {
+  let Page: PageCreate;
+  let loginPage: LoginPage;
+
+  test.beforeEach(async ({ page }) => {
+    loginPage = new LoginPage(page);
+    Page = new PageCreate(page);
+    
+    // Given: El usuario ha navegado al sitio, ha iniciado sesión y está en la sección de creación de paginas.
+    await loginPage.navigateToLoginPage();
+    await loginPage.login();
+    const isLoggedIn = await loginPage.isLoginSuccessful();
+    expect(isLoggedIn).toBe(true);
+    await Page.navigateToCreatePage();
+  });
+
+  test('PP001 - El usuario debería poder ver el preview de la pagina', async ({ page }) => {
+    const postTitle = 'Pagina de preview';
+    const postContent = 'Este es el contenido de preview.';
+  
+    // When: El usuario crea un post draft.
+    await Page.PreviewPage(postTitle, postContent);
+  
+    // Then: El usuario previsualiza la publicacion.
+    const isPreviewSuccessful = await Page.IsPreviewSuccessful();
+    expect(isPreviewSuccessful).toBe(true);
+  })
+});
