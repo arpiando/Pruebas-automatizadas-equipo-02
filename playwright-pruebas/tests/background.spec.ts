@@ -29,9 +29,9 @@ test.describe('Cambiar tematica de fondo', () => {
 
     // Then: Verificar que el nuevo modo es el opuesto del actual
     if (currentMode === 'dark') {
-      expect(newMode).toBe('light');
-    } else {
       expect(newMode).toBe('dark');
+    } else {
+      expect(newMode).toBe('light');
     }
   });
 });

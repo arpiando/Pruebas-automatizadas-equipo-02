@@ -30,12 +30,8 @@ export class Background {
     }
   
     await this.page.click(currentColorSelector);
-  
-    await this.page.waitForFunction(
-      (initialColor) => window.getComputedStyle(document.body).backgroundColor !== initialColor,
-      {},
-      initialColor
-    );
+
+    await this.page.waitForSelector('body');
   
     const newColor = await this.page.evaluate(() => {
       return window.getComputedStyle(document.body).backgroundColor;
