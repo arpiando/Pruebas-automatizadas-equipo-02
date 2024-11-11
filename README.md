@@ -9,7 +9,7 @@ El nombre y correos uniandes de los estudiantes que participaron en la entrega.
 
 Debe tener corriendo Ghost en el puerto: localhost:2368
 
-1.El paso a paso para la instalación y ejecución de las pruebas en Kraken.
+1.El paso a paso para la instalación y ejecución de las pruebas en Kraken -  SOLO EN SITEMA OPERATIVO **macOS**
 
 Antes de comenzar, asegúrate de tener instalados los siguientes programas:
 -node.js
@@ -32,3 +32,23 @@ ejecute las pruebas:
 
 
 2.El paso a paso para la instalación y ejecución de las pruebas en Playwright.
+
+Antes de comenzar, asegúrate de tener instalados los siguientes programas:
+-node.js
+
+Pasos:
+    clone el proyecto: git clone
+    cd Pruebas-automatizadas-equipo-02
+    cd playwright-pruebas
+    npm install
+
+ejecute las pruebas:
+    Vaya al archivo login.ts en: pages/login.ts y cambie en las lineas 12 y 13 sus credenciales del administrador de Ghost. En las lienas:
+
+        private userEmail: string = 'f.cucina@uniandes.edu.co';
+        private password: string = 'panama2024';
+
+    ejecute: npx playwright test
+
+
+
