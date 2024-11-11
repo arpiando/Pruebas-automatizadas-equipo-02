@@ -5,8 +5,8 @@ When('I enter the credentials in the login fields', async function () {
     const email = process.env.GHOST_EMAIL;
     const password = process.env.GHOST_PASSWORD;
 
-    const emailField = await this.driver.$('#ember7');  // Actualizado al nuevo ID
-    const passwordField = await this.driver.$('#ember9');  // Actualizado al nuevo ID
+    const emailField = await this.driver.$('#identification');  // Actualizado al nuevo ID
+    const passwordField = await this.driver.$('#password');  // Actualizado al nuevo ID
 
     await emailField.waitForDisplayed({ timeout: 5000 });
     await emailField.setValue(email);
@@ -17,7 +17,7 @@ When('I enter the credentials in the login fields', async function () {
 
 
 When('I click on sign in', async function () {
-    const signInButton = await this.driver.$('#ember11');  // Actualizado al nuevo ID del botón
+    const signInButton = await this.driver.$('[data-test-button="sign-in"]');  // Actualizado al nuevo ID del botón
     await signInButton.waitForClickable({ timeout: 5000 });
     await signInButton.click();
 });
