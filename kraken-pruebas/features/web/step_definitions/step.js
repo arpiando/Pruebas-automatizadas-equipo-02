@@ -5,33 +5,30 @@ When('I enter the credentials in the login fields', async function () {
     const email = process.env.GHOST_EMAIL;
     const password = process.env.GHOST_PASSWORD;
 
-    const emailField = await this.driver.$('#identification');  // Actualizado al nuevo ID
-    const passwordField = await this.driver.$('#password');  // Actualizado al nuevo ID
-
+    const emailField = await this.driver.$('#identification');
+    const passwordField = await this.driver.$('#password');
     await emailField.waitForDisplayed({ timeout: 5000 });
     await emailField.setValue(email);
-
     await passwordField.waitForDisplayed({ timeout: 5000 });
     await passwordField.setValue(password);
 });
 
-
 When('I click on sign in', async function () {
-    const signInButton = await this.driver.$('[data-test-button="sign-in"]');  // Actualizado al nuevo ID del botón
+    const signInButton = await this.driver.$('[data-test-button="sign-in"]');
     await signInButton.waitForClickable({ timeout: 5000 });
     await signInButton.click();
 });
 
 Then('I should see the dashboard page', async function () {
-    const element = await this.driver.$('#ember19');
+    const element = await this.driver.$('#ember16');
     try {
         await element.waitForDisplayed({ timeout: 5000 });
     } catch (error) {
-        throw new Error('El elemento con id="ember19" no se mostró en la página del dashboard');
+        throw new Error('El elemento con id="ember16" no se mostró en la página del dashboard');
     }
     const isVisible = await element.isDisplayed();
     if (!isVisible) {
-        throw new Error('El elemento con id="ember19" no es visible en la página del dashboard');
+        throw new Error('El elemento con id="ember16" no es visible en la página del dashboard');
     }
 });
 
