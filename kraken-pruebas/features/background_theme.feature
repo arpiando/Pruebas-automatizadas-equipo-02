@@ -1,4 +1,4 @@
-Feature: Cambio de tema
+Feature: Cambio Cambio de fondo entre modo oscuro y claro
 
 #  @user @web
   @user1 @web

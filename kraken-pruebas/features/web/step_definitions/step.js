@@ -161,5 +161,202 @@ Then('I should see the light mode theme', async function () {
     }
 });
 
+// //Cambiar el tema de la pagina Ghost
+//
+// When('I click on config button', async function () {
+//     const themeDropdown = await this.driver.$('#ember1072');
+//     await themeDropdown.waitForDisplayed({ timeout: 5000 });
+//     await themeDropdown.click();
+// });
+//
+When('I select the theme config', async function (theme) {
+    // ember1438
+    const themeOption = await this.driver.$(`#ember1438`);
+    await themeOption.waitForDisplayed({ timeout: 5000 });
+    await themeOption.click();
+});
+
+// When I click on the theme dropdown
+//the id is ember1472
+
+When('I click on the theme dropdown', async function () {
+    //use the ember1472
+    const themeDropdown = await this.driver.$('#ember1472');
+    await themeDropdown.waitForDisplayed({ timeout: 5000 });
+    await themeDropdown.click();
+});
+
+//
+// When('I click on the save button', async function () {
+//     const saveButton = await this.driver.$('.ember-view td-item td-item-labs');
+//     await saveButton.waitForDisplayed({ timeout: 5000 });
+//     await saveButton.click();
+// });
+//
+// Then('I should see the theme {string} in the theme dropdown', async function (theme) {
+//     const themeDropdown = await this.driver.$('.gh-setting-first.gh-setting-action.ember-view');
+//     await themeDropdown.waitForDisplayed({ timeout: 5000 });
+//     const themeText = await themeDropdown.getText();
+//     if (!themeText.includes(theme)) {
+//         throw new Error('El tema seleccionado no se mostró en el dropdown');
+//     }
+// });
 
 
+//Crear un nuevo miembro exitosamente
+When('I click on the "Team" section', async function () {
+    const teamLink = await this.driver.$('.active.ember-view');
+    await teamLink.waitForDisplayed({ timeout: 5000 });
+    await teamLink.click();
+});
+
+When('I click on the "New member" button', async function () {
+    const newMemberButton = await this.driver.$('.ember-view.gh-btn.gh-btn-primary');
+    await newMemberButton.waitForDisplayed({ timeout: 5000 });
+    await newMemberButton.click();
+});
+
+When('I enter the member details', async function () {
+    const nameField = await this.driver.$('.form-group max-width ember-view');
+    await nameField.waitForDisplayed({ timeout: 5000 });
+    await nameField.setValue('New Member');
+
+    const emailField = await this.driver.$('.gh-cp-member-email-name');
+    await emailField.waitForDisplayed({ timeout: 5000 });
+    await emailField.setValue('newmember@example.com');
+});
+
+When('I click on the "Save" button', async function () {
+    const saveButton = await this.driver.$('.gh-btn.gh-btn-primary.gh-btn-icon.ember-view');
+    await saveButton.waitForDisplayed({ timeout: 5000 });
+    await saveButton.click();
+});
+
+//Crear un miembro con datos invalidos
+When('I enter invalid member details', async function () {
+    const nameField = await this.driver.$('.form-group max-width ember-view');
+    await nameField.waitForDisplayed({ timeout: 5000 });
+    await nameField.setValue('New Member');
+
+    const emailField = await this.driver.$('..gh-cp-member-email-name');
+    await emailField.waitForDisplayed({ timeout: 5000 });
+    await emailField.setValue('invalidemail');
+});
+
+Then('I should see an error message for the member', async function () {
+    const errorMessage = await this.driver.$('.gh-alert.gh-alert-red');
+    await errorMessage.waitForDisplayed({ timeout: 5000 });
+    const messageText = await errorMessage.getText();
+    if (!messageText.includes("Invalid email")) {
+        throw new Error('El mensaje de error esperado no se mostró.');
+    }
+});
+
+// Modificar la información de un usuario existente
+When('I click on the "Team" section', async function () {
+    const teamLink = await this.driver.$('.active.ember-view');
+    await teamLink.waitForDisplayed({ timeout: 5000 });
+    await teamLink.click();
+});
+
+When('I click on the "Edit" button for the user', async function () {
+    const editButton = await this.driver.$('.active.ember-view');
+    await editButton.waitForDisplayed({ timeout: 5000 });
+    await editButton.click();
+});
+
+When('I change the user details', async function () {
+    const nameField = await this.driver.$('.form-group .max-width .ember-view');
+    await nameField.waitForDisplayed({ timeout: 5000 });
+    await nameField.setValue('Updated Member');
+
+    const emailField = await this.driver.$('.gh-cp-member-email-name');
+    await emailField.waitForDisplayed({ timeout: 5000 });
+    await emailField.setValue('Updated Member');
+});
+
+// Crear y modificar etiquetas (tags)
+When('I click on the "Tags" section', async function () {
+    const tagsLink = await this.driver.$('.ember-view');
+    await tagsLink.waitForDisplayed({ timeout: 5000 });
+    await tagsLink.click();
+});
+
+When('I click on the "New tag" button', async function () {
+    const newTagButton = await this.driver.$('.ember-view.gh-btn.gh-btn-primary');
+    await newTagButton.waitForDisplayed({ timeout: 5000 });
+    await newTagButton.click();
+});
+
+When('I enter the tag details', async function () {
+    const nameField = await this.driver.$('.form-group .max-width .ember-view');
+    await nameField.waitForDisplayed({ timeout: 5000 });
+    await nameField.setValue('New Tag');
+});
+
+When('I click on the "Save" button', async function () {
+    const saveButton = await this.driver.$('.gh-btn.gh-btn-primary.gh-btn-icon.ember-view');
+    await saveButton.waitForDisplayed({ timeout: 5000 });
+    await saveButton.click();
+});
+
+When('I click on the "Edit" button for the tag', async function () {
+    const editButton = await this.driver.$('.gh-list-row .gh-tags-list-item');
+    await editButton.waitForDisplayed({ timeout: 5000 });
+    await editButton.click();
+});
+
+When('I change the tag details', async function () {
+    const nameField = await this.driver.$('.form-group .max-width .ember-view');
+    await nameField.waitForDisplayed({ timeout: 5000 });
+    await nameField.setValue('Updated Tag');
+});
+
+Then('I should see the updated tag in the list', async function () {
+    const tag = await this.driver.$('.gh-list-row .gh-tags-list-item');
+    await tag.waitForDisplayed({ timeout: 5000 });
+    const tagText = await tag.getText();
+    if (!tagText.includes('Updated Tag')) {
+        throw new Error('La etiqueta actualizada no se mostró en la lista');
+    }
+});
+
+
+//crear un miembro en la aplicacion
+When('I click on the "Team" section', async function () {
+    const teamLink = await this.driver.$('.active.ember-view');
+    await teamLink.waitForDisplayed({ timeout: 5000 });
+    await teamLink.click();
+});
+
+When('I click on the "New member" button', async function () {
+    const newMemberButton = await this.driver.$('.ember-view.gh-btn.gh-btn-primary');
+    await newMemberButton.waitForDisplayed({ timeout: 5000 });
+    await newMemberButton.click();
+});
+
+When('I enter the member details', async function () {
+    const nameField = await this.driver.$('.form-group max-width ember-view');
+    await nameField.waitForDisplayed({ timeout: 5000 });
+    await nameField.setValue('New Member');
+});
+
+// //Modificar la informacion de un miembro existente
+//
+// When('I click on the "Team" section', async function () {
+//     const teamLink = await this.driver.$('.active.ember-view');
+//     await teamLink.waitForDisplayed({ timeout: 5000 });
+//     await teamLink.click();
+// });
+//
+//     When('I click on the "Edit" button for the user', async function () {
+//         const editButton = await this.driver.$('.active.ember-view');
+//         await editButton.waitForDisplayed({ timeout: 5000 });
+//         await editButton.click();
+//     });
+//
+//     When('I change the user details', async function () {
+//         const nameField = await this.driver.$('.form-group .max-width .ember-view');
+//         await nameField.waitForDisplayed({ timeout: 5000 });
+//         await nameField.setValue('Updated Member');
+//     });
