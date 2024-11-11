@@ -9,7 +9,7 @@ El nombre y correos uniandes de los estudiantes que participaron en la entrega.
 
 Debe tener corriendo Ghost en el puerto: localhost:2368
 
-1.El paso a paso para la instalación y ejecución de las pruebas en Kraken.
+1.El paso a paso para la instalación y ejecución de las pruebas en Kraken -  SOLO EN SITEMA OPERATIVO **macOS**
 
 Antes de comenzar, asegúrate de tener instalados los siguientes programas:
 -node.js
