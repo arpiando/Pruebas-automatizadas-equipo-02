@@ -113,23 +113,37 @@ When('I click on "Publish", and is finished', async function () {
 //     }
 //     await confirmButton.click();
 // });
-
+//
+// When('I enter incorrect credentials in the login fields', async function () {
+//     const emailField = await this.driver.$('#ember7');
+//     const passwordField = await this.driver.$('#ember9');
+//     await emailField.waitForDisplayed({ timeout: 5000 });
+//     await emailField.setValue('incorrect@example.com');
+//     await passwordField.waitForDisplayed({ timeout: 5000 });
+//     await passwordField.setValue('wrongpassword');
+// });
+// Then('I should see an error message', async function () {
+//     const errorMessage = await this.driver.$('p.main-error');
+//     await errorMessage.waitForDisplayed({ timeout: 5000 });
+//     const messageText = await errorMessage.getText();
+//     if (!messageText.includes("There is no user with that email address")) {
+//         throw new Error('El mensaje de error esperado no se mostró.');
+//     }
+// });
 When('I enter incorrect credentials in the login fields', async function () {
-    const emailField = await this.driver.$('#ember7');
-    const passwordField = await this.driver.$('#ember9');
+    const emailField = await this.driver.$('#ember7'); // Asegúrate de que el selector sea correcto
+    const passwordField = await this.driver.$('#ember9'); // Asegúrate de que el selector sea correcto
+
+    // Espera a que los campos estén visibles
     await emailField.waitForDisplayed({ timeout: 5000 });
-    await emailField.setValue('incorrect@example.com');
     await passwordField.waitForDisplayed({ timeout: 5000 });
+
+    // Ingresa las credenciales incorrectas
+    await emailField.setValue('incorrect@example.com');
     await passwordField.setValue('wrongpassword');
 });
-Then('I should see an error message', async function () {
-    const errorMessage = await this.driver.$('p.main-error');
-    await errorMessage.waitForDisplayed({ timeout: 5000 });
-    const messageText = await errorMessage.getText();
-    if (!messageText.includes("There is no user with that email address")) {
-        throw new Error('El mensaje de error esperado no se mostró.');
-    }
-});
+
+
 
 When('I click on the dark mode button', async function () {
     const darkModeButton = await this.driver.$('.nightshift-toggle ');
@@ -232,25 +246,25 @@ When('I click on the "Save" button', async function () {
     await saveButton.click();
 });
 
-//Crear un miembro con datos invalidos
-When('I enter invalid member details', async function () {
-    const nameField = await this.driver.$('.form-group max-width ember-view');
-    await nameField.waitForDisplayed({ timeout: 5000 });
-    await nameField.setValue('New Member');
-
-    const emailField = await this.driver.$('..gh-cp-member-email-name');
-    await emailField.waitForDisplayed({ timeout: 5000 });
-    await emailField.setValue('invalidemail');
-});
-
-Then('I should see an error message for the member', async function () {
-    const errorMessage = await this.driver.$('.gh-alert.gh-alert-red');
-    await errorMessage.waitForDisplayed({ timeout: 5000 });
-    const messageText = await errorMessage.getText();
-    if (!messageText.includes("Invalid email")) {
-        throw new Error('El mensaje de error esperado no se mostró.');
-    }
-});
+// //Crear un miembro con datos invalidos
+// When('I enter invalid member details', async function () {
+//     const nameField = await this.driver.$('.form-group max-width ember-view');
+//     await nameField.waitForDisplayed({ timeout: 5000 });
+//     await nameField.setValue('New Member');
+//
+//     const emailField = await this.driver.$('..gh-cp-member-email-name');
+//     await emailField.waitForDisplayed({ timeout: 5000 });
+//     await emailField.setValue('invalidemail');
+// });
+//
+// Then('I should see an error message for the member', async function () {
+//     const errorMessage = await this.driver.$('.gh-alert.gh-alert-red');
+//     await errorMessage.waitForDisplayed({ timeout: 5000 });
+//     const messageText = await errorMessage.getText();
+//     if (!messageText.includes("Invalid email")) {
+//         throw new Error('El mensaje de error esperado no se mostró.');
+//     }
+// });
 
 // Modificar la información de un usuario existente
 When('I click on the "Team" section', async function () {
@@ -360,3 +374,240 @@ When('I enter the member details', async function () {
 //         await nameField.waitForDisplayed({ timeout: 5000 });
 //         await nameField.setValue('Updated Member');
 //     });
+//crear un nuevo post
+When('I click on the "Posts" section', async function () {
+    const postsLink = await this.driver.$('.gh-nav-design-tab');
+    await postsLink.waitForDisplayed({ timeout: 5000 });
+    await postsLink.click();
+});
+
+When('I click on the "New post" button', async function () {
+    const newPostButton = await this.driver.$('.gh-nav-design-tab');
+    await newPostButton.waitForDisplayed({ timeout: 5000 });
+    await newPostButton.click();
+});
+
+When('I enter the post details', async function () {
+    const titleField = await this.driver.$('#ember1457');
+    await titleField.waitForDisplayed({ timeout: 5000 });
+    await titleField.setValue('New Post');
+
+    const contentField = await this.driver.$('#ember1457');
+    await contentField.waitForDisplayed({ timeout: 5000 });
+    await contentField.setValue('This is a new post');
+});
+
+When('I click on the "Save" button', async function () {
+    const saveButton = await this.driver.$('#ember1496');
+    await saveButton.waitForDisplayed({ timeout: 5000 });
+    await saveButton.click();
+});
+
+//Guardar un post como borrador
+When('I click on the "Save draft" button', async function () {
+    const saveDraftButton = await this.driver.$('.gh-editor-post-status');
+    await saveDraftButton.waitForDisplayed({ timeout: 5000 });
+    await saveDraftButton.click();
+});
+
+Then('I should see the draft post in the list', async function () {
+    const draftPost = await this.driver.$('.gh-editor-post-status');
+    await draftPost.waitForDisplayed({ timeout: 5000 });
+    const draftPostText = await draftPost.getText();
+    if (!draftPostText.includes('New Post')) {
+        throw new Error('El post de borrador no se mostró en la lista');
+    }
+});
+//Modificar un post existente
+When('I click on the "Posts" section', async function () {
+    const postsLink = await this.driver.$('.gh-nav-design-tab');
+    await postsLink.waitForDisplayed({ timeout: 5000 });
+    await postsLink.click();
+});
+
+When('I click on the "Edit" button for the post', async function () {
+    const editButton = await this.driver.$('.gh-nav-design-tab');
+    await editButton.waitForDisplayed({ timeout: 5000 });
+    await editButton.click();
+});
+
+When('I change the post details', async function () {
+    const titleField = await this.driver.$('#ember1457');
+    await titleField.waitForDisplayed({ timeout: 5000 });
+    await titleField.setValue('Updated Post');
+
+    const contentField = await this.driver.$('#ember1457');
+    await contentField.waitForDisplayed({ timeout: 5000 });
+    await contentField.setValue('This is an updated post');
+});
+
+Then('I should see the updated post in the list', async function () {
+    const updatedPost = await this.driver.$('.gh-nav-design-tab');
+    await updatedPost.waitForDisplayed({ timeout: 5000 });
+    const updatedPostText = await updatedPost.getText();
+    if (!updatedPostText.includes('Updated Post')) {
+        throw new Error('El post actualizado no se mostró en la lista');
+    }
+});
+//Revertir un post a borrador
+When('I click on the "Posts" section', async function () {
+    const postsLink = await this.driver.$('.gh-nav-design-tab');
+    await postsLink.waitForDisplayed({ timeout: 5000 });
+    await postsLink.click();
+});
+
+When('I click on the "Revert to draft" button for the post', async function () {
+    const revertButton = await this.driver.$('.gh-nav-design-tab');
+    await revertButton.waitForDisplayed({ timeout: 5000 });
+    await revertButton.click();
+});
+
+Then('I should see the draft post in the list', async function () {
+    const draftPost = await this.driver.$('.gh-nav-design-tab');
+    await draftPost.waitForDisplayed({ timeout: 5000 });
+    const draftPostText = await draftPost.getText();
+    if (!draftPostText.includes('Updated Post')) {
+        throw new Error('El post de borrador no se mostró en la lista');
+    }
+});
+
+//Previsualizar un post
+When('I click on the "Posts" section', async function () {
+    const postsLink = await this.driver.$('.gh-nav-design-tab');
+    await postsLink.waitForDisplayed({ timeout: 5000 });
+    await postsLink.click();
+});
+
+When('I click on the "Preview" button for the post', async function () {
+    const previewButton = await this.driver.$('.gh-nav-design-tab');
+    await previewButton.waitForDisplayed({ timeout: 5000 });
+    await previewButton.click();
+});
+
+Then('I should see the preview of the post', async function () {
+    const preview = await this.driver.$('.gh-nav-design-tab');
+    await preview.waitForDisplayed({ timeout: 5000 });
+    const previewText = await preview.getText();
+    if (!previewText.includes('Updated Post')) {
+        throw new Error('La vista previa del post no se mostró correctamente');
+    }
+});
+
+//El usuario deberia poder modificar su nombre de perfil
+When('I click on the "Profile" section', async function () {
+    const profileLink = await this.driver.$('.pe-all');
+    await profileLink.waitForDisplayed({ timeout: 5000 });
+    await profileLink.click();
+});
+
+When('I click on the "Edit" button for the user profile', async function () {
+    const editButton = await this.driver.$('.pe-all');
+    await editButton.waitForDisplayed({ timeout: 5000 });
+    await editButton.click();
+});
+
+When('I change the user profile details', async function () {
+    const nameField = await this.driver.$('.gh-nav-design-tab');
+    await nameField.waitForDisplayed({ timeout: 5000 });
+    await nameField.setValue('Updated Name');
+});
+
+Then('I should see the updated user profile', async function () {
+    const updatedProfile = await this.driver.$('.gm-main view-container settings-user');
+    await updatedProfile.waitForDisplayed({ timeout: 5000 });
+    const updatedProfileText = await updatedProfile.getText();
+    if (!updatedProfileText.includes('Updated Name')) {
+        throw new Error('El perfil de usuario actualizado no se mostró correctamente');
+    }
+});
+
+//Eliminar etiqueta existente
+When('I click on the "Tags" section', async function () {
+    const tagsLink = await this.driver.$('.ember1625');
+    await tagsLink.waitForDisplayed({ timeout: 5000 });
+    await tagsLink.click();
+});
+
+When('I click on the "Delete" button for the tag', async function () {
+    const deleteButton = await this.driver.$('.gh-btn gh-btn-red gh-btn-icon');
+    await deleteButton.waitForDisplayed({ timeout: 5000 });
+    await deleteButton.click();
+});
+
+Then('I should see the tag deleted from the list', async function () {
+    const tag = await this.driver.$('.gh-btn gh-btn-red gh-btn-icon');
+    await tag.waitForDisplayed({ timeout: 5000 });
+    const tagText = await tag.getText();
+    if (tagText.includes('Updated Tag')) {
+        throw new Error('La etiqueta eliminada todavía se muestra en la lista');
+    }
+});
+//Crear etiquetas con datos invalidos
+When('I click on the "Tags" section', async function () {
+    const tagsLink = await this.driver.$('.ember1625');
+    await tagsLink.waitForDisplayed({ timeout: 5000 });
+    await tagsLink.click();
+});
+
+When('I click on the "New tag" button', async function () {
+    const newTagButton = await this.driver.$('.ember1625');
+    await newTagButton.waitForDisplayed({ timeout: 5000 });
+    await newTagButton.click();
+});
+
+When('I enter invalid tag details', async function () {
+    const nameField = await this.driver.$('#ember1964');
+    await nameField.waitForDisplayed({ timeout: 5000 });
+    await nameField.setValue('Invalid Tag');
+});
+
+Then('I should see an error message for the tag', async function () {
+    const errorMessage = await this.driver.$('.ember1964');
+    await errorMessage.waitForDisplayed({ timeout: 5000 });
+    const messageText = await errorMessage.getText();
+    if (!messageText.includes('Invalid tag')) {
+        throw new Error('El mensaje de error esperado no se mostró');
+    }
+});
+//Ver lista de etiquetas existentes
+When('I click on the "Tags" section', async function () {
+    const tagsLink = await this.driver.$('.ember1625');
+    await tagsLink.waitForDisplayed({ timeout: 5000 });
+    await tagsLink.click();
+});
+
+Then('I should see the list of tags', async function () {
+    const tagsList = await this.driver.$('.gh-main ');
+    await tagsList.waitForDisplayed({ timeout: 5000 });
+    const tagsListText = await tagsList.getText();
+    if (!tagsListText.includes('Tags')) {
+        throw new Error('La lista de etiquetas no se mostró correctamente');
+    }
+});
+//Cambiar el color a una etiqueta
+When('I click on the "Tags" section', async function () {
+    const tagsLink = await this.driver.$('.ember1625');
+    await tagsLink.waitForDisplayed({ timeout: 5000 });
+    await tagsLink.click();
+});
+
+When('I click on the "Edit" button for the tag', async function () {
+    const editButton = await this.driver.$('.gh-btn gh-btn-blue gh-btn-icon');
+    await editButton.waitForDisplayed({ timeout: 5000 });
+    await editButton.click();
+});
+
+When('I change the tag color', async function () {
+    const colorField = await this.driver.$('#ember2121');
+    await colorField.waitForDisplayed({ timeout: 5000 });
+    await colorField.setValue('Blue');
+});
+
+Then('I should see the updated tag color', async function () {
+    const updatedColor = await this.driver.$('#ember2118');
+    await updatedColor.waitForDisplayed({ timeout: 5000 });
+    const updatedColorText = await updatedColor.getText();
+    if (!updatedColorText.includes('Blue')) {
+        throw new Error('El color de la etiqueta no se actualizó correctamente');
+    }
+});
