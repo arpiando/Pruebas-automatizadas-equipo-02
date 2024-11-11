@@ -33,22 +33,16 @@ ejecute las pruebas:
 
 2.El paso a paso para la instalación y ejecución de las pruebas en Playwright.
 
-Antes de comenzar, asegúrate de tener instalados los siguientes programas:
--node.js
+- Asegurarse de tener Node.js instalado en el sistema, ya que Playwright es una librería de JavaScript.
+- Abrir el proyecto
+- Dirigirse a la carpeta pruebas-playwright en la terminal
+- Instalar las dependencias con el comando npm install
+- Abrir la carpeta pages
+- Abrir el archivo login.ts y cambiar las credenciales en 
 
-Pasos:
-    clone el proyecto: git clone
-    cd Pruebas-automatizadas-equipo-02
-    cd playwright-pruebas
-    npm install
+   private userEmail: string = 'correo@uniandes.edu.co';
+   private password: string = 'contraseña';
 
-ejecute las pruebas:
-    Vaya al archivo login.ts en: pages/login.ts y cambie en las lineas 12 y 13 sus credenciales del administrador de Ghost. En las lienas:
-
-        private userEmail: string = 'f.cucina@uniandes.edu.co';
-        private password: string = 'panama2024';
-
-    ejecute: npx playwright test
-
-
-
+- Guardar los cambios
+- Ejecutar el comando npx playwright test --ui en la terminal (Asegurarse de estar en la carpeta pruebas-playwright al momento de ejecutar este comando)
+- Dar click en el botón play de cada prueba para ejecutarlas individualmente (NO CORRERLAS TODAS A LA VEZ, POR FAVOR)

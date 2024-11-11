@@ -2,34 +2,41 @@ import { Page } from '@playwright/test';
 
 export class Background {
   private page: Page;
-  private buttonBackgroundWhite: string = '.nightshift-toggle';
-  private buttonBackgroundBlack: string = '.nightshift-toggle.on';
+  private buttonBackground: string = '.nightshift-toggle-container ';
+  private darkModeClass: string = '.nightshift-toggle.on';
+  private whiteModeClass: string = '.nightshift-toggle';
 
   constructor(page: Page) {
     this.page = page;
   }
 
-  async clickBackgroundThemeDark(): Promise<boolean> {
-    await this.page.click(this.buttonBackgroundWhite);
-
-    await this.page.waitForSelector(this.buttonBackgroundBlack, {state: 'visible'});
-
-    const isDarkModeActive = await this.page.evaluate(() => {
-      return window.getComputedStyle(document.body).backgroundColor === 'rgb(0, 0, 0)';
+  async GetCurrentState(): Promise<string> {
+    await this.page.waitForSelector('body');
+    const initialColor = await this.page.evaluate(() => {
+      return window.getComputedStyle(document.body).backgroundColor;
     });
+    return initialColor === 'rgb(19, 20, 22)' ? 'dark' : 'light';
 
-    return isDarkModeActive;
   }
 
-  async clickBackgroundThemeLight(): Promise<boolean> {
-    await this.page.click(this.buttonBackgroundBlack);
+  async clickBackground(currentColor: string): Promise<'dark' | 'light'> {
+  
+    let currentColorSelector: string;
+  
+    if (currentColor === 'dark') {
+      currentColorSelector = this.buttonBackground + this.darkModeClass;
+    } else {
+      currentColorSelector = this.buttonBackground + this.whiteModeClass;
+    }
+  
+    await this.page.click(currentColorSelector);
 
-    await this.page.waitForSelector(this.buttonBackgroundWhite, {state: 'visible'});
-
-    const isLightModeActive = await this.page.evaluate(() => {
-      return window.getComputedStyle(document.body).backgroundColor === 'rgb(255, 255, 255)';
+    await this.page.waitForSelector('body');
+  
+    const newColor = await this.page.evaluate(() => {
+      return window.getComputedStyle(document.body).backgroundColor;
     });
-
-    return isLightModeActive;
+  
+    return newColor === 'rgb(19, 20, 22)' ? 'dark' : 'light';
   }
 }
