@@ -1,6 +1,7 @@
 const login = require('../pages/login');
 const background = require('../pages/background')
 const pageCreate = require('../pages/page')
+const postCreate = require ('../pages/post')
 const { Given, When, Then } = require('@cucumber/cucumber');
 
 When('El usuario ingresa credenciales válidas', async function () {
@@ -56,6 +57,17 @@ Then('El sistema debe mostrar un mensaje de éxito después de la modificación 
   const success = await pageCreate.confirmPageIsUpdated(this.driver)
 });
 
+Then('esta en la sección de creación de posts', async function () {
+  const success = await postCreate.navigateToCreatePost(this.driver)
+});
+
+When('El usuario crea un post y lo publica.', async function () {
+  const edition = await postCreate.createPost(this.driver)
+});
+
+Then('El sistema debe mostrar un mensaje de éxito al crear el post.', async function () {
+  const success = await postCreate.isPageCreatedSuccessfully(this.driver)
+});
 
 
 
