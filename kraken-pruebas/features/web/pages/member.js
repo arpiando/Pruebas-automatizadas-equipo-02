@@ -1,3 +1,5 @@
+const { faker } = require('@faker-js/faker');
+
 const member = {
     selectors: {
       ButtonMember: '[data-test-nav="members"]',
@@ -18,29 +20,32 @@ const member = {
       },
   
       async createNewMember(driver) {
-        // Click en el botón para nuevo miembro
-        const newMemberButton = await driver.$(this.selectors.ButtonNewMember);
-        await newMemberButton.waitForDisplayed({ timeout: 5000 });
-        await newMemberButton.click();
-    
-        // Esperar y llenar el campo de nombre
-        const nameField = await driver.$(this.selectors.InputName);
-        await nameField.waitForDisplayed({ timeout: 5000 });
-        await nameField.setValue('Nombreee222');
-    
-        // Esperar y llenar el campo de correo electrónico
-        const emailField = await driver.$(this.selectors.InputEmail);
-        await emailField.waitForDisplayed({ timeout: 5000 });
-        await emailField.setValue('email22222@email.com');
-    
-        // Guardar el miembro
-        const saveButton = await driver.$(this.selectors.ButtonSaveMember);
-        await saveButton.waitForDisplayed({ timeout: 5000 });
-        await saveButton.click();
-    
-        // Esperar la confirmación de que se creó el miembro
-        const confirmationMessage = await driver.$(this.selectors.CreatedtextSelector);
-        await confirmationMessage.waitForDisplayed({ timeout: 50000 });
+      // Click en el botón para nuevo miembro
+      const newMemberButton = await driver.$(this.selectors.ButtonNewMember);
+      await newMemberButton.waitForDisplayed({ timeout: 5000 });
+      await newMemberButton.click();
+
+      const randomName = faker.name.firstName() + ' ' + faker.name.lastName();
+      const randomEmail = faker.internet.email();
+  
+      // Esperar y llenar el campo de nombre
+      const nameField = await driver.$(this.selectors.InputName);
+      await nameField.waitForDisplayed({ timeout: 5000 });
+      await nameField.setValue(randomName);
+  
+      // Esperar y llenar el campo de correo electrónico
+      const emailField = await driver.$(this.selectors.InputEmail);
+      await emailField.waitForDisplayed({ timeout: 5000 });
+      await emailField.setValue(randomEmail);
+  
+      // Guardar el miembro
+      const saveButton = await driver.$(this.selectors.ButtonSaveMember);
+      await saveButton.waitForDisplayed({ timeout: 5000 });
+      await saveButton.click();
+  
+      // Esperar la confirmación de que se creó el miembro
+      const confirmationMessage = await driver.$(this.selectors.CreatedtextSelector);
+      await confirmationMessage.waitForDisplayed({ timeout: 50000 });
     },
     
   
@@ -52,16 +57,23 @@ const member = {
     },
     
   
-    async editMember(page, name) {
-      await this.navigateToCreateMember(page);
+    async editMember(driver) {
+
+      const randomName = faker.name.firstName() + ' ' + faker.name.lastName();
+
+      // Esperar y llenar el campo de nombre
+      const nameField = await driver.$(this.selectors.InputName);
+      await nameField.waitForDisplayed({ timeout: 5000 });
+      await nameField.setValue(randomName);
+
+      // Guardar el miembro
+      const saveButton = await driver.$(this.selectors.ButtonSaveMember);
+      await saveButton.waitForDisplayed({ timeout: 5000 });
+      await saveButton.click();
   
-      await page.click(this.selectors.MemberSelector);
-  
-      await page.waitForSelector(this.selectors.InputName, { state: 'visible' });
-      await page.fill(this.selectors.InputName, '');
-      await page.fill(this.selectors.InputName, name);
-  
-      await page.click(this.selectors.ButtonSaveMember);
+      // Esperar la confirmación de que se creó el miembro
+      const confirmationMessage = await driver.$(this.selectors.CreatedtextSelector);
+      await confirmationMessage.waitForDisplayed({ timeout: 50000 });
     },
   
     async validateMemberIsModified(page) {

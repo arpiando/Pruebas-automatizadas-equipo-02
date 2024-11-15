@@ -94,4 +94,17 @@ Then('El sistema verifica si el miembro se ha creado exitosamente.', async funct
   const success = await member.validateMemberIsCreated(this.driver)
 });
 
+Given('El usuario ha navegado al sitio, ha iniciado sesión y ha crea un miembro exitosamente.', async function () {
+  const reload = await pageCreate.reloadPage(this.driver)
+});
+
+When('El usuario edita un miembro.', async function () {
+  const edition = await member.editMember(this.driver)
+});
+
+Then('El sistema verifica si el nombre del miembro se ha actualizado.', async function () {
+  const success = await member.validateMemberIsCreated(this.driver)
+});
+
+
 

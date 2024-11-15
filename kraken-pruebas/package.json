@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@faker-js/faker": "^9.2.0",
     "chai": "^5.1.2",
     "dotenv": "^16.4.5",
     "faker": "^6.6.6",
