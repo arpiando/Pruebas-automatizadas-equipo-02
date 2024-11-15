@@ -79,22 +79,36 @@ const pageCreate = {
     await driver.click(this.selectors.headerCloseButton);
   },
 
-  async editPage(driver, title, content) {
-    await driver.waitForDisplayed(this.selectors.pagePublishedToEdit, { timeout: 5000 });
-    await driver.click(this.selectors.pagePublishedToEdit);
-    await driver.clearValue(this.selectors.titleInput);
-    await driver.setValue(this.selectors.titleInput, title);
+  async editPage(driver) {
+    // Esperar a que la página esté lista para editar
+    const pageToEdit = await driver.$('.published');
+    await pageToEdit.waitForDisplayed({ timeout: 5000 });
+    await pageToEdit.click();
 
-    await driver.clearValue(this.selectors.contentInput);
-    await driver.setValue(this.selectors.contentInput, content);
+    // Establecer el nuevo título
+    const titleField = await driver.$(this.selectors.titleInput);
+    await titleField.waitForDisplayed({ timeout: 5000 });
+    await titleField.clearValue();
+    await titleField.setValue('nuevoootituloooo');
 
-    await driver.waitForDisplayed(this.selectors.updateButton, { timeout: 5000 });
-    await driver.click(this.selectors.updateButton);
-  },
+    // Establecer el nuevo contenido
+    const contentField = await driver.$(this.selectors.contentInput);
+    await contentField.waitForDisplayed({ timeout: 5000 });
+    await contentField.click();
+    await driver.pause(500);
+    await contentField.setValue('Nuevoocontenidoooo');
+
+    // Esperar y hacer clic en el botón de actualizar
+    const updateButton = await driver.$(this.selectors.updateButton);
+    await updateButton.waitForDisplayed({ timeout: 5000 });
+    await updateButton.click();
+},
 
   async confirmPageIsUpdated(driver) {
-    await driver.waitForDisplayed(this.selectors.updateWindow, { timeout: 5000 });
-    return await driver.getText(this.selectors.updateWindow);
+    const updateWindow = await driver.$('.gh-notification-content');
+    await updateWindow.waitForDisplayed({ timeout: 5000 });
+    const text = await updateWindow.getText();
+    return text;
   },
 
   async createPageAsDraft(driver, title, content) {
@@ -125,18 +139,14 @@ const pageCreate = {
     return await driver.getText(this.selectors.unpublishedNotification);
   },
 
-  async previewPage(driver, title, content) {
-    await driver.waitForDisplayed(this.selectors.titleInput, { timeout: 5000 });
-    await driver.setValue(this.selectors.titleInput, title);
-    await driver.setValue(this.selectors.contentInput, content);
-    await driver.waitForDisplayed(this.selectors.previewButton, { timeout: 5000 });
-    await driver.click(this.selectors.previewButton);
-    await driver.waitForTimeout(500);
-  },
-
   async isPreviewSuccessful(driver) {
     return await driver.waitForDisplayed(this.selectors.previewTitlePost, { timeout: 5000 }) !== null;
   },
+
+  async reloadPage(driver) {
+    await driver.refresh();
+    await new Promise(resolve => setTimeout(resolve, 1000));
+}
 };
 
 module.exports = pageCreate;

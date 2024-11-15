@@ -44,8 +44,16 @@ Then('El sistema debe mostrar un mensaje de éxito al crear la pagina.', async f
   const success = await pageCreate.isPageCreatedSuccessfully(this.driver)
 });
 
-Given('El usuario ha navegado al sitio, ha iniciado sesión y está en la sección de creación de paginas.', async function () {
-  const success = await pageCreate.isPageCreatedSuccessfully(this.driver)
+Given('El usuario ha navegado al sitio, ha iniciado sesión y ha crea una pagina exitosamente.', async function () {
+  const reload = await pageCreate.reloadPage(this.driver)
+});
+
+When('El usuario modifica el título y el contenido de la pagina.', async function () {
+  const edition = await pageCreate.editPage(this.driver)
+});
+
+Then('El sistema debe mostrar un mensaje de éxito después de la modificación de la pagina.', async function () {
+  const success = await pageCreate.confirmPageIsUpdated(this.driver)
 });
 
 
