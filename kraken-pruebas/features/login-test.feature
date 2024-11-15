@@ -1,8 +1,10 @@
-Feature: Inicio de sesión positivo en Ghost
+Feature: Inicio de sesión en Ghost
 
-  @user2 @web
+  @user1 @web
   Scenario: Como usuario quiero iniciar sesión en el portal administrativo de Ghost
     Given I navigate to page "http://localhost:2368/ghost/#/signin"
-    When I enter the credentials in the login fields
-    And I click on sign in
+    When I enter "of.munoz@uniandes.edu.co" in the "email" field and "Lucas*" in the "password" field
+    When I click on sign in
     Then I should see the dashboard page
+
+
