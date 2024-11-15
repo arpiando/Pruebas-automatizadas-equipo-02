@@ -2,6 +2,7 @@ const login = require('../pages/login');
 const background = require('../pages/background')
 const pageCreate = require('../pages/page')
 const postCreate = require ('../pages/post')
+const member = require ('../pages/member')
 const { Given, When, Then } = require('@cucumber/cucumber');
 
 When('El usuario ingresa credenciales válidas', async function () {
@@ -81,5 +82,16 @@ Then('El sistema debe mostrar un mensaje de éxito después de la modificación.
   const success = await pageCreate.confirmPageIsUpdated(this.driver)
 });
 
+Then('esta en la sección de miembros', async function () {
+  const success = await member.navigateToCreateMember(this.driver)
+});
+
+When('El usuario crea un nuevo miembro.', async function () {
+  const edition = await member.createNewMember(this.driver)
+});
+
+Then('El sistema verifica si el miembro se ha creado exitosamente.', async function () {
+  const success = await member.validateMemberIsCreated(this.driver)
+});
 
 

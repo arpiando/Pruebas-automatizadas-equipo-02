@@ -13,6 +13,7 @@
   "dependencies": {
     "chai": "^5.1.2",
     "dotenv": "^16.4.5",
+    "faker": "^6.6.6",
     "kraken-node": "^1.0.24"
   }
 }
