@@ -3,28 +3,28 @@ import path from "path";
 
 const url = "https://ghost.com";
 
-function browser(b) {
+function browser(b, folderPath) {
   return `<div class="browser" id="test0">
     <div class="imgline">
       <div class="imgcontainer">
         <span class="imgname">Reference</span>
-        <img class="img2" src="before-${b}.png" id="refImage" label="Reference">
+        <img class="img2" src="playwright-pruebas/test-results/${folderPath}/before-${b}.png" id="refImage" label="Reference">
       </div>
       <div class="imgcontainer">
         <span class="imgname">Test</span>
-        <img class="img2" src="after-${b}.png" id="testImage" label="Test">
+        <img class="img2" src="playwright-pruebas/test-results/${folderPath}/after-${b}.png" id="testImage" label="Test">
       </div>
     </div>
     <div class="imgline">
       <div class="imgcontainer">
         <span class="imgname">Diff</span>
-        <img class="imgfull" src="./compare-${b}.png" id="diffImage" label="Diff">
+        <img class="imgfull" src="playwright-pruebas/test-results/${folderPath}/compare-${b}.png" id="diffImage" label="Diff">
       </div>
     </div>
   </div>`;
 }
 
-function createReport(browsers, url) {
+function createReport(browsers, url, folderPath) {
   return `
     <html>
         <head>
@@ -37,7 +37,7 @@ function createReport(browsers, url) {
             </h1>
             
             <div id="visualizer">
-                ${browsers.map((b) => browser(b)).join("")}
+                ${browsers.map((b) => browser(b, folderPath)).join("")}
             </div>
         </body>
     </html>`;
@@ -58,7 +58,7 @@ fs.readdir(mainFolder, { withFileTypes: true }, (err, files) => {
 
       fs.writeFileSync(
         `${folderPath}/report.html`,
-        createReport(browsers, url)
+        createReport(browsers, url, folder.name)
       );
 
       fs.copyFileSync("./index.css", `${folderPath}/index.css`);
