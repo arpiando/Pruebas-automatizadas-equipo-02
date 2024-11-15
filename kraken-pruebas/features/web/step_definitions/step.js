@@ -1,41 +1,17 @@
-require('dotenv').config();
+const login = require('../pages/login');
 const { Given, When, Then } = require('@cucumber/cucumber');
 
 When('I enter the credentials in the login fields', async function () {
-    const email = process.env.GHOST_EMAIL;
-    const password = process.env.GHOST_PASSWORD;
-
-    const emailField = await this.driver.$('#identification');
-    const passwordField = await this.driver.$('#password');
-
-    await emailField.waitForDisplayed({ timeout: 5000 });
-    await emailField.setValue(email);
-
-    await passwordField.waitForDisplayed({ timeout: 5000 });
-    await passwordField.setValue(password);
+    await login.enterCredentials(this.driver);
 });
-
 
 When('I click on sign in', async function () {
-    const signInButton = await this.driver.$('[data-test-button="sign-in"]');
-    await signInButton.waitForClickable({ timeout: 5000 });
-    await signInButton.click();
+    await login.clickSignIn(this.driver);
 });
 
-
-Then('I should see the dashboard page', async function () {
-    const element = await this.driver.$('.gh-canvas-title');
-
-    try {
-        await element.waitForDisplayed({ timeout: 5000 });
-    } catch (error) {
-        throw new Error('El elemento no se mostró en la página del dashboard');
-    }
-    const isVisible = await element.isDisplayed();
-
-    if (!isVisible) {
-        throw new Error('El elemento con la clase "gh-canvas-title" no es visible en la página del dashboard');
-    }
+Then('I should see the admin panel', async function () {
+    const isAdminVisible = await login.isLoginSuccessful(this.driver);
+    expect(isAdminVisible).to.be.true;
 });
 
 When('I navigate to the "Pages" section', async function () {
