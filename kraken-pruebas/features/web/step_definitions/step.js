@@ -69,5 +69,17 @@ Then('El sistema debe mostrar un mensaje de éxito al crear el post.', async fun
   const success = await postCreate.isPageCreatedSuccessfully(this.driver)
 });
 
+Given('El usuario ha navegado al sitio, ha iniciado sesión y ha creado un post exitosamente.', async function () {
+  const reload = await postCreate.reloadPage(this.driver)
+});
+
+When('El usuario modifica el título y el contenido del post.', async function () {
+  const edition = await pageCreate.editPage(this.driver)
+});
+
+Then('El sistema debe mostrar un mensaje de éxito después de la modificación.', async function () {
+  const success = await pageCreate.confirmPageIsUpdated(this.driver)
+});
+
 
 

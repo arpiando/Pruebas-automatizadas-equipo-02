@@ -128,6 +128,10 @@ const postCreate = {
     async isPreviewSuccessful(page) {
       return await page.isVisible(this.selectors.previewTitlePost);
     },
+    async reloadPage(driver) {
+        await driver.refresh();
+        await new Promise(resolve => setTimeout(resolve, 1000));
+    }
   };
   
   module.exports = postCreate;

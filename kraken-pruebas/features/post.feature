@@ -8,3 +8,7 @@ Feature: Crear post
     And esta en la sección de creación de posts
     When El usuario crea un post y lo publica.
     Then El sistema debe mostrar un mensaje de éxito al crear el post.
+
+    Given El usuario ha navegado al sitio, ha iniciado sesión y ha creado un post exitosamente.
+    When El usuario modifica el título y el contenido del post.
+    Then El sistema debe mostrar un mensaje de éxito después de la modificación.
