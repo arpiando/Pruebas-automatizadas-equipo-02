@@ -1,5 +1,4 @@
 const background = {
-  
   async getCurrentState(driver) {
 
     const initialColor = await driver.backgroundColor
@@ -14,5 +13,3 @@ const background = {
 };
 
 module.exports = background;
-
-  

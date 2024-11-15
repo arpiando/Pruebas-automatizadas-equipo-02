@@ -1,5 +1,6 @@
 const login = require('../pages/login');
 const background = require('../pages/background')
+const pageCreate = require('../pages/page')
 const { Given, When, Then } = require('@cucumber/cucumber');
 
 When('El usuario ingresa credenciales válidas', async function () {
@@ -33,4 +34,20 @@ Then('Verificar que el nuevo modo es el opuesto del actual', async function () {
         }
       }
   });
+
+When('El usuario crea una pagina y la publica.', async function () {
+    const navigation = await pageCreate.navigateToCreatePage(this.driver)
+    const mewpage = await pageCreate.createPage(this.driver)
+});
+
+Then('El sistema debe mostrar un mensaje de éxito al crear la pagina.', async function () {
+  const success = await pageCreate.isPageCreatedSuccessfully(this.driver)
+});
+
+Given('El usuario ha navegado al sitio, ha iniciado sesión y está en la sección de creación de paginas.', async function () {
+  const success = await pageCreate.isPageCreatedSuccessfully(this.driver)
+});
+
+
+
 

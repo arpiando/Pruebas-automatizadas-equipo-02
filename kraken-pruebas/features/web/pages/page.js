@@ -1,130 +1,144 @@
-class PageCreate {
-  constructor(driver) {
-    this.driver = driver;
-    this.pageMenuSelector = '[data-test-nav="pages"]';
-    this.newPageButton = 'a.gh-btn.gh-btn-primary.view-actions-top-row:has-text("New page")';
-    this.titleInput = '.gh-editor-title';
-    this.contentInput = 'p[data-koenig-dnd-droppable="true"]';
-    this.publishButton = '.gh-btn.gh-btn-editor.gh-publish-trigger';
-    this.reviewButton = '[data-test-button="continue"]';
-    this.confirmButton = '[data-test-button="confirm-publish"]';
-    this.header = 'header.modal-header h1[data-test-complete-title] span';
-    this.successMessage = 'Boom! It\'s out there.';
-    this.headerCloseButton = '[data-test-button="close-publish-flow"]';
-    this.Post = '.gh-posts-list-item-group';
-    this.updateButton = '[data-test-button="publish-save"]';
-    this.updateWindow = '.gh-notification-content';
-    this.ButtonPageBackToMenu = '[data-test-link="pages"]';
-    this.draftSelector = '.gh-content-entry-status .draft';
-    this.PagePublishedToEdit = 'li[data-test-post-id][class*="gh-post-list-plain-status"] >> text="Published"';
-    this.unpublishedButton = '[data-test-button="update-flow"]';
-    this.reverteToDraftButton = '[data-test-button="revert-to-draft"]';
-    this.unpublishedNotification = '[data-test-text="notification-content"]';
-    this.PreviewButton = '[data-test-button="publish-preview"]';
-    this.PreviewTitlePost = '.gh-browserpreview-browser';
-  }
+const pageCreate = {
+  selectors: {
+    pageMenuSelector: '[data-test-nav="pages"]',
+    newPageButton: 'a[href="#/editor/page/"]',
+    titleInput: '.gh-editor-title',
+    contentInput: 'p[data-koenig-dnd-droppable="true"]',
+    publishButton: '.gh-btn.gh-btn-editor.gh-publish-trigger',
+    reviewButton: '[data-test-button="continue"]',
+    confirmButton: '[data-test-button="confirm-publish"]',
+    header: 'header.modal-header h1[data-test-complete-title] span',
+    successMessage: 'Boom! It\'s out there.',
+    headerCloseButton: '[data-test-button="close-publish-flow"]',
+    post: '.gh-posts-list-item-group',
+    updateButton: '[data-test-button="publish-save"]',
+    updateWindow: '.gh-notification-content',
+    buttonPageBackToMenu: '[data-test-link="pages"]',
+    draftSelector: '.gh-content-entry-status .draft',
+    pagePublishedToEdit: 'li[data-test-post-id][class*="gh-post-list-plain-status"] >> text="Published"',
+    unpublishedButton: '[data-test-button="update-flow"]',
+    reverteToDraftButton: '[data-test-button="revert-to-draft"]',
+    unpublishedNotification: '[data-test-text="notification-content"]',
+    previewButton: '[data-test-button="publish-preview"]',
+    previewTitlePost: '.gh-browserpreview-browser',
+  },
 
-  async navigateToCreatePage() {
-    await this.driver.click(this.pageMenuSelector);
-    await this.driver.click(this.newPageButton);
-  }
+  async navigateToCreatePage(driver) {
+    const link = await driver.$(this.selectors.pageMenuSelector);
+    await link.waitForDisplayed({ timeout: 5000 });
+    await link.click();
+  },
 
-  async createPage(title, content) {
-    await this.driver.waitForDisplayed(this.titleInput, { timeout: 5000 });
-    await this.driver.setValue(this.titleInput, title);
-    await this.driver.setValue(this.contentInput, content);
+  async createPage(driver) {
 
-    await this.driver.click(this.publishButton);
-    await this.driver.waitForDisplayed(this.reviewButton, { timeout: 60000 });
-    await this.driver.click(this.reviewButton);
+    // Crear pagina
+    const newPageLink = await driver.$(this.selectors.newPageButton);
+    await newPageLink.waitForDisplayed({ timeout: 5000 });
+    await newPageLink.click();
 
-    await this.driver.waitForTimeout(500);
-    await this.driver.waitForDisplayed(this.confirmButton, { timeout: 60000 });
-    const isButtonEnabled = await this.driver.isEnabled(this.confirmButton);
-    if (isButtonEnabled) {
-      await this.driver.click(this.confirmButton, { timeout: 60000, force: true });
-    }
-  }
+    // Establecer título
+    const titleField = await driver.$(this.selectors.titleInput);
+    await titleField.waitForDisplayed({ timeout: 5000 });
+    await titleField.setValue('tituloooo');
 
-  async isPageCreatedSuccessfully() {
-    await this.driver.waitForDisplayed(this.header, { timeout: 5000 });
+    // Establecer contenido
+    const contentField = await driver.$(this.selectors.contentInput);
+    await contentField.waitForDisplayed({ timeout: 5000 });
+    await contentField.click();
+    await driver.pause(500); // Breve pausa
+    await contentField.setValue('contenidoooo');
 
-    const successText = await this.driver.getText(this.header);
-    return successText === this.successMessage;
-  }
+    // Publicar la página
+    const publishButton = await driver.$(this.selectors.publishButton);
+    await publishButton.waitForDisplayed({ timeout: 5000 });
+    await publishButton.click();
 
-  async closeHeaderPage() {
-    await this.driver.waitForDisplayed(this.headerCloseButton, { timeout: 5000 });
-    await this.driver.click(this.headerCloseButton);
-  }
+    // Confirmar publicación (revisión final)
+    const continueButton = await driver.$(this.selectors.reviewButton || this.selectors.continueButton);
+    await continueButton.waitForDisplayed({ timeout: 60000 });
+    await continueButton.click();
 
-  async EditPage(title, content) {
-    await this.driver.waitForDisplayed(this.PagePublishedToEdit, { timeout: 5000 });
-    await this.driver.click(this.PagePublishedToEdit);
-    await this.driver.clearValue(this.titleInput);
-    await this.driver.setValue(this.titleInput, title);
+    // Pausa antes de confirmar
+    await driver.pause(500); 
 
-    await this.driver.clearValue(this.contentInput);
-    await this.driver.setValue(this.contentInput, content);
+    // Confirmar acción
+    const confirmButton = await driver.$(this.selectors.confirmButton);
+    await confirmButton.waitForDisplayed({ timeout: 60000 });
+    await confirmButton.click();
+},
 
-    await this.driver.waitForDisplayed(this.updateButton, { timeout: 5000 });
-    await this.driver.click(this.updateButton);
-  }
+  async isPageCreatedSuccessfully(driver) {
+    const headerElement = await driver.$(this.selectors.header);
+    await headerElement.waitForDisplayed({ timeout: 5000 }); 
+    const successText = await headerElement.getText(); 
+    return successText === this.selectors.successMessage; 
+  },
 
-  async ConfirmPageIsUpdated() {
-    await this.driver.waitForDisplayed(this.updateWindow, { timeout: 5000 });
-    const updateNotification = await this.driver.getText(this.updateWindow);
-    return updateNotification;
-  }
+  async closeHeaderPage(driver) {
+    await driver.waitForDisplayed(this.selectors.headerCloseButton, { timeout: 5000 });
+    await driver.click(this.selectors.headerCloseButton);
+  },
 
-  async createPageAsDraft(title, content) {
-    await this.driver.setValue(this.titleInput, title);
-    await this.driver.setValue(this.contentInput, content);
+  async editPage(driver, title, content) {
+    await driver.waitForDisplayed(this.selectors.pagePublishedToEdit, { timeout: 5000 });
+    await driver.click(this.selectors.pagePublishedToEdit);
+    await driver.clearValue(this.selectors.titleInput);
+    await driver.setValue(this.selectors.titleInput, title);
 
-    await this.driver.waitForTimeout(500);
+    await driver.clearValue(this.selectors.contentInput);
+    await driver.setValue(this.selectors.contentInput, content);
 
-    await this.driver.click(this.ButtonPageBackToMenu);
-  }
+    await driver.waitForDisplayed(this.selectors.updateButton, { timeout: 5000 });
+    await driver.click(this.selectors.updateButton);
+  },
 
-  async isDraftSavedSuccessfully() {
-    await this.driver.waitForDisplayed(this.draftSelector, { timeout: 5000 });
+  async confirmPageIsUpdated(driver) {
+    await driver.waitForDisplayed(this.selectors.updateWindow, { timeout: 5000 });
+    return await driver.getText(this.selectors.updateWindow);
+  },
 
-    const draftText = await this.driver.getText(this.draftSelector);
-    return draftText;
-  }
+  async createPageAsDraft(driver, title, content) {
+    await driver.setValue(this.selectors.titleInput, title);
+    await driver.setValue(this.selectors.contentInput, content);
+    await driver.waitForTimeout(500);
+    await driver.click(this.selectors.buttonPageBackToMenu);
+  },
 
-  async unpublishedPage() {
-    await this.driver.waitForDisplayed(this.PagePublishedToEdit, { timeout: 5000 });
-    await this.driver.click(this.PagePublishedToEdit);
+  async isDraftSavedSuccessfully(driver) {
+    await driver.waitForDisplayed(this.selectors.draftSelector, { timeout: 5000 });
+    return await driver.getText(this.selectors.draftSelector);
+  },
 
-    await this.driver.waitForDisplayed(this.titleInput, { timeout: 5000 });
-    await this.driver.click(this.unpublishedButton);
+  async unpublishedPage(driver) {
+    await driver.waitForDisplayed(this.selectors.pagePublishedToEdit, { timeout: 5000 });
+    await driver.click(this.selectors.pagePublishedToEdit);
 
-    await this.driver.waitForDisplayed(this.reverteToDraftButton, { timeout: 5000 });
-    await this.driver.click(this.reverteToDraftButton);
-  }
+    await driver.waitForDisplayed(this.selectors.titleInput, { timeout: 5000 });
+    await driver.click(this.selectors.unpublishedButton);
 
-  async isRevertToDraftSuccess() {
-    await this.driver.waitForDisplayed(this.unpublishedNotification, { timeout: 5000 });
+    await driver.waitForDisplayed(this.selectors.reverteToDraftButton, { timeout: 5000 });
+    await driver.click(this.selectors.reverteToDraftButton);
+  },
 
-    const draftText = await this.driver.getText(this.unpublishedNotification);
-    return draftText;
-  }
+  async isRevertToDraftSuccess(driver) {
+    await driver.waitForDisplayed(this.selectors.unpublishedNotification, { timeout: 5000 });
+    return await driver.getText(this.selectors.unpublishedNotification);
+  },
 
-  async PreviewPage(title, content) {
-    await this.driver.waitForDisplayed(this.titleInput, { timeout: 5000 });
-    await this.driver.setValue(this.titleInput, title);
-    await this.driver.setValue(this.contentInput, content);
-    await this.driver.waitForDisplayed(this.PreviewButton, { timeout: 5000 });
-    await this.driver.click(this.PreviewButton);
-    await this.driver.waitForTimeout(500);
-  }
+  async previewPage(driver, title, content) {
+    await driver.waitForDisplayed(this.selectors.titleInput, { timeout: 5000 });
+    await driver.setValue(this.selectors.titleInput, title);
+    await driver.setValue(this.selectors.contentInput, content);
+    await driver.waitForDisplayed(this.selectors.previewButton, { timeout: 5000 });
+    await driver.click(this.selectors.previewButton);
+    await driver.waitForTimeout(500);
+  },
 
-  async IsPreviewSuccessful() {
-    const previewTitle = await this.driver.waitForDisplayed(this.PreviewTitlePost, { timeout: 5000 });
-    return previewTitle !== null;
-  }
-}
+  async isPreviewSuccessful(driver) {
+    return await driver.waitForDisplayed(this.selectors.previewTitlePost, { timeout: 5000 }) !== null;
+  },
+};
 
-module.exports = PageCreate;
+module.exports = pageCreate;
+
 
