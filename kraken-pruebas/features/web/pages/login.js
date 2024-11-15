@@ -5,8 +5,8 @@ const login = {
         const email = process.env.GHOST_EMAIL;
         const password = process.env.GHOST_PASSWORD;
 
-        const emailField = await driver.$('#identification');
-        const passwordField = await driver.$('#password');
+        const emailField = await driver.$('.gh-input.email');
+        const passwordField = await driver.$('.gh-input.password');
 
         await emailField.waitForDisplayed({ timeout: 5000 });
         await emailField.setValue(email);
