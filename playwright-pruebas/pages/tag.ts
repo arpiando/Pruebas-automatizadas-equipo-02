@@ -25,6 +25,7 @@ export class Tag {
         await this.page.fill(this.nameInputSelector,tagName);
 
         await this.page.click(this.SaveTagButton);
+        await this.page.waitForTimeout(500);
     }
 
     async confirmedNewTagIsCreated(): Promise<string | null> {
@@ -43,6 +44,7 @@ export class Tag {
         await this.page.fill(this.nameInputSelector,tagName);
 
         await this.page.click(this.SaveTagButton);
+        await this.page.waitForTimeout(500);
     }
 
     

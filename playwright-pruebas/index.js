@@ -1,9 +1,10 @@
 import fs from "fs";
+import path from "path";
 
 const url = "https://ghost.com";
 
 function browser(b) {
-  return `<div class=" browser" id="test0">
+  return `<div class="browser" id="test0">
     <div class="imgline">
       <div class="imgcontainer">
         <span class="imgname">Reference</span>
@@ -36,18 +37,32 @@ function createReport(browsers, url) {
             </h1>
             
             <div id="visualizer">
-                ${browsers.map((b) => browser(b))}
+                ${browsers.map((b) => browser(b)).join("")}
             </div>
         </body>
     </html>`;
 }
+
 const browsers = ["chromium"];
+const mainFolder = "./test-results";
 
-const pathFolder =
-  "login-Login-LP001---El-usu-6a0b9-ón-con-credenciales-válidas-chromium";
+fs.readdir(mainFolder, { withFileTypes: true }, (err, files) => {
+  if (err) {
+    return console.error("Error reading the main folder:", err);
+  }
 
-fs.writeFileSync(
-  `./test-results/${pathFolder}/report.html`,
-  createReport(browsers, url)
-);
-fs.copyFileSync("./index.css", `./test-results/${pathFolder}/index.css`);
+  files
+    .filter((file) => file.isDirectory())
+    .forEach((folder) => {
+      const folderPath = path.join(mainFolder, folder.name);
+
+      fs.writeFileSync(
+        `${folderPath}/report.html`,
+        createReport(browsers, url)
+      );
+
+      fs.copyFileSync("./index.css", `${folderPath}/index.css`);
+
+      console.log(`Report generated for folder: ${folder.name}`);
+    });
+});
