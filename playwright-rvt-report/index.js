@@ -8,17 +8,17 @@ function browser(b, folderPath) {
     <div class="imgline">
       <div class="imgcontainer">
         <span class="imgname">Reference</span>
-        <img class="img2" src="${folderPath}/before-${b}-5.96.png" id="refImage" label="Reference">
+        <img class="img2" src="before-${b}.png-5.96.png" id="refImage" label="Reference">
       </div>
       <div class="imgcontainer">
         <span class="imgname">Test</span>
-        <img class="img2" src="${folderPath}/before-${b}-4.50.png" id="testImage" label="Test">
+        <img class="img2" src="before-${b}.png-4.50.png" id="testImage" label="Test">
       </div>
     </div>
     <div class="imgline">
       <div class="imgcontainer">
         <span class="imgname">Diff</span>
-        <img class="imgfull" src="${folderPath}/diff-before-${b}.png" id="diffImage" label="Diff">
+        <img class="imgfull" src="diff-before-${b}.png.png" id="diffImage" label="Diff">
       </div>
     </div>
   </div>`;
