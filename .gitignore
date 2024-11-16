@@ -5,3 +5,5 @@ blob-report/
 playwright/.cache/
 kraken-pruebas/reports
 kraken-pruebas/.kraken
+kraken-pruebas/results
+imagenes
