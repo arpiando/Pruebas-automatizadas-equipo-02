@@ -6,7 +6,6 @@ setTimeout(() => {
   const fs = require('fs');
   const path = require('path');
 
-  // Ruta del archivo both.js a modificar
   const filePath = path.join(__dirname, 'node_modules', 'kraken-node', 'lib', 'steps', 'both.js');
 
   try {
@@ -562,7 +561,6 @@ exports.Reporter = Reporter;
 //# sourceMappingURL=Reporter.js.map
       `;
 
-      // Reemplazar el archivo
       fs.writeFileSync(filePath, fileContent);
       console.log('Archivo reemplazado exitosamente');
     } else {
