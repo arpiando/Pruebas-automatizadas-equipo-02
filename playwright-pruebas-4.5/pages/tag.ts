@@ -2,13 +2,13 @@ import { Page } from '@playwright/test';
 
 export class Tag { 
     private page: Page;
-    private tagMenuSelector: string = '[data-test-nav="tags"]';
-    private newTagButton: string = 'a.gh-btn.gh-btn-primary:has-text("New tag")'
-    private nameInputSelector: string = '[data-test-input="tag-name"]';
-    private SaveTagButton: string = '[data-test-button="save"]';
+    private tagMenuSelector: string = 'a:has-text("Tags")';
+    private newTagButton: string = 'a:has-text("New tag")'
+    private nameInputSelector: string = 'input.gh-input';
+    private SaveTagButton: string = 'button:has-text("Save")';
     private tagNameSelector: string = '.gh-canvas-title';
     private TagSelector = 'a.gh-list-data.gh-tag-list-title.gh-list-cellwidth-70';
-    private ButtonFailure: string = '[data-test-button="save"] span[data-test-task-button-state="failure"]';
+    private ButtonFailure: string = 'button:has-text("Retry")';
 
     constructor(page: Page) {
         this.page = page;
