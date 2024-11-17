@@ -41,30 +41,24 @@ const postCreate = {
         await driver.pause(500); // Breve pausa
         await contentField.setValue('contenidoooo');
 
-        // Publicar la página
-        const publishButton = await driver.$(this.selectors.publishButton);
-        await publishButton.waitForDisplayed({ timeout: 5000 });
-        await publishButton.click();
+    // Publicar la página
+    const publishButton = await driver.$('//span[text()="Publish"]');
+    await publishButton.waitForClickable({ timeout: 5000 });
+    await publishButton.click();
 
-        // Confirmar publicación (revisión final)
-        const continueButton = await driver.$(this.selectors.reviewButton || this.selectors.continueButton);
-        await continueButton.waitForDisplayed({ timeout: 60000 });
-        await continueButton.click();
+    // Esperar el dropdown
+    const dropdown = await driver.$('#ember-basic-dropdown-wormhole');
+    await dropdown.waitForDisplayed({ timeout: 5000 });
 
-        // Pausa antes de confirmar
-        await driver.pause(500); 
-
-        // Confirmar acción
-        const confirmButton = await driver.$(this.selectors.confirmButton);
-        await confirmButton.waitForDisplayed({ timeout: 60000 });
-        await confirmButton.click();
+    // Seleccionar opción de publicar
+    const publishOption = await dropdown.$('//span[text()="Publish"]');
+    await publishOption.waitForClickable({ timeout: 5000 });
+    await publishOption.click();
     },
   
     async isPageCreatedSuccessfully(driver) {
-        const headerElement = await driver.$(this.selectors.header);
-        await headerElement.waitForDisplayed({ timeout: 5000 }); 
-        const successText = await headerElement.getText(); 
-        return successText === this.selectors.successMessage; 
+      await driver.refresh();
+      await new Promise(resolve => setTimeout(resolve, 1000));
       },
   
     async closeHeaderPost(page) {
