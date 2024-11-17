@@ -30,5 +30,9 @@ ejecute las pruebas:
     Vaya al archivo .env y cambie sus credenciales del administrador de Ghost
     npx kraken-node run
 
+Si desea correr pruebas y luego guardar imagenes para pruebas de regresión visual debe ejecutar:
+
+    npm run test
+
 
 2.El paso a paso para la instalación y ejecución de las pruebas en Playwright.
