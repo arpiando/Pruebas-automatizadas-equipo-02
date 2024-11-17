@@ -1,0 +1,23 @@
+{
+  "name": "kraken6",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx kraken-node run",
+    "posttest": "node moveScreenshots.js",
+    "postinstall": "node ./fixFileHelper.js && node ./fixBoth.js && node ./fixReporter.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@faker-js/faker": "^9.2.0",
+    "canvas": "^2.11.2",
+    "chai": "^5.1.2",
+    "dotenv": "^16.4.5",
+    "faker": "^6.6.6",
+    "kraken-node": "^1.0.24",
+    "resemblejs": "^5.0.0"
+  }
+}
