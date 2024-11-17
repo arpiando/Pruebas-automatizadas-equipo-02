@@ -1,8 +1,10 @@
-const login = require('../pages/login');
+const login = require('../pages/login')
 const background = require('../pages/background')
 const pageCreate = require('../pages/page')
 const postCreate = require ('../pages/post')
 const member = require ('../pages/member')
+const tagManager = require('../pages/tags')
+const profile = require('../pages/profile')
 const { Given, When, Then } = require('@cucumber/cucumber');
 
 When('El usuario ingresa credenciales válidas', async function () {
@@ -107,4 +109,30 @@ Then('El sistema verifica si el nombre del miembro se ha actualizado.', async fu
 });
 
 
+
+//Tags
+
+Then('esta en la sección de creación de tags', async function () {
+  const success = await tagManager.navigateToCreateTag(this.driver)
+});
+
+When('El usuario crea un tag y la publica.', async function () {
+  await tagManager.createNewTag(this.driver); // Llama al método del tagManager
+});
+
+Then('El sistema debe mostrar un mensaje de éxito al crear la tag.', async function () {
+  const success = await tagManager.validateTagIsCreated(this.driver)
+});
+
+When('El usuario modifica el nombre del tag.', async function () {
+  const tagName = 'Etiqueta Modificada'; // Cambia esto al nombre deseado
+  await tagManager.editTagName(this.driver, tagName); // Llama al método para editar
+});
+
+Then('El sistema debe mostrar un mensaje de éxito después de la modificación del tag.', async function () {
+  const tagName = await tagManager.validateTagIsCreated(this.driver);
+  if (tagName !== 'Etiqueta Modificada') {
+    throw new Error('La etiqueta no se modificó correctamente.');
+  }
+});
 
