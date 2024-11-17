@@ -1,0 +1,30 @@
+.browser {
+    position: relative;
+    margin: 10px auto;
+    padding: 20px;
+    background-color: #FAFAFA;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    border: 1px solid #ddd;
+    max-width: 900px;
+}
+.btitle h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.imgline {
+    display: flex;
+    gap: 20px;
+}
+.imgcontainer {
+    flex: 1;
+    text-align: center;
+}
+.imgname {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.img2, .imgfull {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+}
