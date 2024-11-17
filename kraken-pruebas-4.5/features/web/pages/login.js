@@ -16,7 +16,8 @@ const login = {
     },
 
     async clickSignIn(driver) {
-        const signInButton = await driver.$('[data-test-button="sign-in"]');
+        // Buscar el span que contiene el texto "Sign in"
+        const signInButton = await driver.$("//span[text()='Sign in →']");
         await signInButton.waitForClickable({ timeout: 5000 });
         await signInButton.click();
     },

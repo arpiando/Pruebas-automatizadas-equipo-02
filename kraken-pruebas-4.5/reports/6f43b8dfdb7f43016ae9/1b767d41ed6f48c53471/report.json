@@ -1,0 +1,102 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "inicio-de-sesión;lp001---el-usuario-debería-recibir-un-mensaje-de-error-con-correo-inválido-o-poder-iniciar-sesión-con-credenciales-válidas",
+        "keyword": "Scenario",
+        "line": 4,
+        "name": "LP001 - El usuario debería recibir un mensaje de error con correo inválido o poder iniciar sesión con credenciales válidas",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 739000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I navigate to page \"http://localhost:2368/ghost/#/signin\"",
+            "match": {
+              "location": "node_modules/kraken-node/lib/steps/web.js:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 508000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 6,
+            "name": "El usuario ingresa credenciales válidas",
+            "match": {
+              "location": "features/web/step_definitions/step.js:10"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 243000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 7,
+            "name": "hace clic en el boton de ingreso",
+            "match": {
+              "location": "features/web/step_definitions/step.js:14"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 170000000,
+              "error_message": "Error: El botón 'Sign in' no se encontró.\n    at Object.clickSignIn (/Users/omarfernando/Desktop/prueba/Pruebas-automatizadas-equipo-02/kraken-pruebas-4.5/features/web/pages/login.js:28:19)\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)\n    at async KrakenWorld.<anonymous> (/Users/omarfernando/Desktop/prueba/Pruebas-automatizadas-equipo-02/kraken-pruebas-4.5/features/web/step_definitions/step.js:15:5)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 8,
+            "name": "el sistema debe mostrar el menú del panel de administración.",
+            "match": {
+              "location": "features/web/step_definitions/step.js:18"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 10000000
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@user2",
+            "line": 3
+          },
+          {
+            "name": "@web",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "inicio-de-sesión",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Inicio de sesión",
+    "tags": [],
+    "uri": "features/login.feature"
+  }
+]
