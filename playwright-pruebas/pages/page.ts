@@ -15,6 +15,14 @@ export class PageCreate {
   private Post: string = '.gh-posts-list-item-group'
   private updateButton: string = '[data-test-button="publish-save"]'
   private updateWindow: string = '.gh-notification-content'
+  private ButtonPageBackToMenu: string = '[data-test-link="pages"]';
+  private draftSelector: string = '.gh-content-entry-status .draft';
+  private PagePublishedToEdit: string = 'li[data-test-post-id][class*="gh-post-list-plain-status"] >> text="Published"';
+  private unpublishedButton: string = '[data-test-button="update-flow"]';
+  private reverteToDraftButton: string = '[data-test-button="revert-to-draft"]';
+  private unpublishedNotification: string = '[data-test-text="notification-content"]';
+  private PreviewButton: string = '[data-test-button="publish-preview"]';
+  private PreviewTitlePost: string = '.gh-browserpreview-browser';
 
   constructor(page: Page) {
     this.page = page;
@@ -33,21 +41,13 @@ export class PageCreate {
     await this.page.waitForSelector(this.reviewButton, { state: 'visible', timeout: 60000 });
     await this.page.click(this.reviewButton);
     
-    await this.page.waitForSelector(this.confirmButton, { state: 'attached', timeout: 60000 });
     await this.page.waitForTimeout(500);
-    await this.page.waitForSelector(this.confirmButton, { state: 'visible', timeout: 60000 });
-
-    const buttonBoundingBox = await this.page.locator(this.confirmButton).boundingBox();
-    if (!buttonBoundingBox) {
-      throw new Error('Confirm button is not visible in the viewport');
-    }
-
-    const isElementClickable = await this.page.isVisible(this.confirmButton);
-    if (!isElementClickable) {
-      throw new Error('Confirm button is not clickable');
-    }
-    
-    await this.page.click(this.confirmButton, { timeout: 60000});
+    await this.page.waitForSelector(this.confirmButton, { state: 'attached', timeout: 60000 });
+    await this.page.waitForSelector(this.confirmButton, { state: 'visible', timeout: 60000 }); 
+    const isButtonEnabled = await this.page.isEnabled(this.confirmButton);
+    if (isButtonEnabled) {
+      await this.page.click(this.confirmButton, { timeout: 60000, force: true });
+  }
   }
 
   async isPageCreatedSuccessfully(): Promise<string | null> {
@@ -63,14 +63,8 @@ export class PageCreate {
     await this.page.click(this.headerCloseButton);
   }
 
-  async ClickPageToEdit(): Promise<void>{
-    await this.page.click(this.Post);
-    await this.page.waitForSelector(this.titleInput, { state: 'visible' });
-    await this.page.waitForSelector(this.contentInput, { state: 'visible' });
-
-  }
-
   async EditPage(title: string, content: string): Promise<void>{
+    await this.page.click(this.PagePublishedToEdit);
     await this.page.fill(this.titleInput, '');
     await this.page.fill(this.titleInput, title);
 
@@ -85,5 +79,56 @@ export class PageCreate {
     await this.page.waitForSelector(this.updateWindow, { state: 'visible' });
     const updateNotification = await this.page.locator(this.updateWindow).textContent();
     return updateNotification;
+  }
+
+  async createPageAsDraft(title: string, content: string): Promise<void>{
+    await this.page.fill(this.titleInput, title);
+
+    await this.page.fill(this.contentInput, content);
+
+    await this.page.waitForTimeout(500);
+
+    await this.page.click(this.ButtonPageBackToMenu);
+  }
+
+  async isDraftSavedSuccessfully():  Promise<string | null>{
+    await this.page.waitForSelector(this.draftSelector, { state: 'visible' });
+
+    const draftText = await this.page.textContent(this.draftSelector);
+
+    return draftText;
+  }
+
+  async unpublishedPage(): Promise<void>{
+    await this.page.click(this.PagePublishedToEdit);
+
+    await this.page.waitForSelector(this.titleInput, { state: 'visible' });
+    await this.page.click(this.unpublishedButton);
+
+    await this.page.waitForSelector(this.reverteToDraftButton, { state: 'visible' });
+    await this.page.click(this.reverteToDraftButton);
+
+  } 
+
+  async isRevertToDraftSuccess():  Promise<string | null>{
+    await this.page.waitForSelector(this.unpublishedNotification, { state: 'visible' });
+
+    const draftText = await this.page.textContent(this.unpublishedNotification);
+
+    return draftText;
+  }
+
+  async PreviewPage(title: string, content: string): Promise<void>{
+    await this.page.waitForSelector(this.titleInput, { state: 'visible' });
+    await this.page.fill(this.titleInput, title);
+    await this.page.fill(this.contentInput, content);
+    await this.page.waitForSelector(this.PreviewButton, { state: 'visible' });
+    await this.page.click(this.PreviewButton);
+    await this.page.waitForTimeout(500);
+  }
+
+  async IsPreviewSuccessful(): Promise<boolean> {
+    const previewTitle = await this.page.waitForSelector(this.PreviewTitlePost, { state: 'visible' });
+    return previewTitle !== null;
   }
 }

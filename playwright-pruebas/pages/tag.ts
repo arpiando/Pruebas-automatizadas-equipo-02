@@ -35,6 +35,7 @@ export class Tag {
     }
 
     async editTag(tagName: string):  Promise<void>{
+        await this.navigateToCreateTag()
         await this.page.click(this.TagSelector);
 
         await this.page.waitForSelector(this.nameInputSelector, {state: 'visible'});
