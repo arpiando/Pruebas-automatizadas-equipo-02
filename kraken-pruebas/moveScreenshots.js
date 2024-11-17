@@ -19,57 +19,69 @@ function moveScreenshots(reportFolder) {
   if (!fs.existsSync(beforeFolder)) {
     fs.mkdirSync(beforeFolder);
     console.log(`Carpeta 'before' creada en ${beforeFolder}`);
-
-    executionDirs.forEach(executionDir => {
-      const executionPath = path.join(reportFolder, executionDir);
-      const screenshotsPath = path.join(executionPath, "screenshots");
-
-      if (fs.existsSync(screenshotsPath)) {
-        const images = fs.readdirSync(screenshotsPath).filter(file =>
-          fs.statSync(path.join(screenshotsPath, file)).isFile()
-        );
-
-        images.forEach((image, index) => {
-          const source = path.join(screenshotsPath, image);
-          const newImageName = `before_${Date.now()}_${index}.png`;
-          const destination = path.join(beforeFolder, newImageName);
-
-          fs.renameSync(source, destination);
-          console.log(`Movida: ${source} -> ${destination}`);
-        });
-      }
-    });
-  } else {
-    if (!fs.existsSync(afterFolder)) {
-      fs.mkdirSync(afterFolder);
-      console.log(`Carpeta 'after' creada en ${afterFolder}`);
-    }
-
-    executionDirs.forEach(executionDir => {
-      const executionPath = path.join(reportFolder, executionDir);
-      const screenshotsPath = path.join(executionPath, "screenshots");
-
-      if (fs.existsSync(screenshotsPath)) {
-        const images = fs.readdirSync(screenshotsPath).filter(file =>
-          fs.statSync(path.join(screenshotsPath, file)).isFile()
-        );
-
-        images.forEach((image, index) => {
-          const source = path.join(screenshotsPath, image);
-          const newImageName = `after_${Date.now()}_${index}.png`;
-          const destination = path.join(afterFolder, newImageName);
-
-          fs.renameSync(source, destination);
-          console.log(`Movida: ${source} -> ${destination}`);
-        });
-      }
-    });
   }
+
+  if (!fs.existsSync(afterFolder)) {
+    fs.mkdirSync(afterFolder);
+    console.log(`Carpeta 'after' creada en ${afterFolder}`);
+  }
+
+  executionDirs.forEach(executionDir => {
+    const executionPath = path.join(reportFolder, executionDir);
+
+    // Buscar una carpeta que contenga la palabra 'screenshots'
+    const screenshotDirs = fs.readdirSync(executionPath).filter(dir =>
+      fs.statSync(path.join(executionPath, dir)).isDirectory() && dir.includes('screenshots')
+    );
+
+    screenshotDirs.forEach(screenshotsDir => {
+      const screenshotsPath = path.join(executionPath, screenshotsDir);
+      if (fs.existsSync(screenshotsPath)) {
+        const images = fs.readdirSync(screenshotsPath).filter(file =>
+          fs.statSync(path.join(screenshotsPath, file)).isFile()
+        );
+
+        images.forEach(image => {
+          const source = path.join(screenshotsPath, image);
+
+          // El nombre de la imagen no cambia, solo se mueve
+          const destination = path.join(beforeFolder, image);
+
+          fs.renameSync(source, destination);
+          console.log(`Movida: ${source} -> ${destination}`);
+        });
+      }
+    });
+  });
+
+  executionDirs.forEach(executionDir => {
+    const executionPath = path.join(reportFolder, executionDir);
+
+    // Buscar una carpeta que contenga la palabra 'screenshots'
+    const screenshotDirs = fs.readdirSync(executionPath).filter(dir =>
+      fs.statSync(path.join(executionPath, dir)).isDirectory() && dir.includes('screenshots')
+    );
+
+    screenshotDirs.forEach(screenshotsDir => {
+      const screenshotsPath = path.join(executionPath, screenshotsDir);
+      if (fs.existsSync(screenshotsPath)) {
+        const images = fs.readdirSync(screenshotsPath).filter(file =>
+          fs.statSync(path.join(screenshotsPath, file)).isFile()
+        );
+
+        images.forEach(image => {
+          const source = path.join(screenshotsPath, image);
+
+          // El nombre de la imagen no cambia, solo se mueve
+          const destination = path.join(afterFolder, image);
+
+          fs.renameSync(source, destination);
+          console.log(`Movida: ${source} -> ${destination}`);
+        });
+      }
+    });
+  });
 }
 
 const reportsFolder = path.join(__dirname, "reports");
 moveScreenshots(reportsFolder);
-
-
-
-
