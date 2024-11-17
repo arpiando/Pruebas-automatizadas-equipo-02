@@ -1,8 +1,16 @@
+
 node_modules/
 test-results/
 playwright-report/
 blob-report/
 playwright/.cache/
+kraken-pruebas-4.5/reports
+kraken-pruebas-4-5/.kraken
+kraken-pruebas4.5/results
+kraken-pruebas4.5/imagenes
 kraken-pruebas/reports
 kraken-pruebas/.kraken
+imagenes
+kraken-pruebas/imagenes
 combined-results
+

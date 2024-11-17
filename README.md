@@ -12,7 +12,7 @@ Debe tener corriendo Ghost en el puerto: localhost:2368
 1.El paso a paso para la instalación y ejecución de las pruebas en Kraken -  SOLO EN SITEMA OPERATIVO **macOS**
 
 Antes de comenzar, asegúrate de tener instalados los siguientes programas:
--node.js
+-node.js en versión 16 y 18
 -Kraken: Instala Kraken globalmente usando el siguiente comando: npm install kraken-node -g
 -Appium: Instala Appium globalmente con el siguiente comando: npm install -g appium
 
@@ -20,7 +20,9 @@ Pasos:
     abra una terminal
     instale los programas anteriores de manera global fuera de la carpeta del proyecto.
 
+
 Ahora, pasos para correr pruebas:
+    ejecute: nvm use v16
     clone el proyecto: git clone
     cd Pruebas-automatizadas-equipo-02
     cd kraken-pruebas
@@ -29,6 +31,14 @@ Ahora, pasos para correr pruebas:
 ejecute las pruebas:
     Vaya al archivo .env y cambie sus credenciales del administrador de Ghost
     npx kraken-node run
+
+Si desea correr pruebas y luego guardar imagenes para pruebas de regresión visual debe ejecutar:
+
+    npm run test
+
+luego cambiar versión de node a superior de 18.
+    nvm use 18
+    ejecute: node visual-testing/visualTesting.js
 
 
 2.El paso a paso para la instalación y ejecución de las pruebas en Playwright.
