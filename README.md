@@ -20,6 +20,7 @@ Pasos:
     abra una terminal
     instale los programas anteriores de manera global fuera de la carpeta del proyecto.
 
+
 Ahora, pasos para correr pruebas:
     ejecute: nvm use v16
     clone el proyecto: git clone
