@@ -58,3 +58,5 @@ luego cambiar versión de node a superior de 18.
 - Ejecutar el comando npx playwright test --ui en la terminal (Asegurarse de estar en la carpeta pruebas-playwright al momento de ejecutar este comando)
 - Dentro del directorio "test-results" en donde se generaron varios archivos como resultado, que son imágenes de las capturas de pantalla y otras imágenes de comparación.
 - Para generar el reporte HTML de cada prueba, por favor ejecute el comando node index.js, el reporte individual lo podrá conseguir en la misma carpeta de cada escenario individual.
+- Para ejecutar los escenarios seleccionados para la versión base, por favor dirijase desde la terminal a la carpeta pruebas-playwright-4.5
+- Repetir los pasos indicados para ejecutar las pruebas de regresion visual en esta versión
