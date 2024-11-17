@@ -1,12 +1,12 @@
 console.log('Esperando a que se instalen las dependencias...');
 
 setTimeout(() => {
-  console.log('Dependencias instaladas. Ejecutando script postinstall para both.js.');
+    console.log('Dependencias instaladas. Ejecutando script postinstall para fixReporter.js.');
 
   const fs = require('fs');
   const path = require('path');
 
-  const filePath = path.join(__dirname, 'node_modules', 'kraken-node', 'lib', 'steps', 'both.js');
+  const filePath = path.join(__dirname, 'node_modules', 'kraken-node', 'lib', 'reports', 'Reporter.js');
 
   try {
     if (fs.existsSync(filePath)) {
