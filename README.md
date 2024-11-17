@@ -46,7 +46,10 @@ luego cambiar versión de node a superior de 18.
 - Asegurarse de tener Node.js instalado en el sistema, ya que Playwright es una librería de JavaScript.
 - Asegurarse de tener Pixelmatch instalado, puede verificar con el comando npm list pixelmatch
 - Abrir el proyecto
-- Dirigirse a la carpeta pruebas-playwright en la terminal para ejecutar las pruebas en la versión rc (5.96.0)
+
+Pruebas de regresión en la versión rc:
+
+- Dirigirse a la carpeta **pruebas-playwright** en la terminal para ejecutar las pruebas en la versión rc (5.96.0)
 - Instalar las dependencias con el comando npm install
 - Abrir la carpeta pages
 - Abrir el archivo login.ts y cambiar las credenciales en 
@@ -56,7 +59,19 @@ luego cambiar versión de node a superior de 18.
 
 - Guardar los cambios
 - Ejecutar el comando npx playwright test --ui en la terminal (Asegurarse de estar en la carpeta pruebas-playwright al momento de ejecutar este comando)
-- Dentro del directorio "test-results" en donde se generaron varios archivos como resultado, que son imágenes de las capturas de pantalla y otras imágenes de comparación.
+- Dentro del directorio "test-results" se habrán generado varios archivos como resultado, que son imágenes de las capturas de pantalla y otras imágenes de comparación.
 - Para generar el reporte HTML de cada prueba, por favor ejecute el comando node index.js, el reporte individual lo podrá conseguir en la misma carpeta de cada escenario individual.
-- Para ejecutar los escenarios seleccionados para la versión base, por favor dirijase desde la terminal a la carpeta pruebas-playwright-4.5
-- Repetir los pasos indicados para ejecutar las pruebas de regresion visual en esta versión
+
+Pruebas de regresión en la versión base:
+
+- Dirigirse a la carpeta **pruebas-playwright-4.5** en la terminal para ejecutar las pruebas en la versión base (4.5.0)
+- Abrir la carpeta pages
+- Abrir el archivo login.ts y cambiar las credenciales en 
+
+   private userEmail: string = 'correo@uniandes.edu.co';
+   private password: string = 'contraseña';
+
+- Guardar los cambios
+- Ejecutar el comando npx playwright test --ui en la terminal (Asegurarse de estar en la carpeta pruebas-playwright-4.5 al momento de ejecutar este comando)
+- Dentro del directorio "test-results" se habrán generado varios archivos como resultado, que son imágenes de las capturas de pantalla y otras imágenes de comparación.
+- Para generar el reporte HTML de cada prueba, por favor ejecute el comando node index.js, el reporte individual lo podrá conseguir en la misma carpeta de cada escenario individual.
