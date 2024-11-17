@@ -1,0 +1,166 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "creacion-miembros;'cm001---el-usuario-debería-poder-crear-un-nuevo-miembro-exitosamente'",
+        "keyword": "Scenario",
+        "line": 4,
+        "name": "'CM001 - El usuario debería poder crear un nuevo miembro exitosamente'",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 769000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I navigate to page \"http://localhost:2368/ghost/#/signin\"",
+            "match": {
+              "location": "node_modules/kraken-node/lib/steps/web.js:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 538000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 6,
+            "name": "El usuario ingresa credenciales válidas",
+            "match": {
+              "location": "features/web/step_definitions/step.js:10"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 221000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 7,
+            "name": "hace clic en el boton de ingreso",
+            "match": {
+              "location": "features/web/step_definitions/step.js:14"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 200000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "esta en la sección de miembros",
+            "match": {
+              "location": "features/web/step_definitions/step.js:87"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 700000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 9,
+            "name": "El usuario crea un nuevo miembro.",
+            "match": {
+              "location": "features/web/step_definitions/step.js:91"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 891000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 10,
+            "name": "El sistema verifica si el miembro se ha creado exitosamente.",
+            "match": {
+              "location": "features/web/step_definitions/step.js:95"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 131000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "El usuario ha navegado al sitio, ha iniciado sesión y ha crea un miembro exitosamente.",
+            "match": {
+              "location": "features/web/step_definitions/step.js:99"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1275000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 13,
+            "name": "El usuario edita un miembro.",
+            "match": {
+              "location": "features/web/step_definitions/step.js:103"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 213000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 14,
+            "name": "El sistema verifica si el nombre del miembro se ha actualizado.",
+            "match": {
+              "location": "features/web/step_definitions/step.js:107"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 127000000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 8000000
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@user2",
+            "line": 3
+          },
+          {
+            "name": "@web",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "creacion-miembros",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Creacion miembros",
+    "tags": [],
+    "uri": "features/member.feature"
+  }
+]

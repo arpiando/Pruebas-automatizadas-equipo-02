@@ -1,0 +1,166 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "crear-post;'mp001---el-usuario-debería-modificar-un-post-exitosamente'",
+        "keyword": "Scenario",
+        "line": 4,
+        "name": "'MP001 - El usuario debería modificar un post exitosamente'",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1355000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I navigate to page \"http://localhost:2368/ghost/#/signin\"",
+            "match": {
+              "location": "node_modules/kraken-node/lib/steps/web.js:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1008000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 6,
+            "name": "El usuario ingresa credenciales válidas",
+            "match": {
+              "location": "features/web/step_definitions/step.js:10"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 225000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 7,
+            "name": "hace clic en el boton de ingreso",
+            "match": {
+              "location": "features/web/step_definitions/step.js:14"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 198000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "esta en la sección de creación de posts",
+            "match": {
+              "location": "features/web/step_definitions/step.js:63"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 733000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 9,
+            "name": "El usuario crea un post y lo publica.",
+            "match": {
+              "location": "features/web/step_definitions/step.js:67"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1853000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 10,
+            "name": "El sistema debe mostrar un mensaje de éxito al crear el post.",
+            "match": {
+              "location": "features/web/step_definitions/step.js:71"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 687000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "El usuario ha navegado al sitio, ha iniciado sesión y ha creado un post exitosamente.",
+            "match": {
+              "location": "features/web/step_definitions/step.js:75"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1280000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 13,
+            "name": "El usuario modifica el título y el contenido del post.",
+            "match": {
+              "location": "features/web/step_definitions/step.js:79"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1405000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 14,
+            "name": "El sistema debe mostrar un mensaje de éxito después de la modificación.",
+            "match": {
+              "location": "features/web/step_definitions/step.js:83"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 115000000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 5000000
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@user2",
+            "line": 3
+          },
+          {
+            "name": "@web",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "crear-post",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Crear post",
+    "tags": [],
+    "uri": "features/post.feature"
+  }
+]

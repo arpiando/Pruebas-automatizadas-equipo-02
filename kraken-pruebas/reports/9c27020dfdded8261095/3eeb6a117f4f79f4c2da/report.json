@@ -1,0 +1,153 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "crear-tags;'ce001---el-usuario-debería-poder-crear-una-nueva-etiqueta'",
+        "keyword": "Scenario",
+        "line": 4,
+        "name": "'CE001 - El usuario debería poder crear una nueva etiqueta'",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1266000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I navigate to page \"http://localhost:2368/ghost/#/signin\"",
+            "match": {
+              "location": "node_modules/kraken-node/lib/steps/web.js:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 534000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 6,
+            "name": "El usuario ingresa credenciales válidas",
+            "match": {
+              "location": "features/web/step_definitions/step.js:10"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 229000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 7,
+            "name": "hace clic en el boton de ingreso",
+            "match": {
+              "location": "features/web/step_definitions/step.js:14"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 189000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "esta en la sección de creación de tags",
+            "match": {
+              "location": "features/web/step_definitions/step.js:115"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 727000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 9,
+            "name": "El usuario crea un tag y la publica.",
+            "match": {
+              "location": "features/web/step_definitions/step.js:119"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 810000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 10,
+            "name": "El sistema debe mostrar un mensaje de éxito al crear la tag.",
+            "match": {
+              "location": "features/web/step_definitions/step.js:123"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 120000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 11,
+            "name": "El usuario modifica el nombre del tag.",
+            "match": {
+              "location": "features/web/step_definitions/step.js:127"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 712000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 12,
+            "name": "El sistema debe mostrar un mensaje de éxito después de la modificación del tag.",
+            "match": {
+              "location": "features/web/step_definitions/step.js:132"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 141000000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 3000000
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@user2",
+            "line": 3
+          },
+          {
+            "name": "@web",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "crear-tags",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Crear tags",
+    "tags": [],
+    "uri": "features/tags.feature"
+  }
+]

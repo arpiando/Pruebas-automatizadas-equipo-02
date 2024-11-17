@@ -1,0 +1,127 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "cambio-de-background;bc001---el-usuario-debería-poder-activar-el-modo-oscuro-y-luego-volver-al-modo-claro",
+        "keyword": "Scenario",
+        "line": 4,
+        "name": "BC001 - El usuario debería poder activar el modo oscuro y luego volver al modo claro",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1817000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 5,
+            "name": "I navigate to page \"http://localhost:2368/ghost/#/signin\"",
+            "match": {
+              "location": "node_modules/kraken-node/lib/steps/web.js:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 702000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 6,
+            "name": "El usuario ingresa credenciales válidas",
+            "match": {
+              "location": "features/web/step_definitions/step.js:10"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1330000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 7,
+            "name": "hace clic en el boton de ingreso",
+            "match": {
+              "location": "features/web/step_definitions/step.js:14"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 180000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "obtenemos el estado actual del fondo",
+            "match": {
+              "location": "features/web/step_definitions/step.js:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 120000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "El usuario hace clic en el botón para cambiar el fondo",
+            "match": {
+              "location": "features/web/step_definitions/step.js:26"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 754000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 10,
+            "name": "Verificar que el nuevo modo es el opuesto del actual",
+            "match": {
+              "location": "features/web/step_definitions/step.js:30"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 126000000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 3000000
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@user2",
+            "line": 3
+          },
+          {
+            "name": "@web",
+            "line": 3
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "cambio-de-background",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Cambio de background",
+    "tags": [],
+    "uri": "features/background.feature"
+  }
+]
