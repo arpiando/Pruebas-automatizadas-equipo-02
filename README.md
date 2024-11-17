@@ -9,7 +9,7 @@ El nombre y correos uniandes de los estudiantes que participaron en la entrega.
 
 Debe tener corriendo Ghost en el puerto: localhost:2368
 
-1.El paso a paso para la instalación y ejecución de las pruebas en Kraken -  SOLO EN SITEMA OPERATIVO **macOS**
+1. El paso a paso para la instalación y ejecución de las pruebas en Kraken -  SOLO EN SITEMA OPERATIVO **macOS**
 
 Antes de comenzar, asegúrate de tener instalados los siguientes programas:
 -node.js en versión 16 y 18
@@ -41,11 +41,12 @@ luego cambiar versión de node a superior de 18.
     ejecute: node visual-testing/visualTesting.js
 
 
-2.El paso a paso para la instalación y ejecución de las pruebas en Playwright.
+2. El paso a paso para la instalación y ejecución de las pruebas de regresión en Playwright con la herramienta Pixelmatch.
 
 - Asegurarse de tener Node.js instalado en el sistema, ya que Playwright es una librería de JavaScript.
+- Asegurarse de tener Pixelmatch instalado, puede verificar con el comando npm list pixelmatch
 - Abrir el proyecto
-- Dirigirse a la carpeta pruebas-playwright en la terminal
+- Dirigirse a la carpeta pruebas-playwright en la terminal para ejecutar las pruebas en la versión rc (5.96.0)
 - Instalar las dependencias con el comando npm install
 - Abrir la carpeta pages
 - Abrir el archivo login.ts y cambiar las credenciales en 
@@ -55,4 +56,5 @@ luego cambiar versión de node a superior de 18.
 
 - Guardar los cambios
 - Ejecutar el comando npx playwright test --ui en la terminal (Asegurarse de estar en la carpeta pruebas-playwright al momento de ejecutar este comando)
-- Dar click en el botón play de cada prueba para ejecutarlas individualmente (NO CORRERLAS TODAS A LA VEZ, POR FAVOR)
+- Dentro del directorio "test-results" en donde se generaron varios archivos como resultado, que son imágenes de las capturas de pantalla y otras imágenes de comparación.
+- Para generar el reporte HTML de cada prueba, por favor ejecute el comando node index.js, el reporte individual lo podrá conseguir en la misma carpeta de cada escenario individual.
