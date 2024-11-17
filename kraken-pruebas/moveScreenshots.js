@@ -8,6 +8,7 @@ function moveScreenshots(reportFolder) {
 
   const imagesPath = path.join(reportFolder, "../imagenes");
 
+  // Verificar si la carpeta 'imagenes' existe, si no, crearla
   if (!fs.existsSync(imagesPath)) {
     fs.mkdirSync(imagesPath);
     console.log(`Carpeta 'imagenes' creada en ${imagesPath}`);
@@ -16,14 +17,19 @@ function moveScreenshots(reportFolder) {
   const beforeFolder = path.join(imagesPath, "before");
   const afterFolder = path.join(imagesPath, "after");
 
+  let moveToAfter = false;  // Bandera para saber si las imágenes deben ir a 'after'
+
+  // Verificar si 'before' existe
   if (!fs.existsSync(beforeFolder)) {
     fs.mkdirSync(beforeFolder);
     console.log(`Carpeta 'before' creada en ${beforeFolder}`);
-  }
-
-  if (!fs.existsSync(afterFolder)) {
-    fs.mkdirSync(afterFolder);
-    console.log(`Carpeta 'after' creada en ${afterFolder}`);
+  } else {
+    // Si 'before' existe, entonces prepararemos 'after'
+    if (!fs.existsSync(afterFolder)) {
+      fs.mkdirSync(afterFolder);
+      console.log(`Carpeta 'after' creada en ${afterFolder}`);
+    }
+    moveToAfter = true;  // Ya que 'before' existe, moveremos a 'after'
   }
 
   executionDirs.forEach(executionDir => {
@@ -44,36 +50,14 @@ function moveScreenshots(reportFolder) {
         images.forEach(image => {
           const source = path.join(screenshotsPath, image);
 
-          // El nombre de la imagen no cambia, solo se mueve
-          const destination = path.join(beforeFolder, image);
-
-          fs.renameSync(source, destination);
-          console.log(`Movida: ${source} -> ${destination}`);
-        });
-      }
-    });
-  });
-
-  executionDirs.forEach(executionDir => {
-    const executionPath = path.join(reportFolder, executionDir);
-
-    // Buscar una carpeta que contenga la palabra 'screenshots'
-    const screenshotDirs = fs.readdirSync(executionPath).filter(dir =>
-      fs.statSync(path.join(executionPath, dir)).isDirectory() && dir.includes('screenshots')
-    );
-
-    screenshotDirs.forEach(screenshotsDir => {
-      const screenshotsPath = path.join(executionPath, screenshotsDir);
-      if (fs.existsSync(screenshotsPath)) {
-        const images = fs.readdirSync(screenshotsPath).filter(file =>
-          fs.statSync(path.join(screenshotsPath, file)).isFile()
-        );
-
-        images.forEach(image => {
-          const source = path.join(screenshotsPath, image);
-
-          // El nombre de la imagen no cambia, solo se mueve
-          const destination = path.join(afterFolder, image);
+          // Si 'before' no existe, mover a 'before'
+          let destination;
+          if (!moveToAfter) {
+            destination = path.join(beforeFolder, image);
+          } else {
+            // Si 'before' existe, mover a 'after'
+            destination = path.join(afterFolder, image);
+          }
 
           fs.renameSync(source, destination);
           console.log(`Movida: ${source} -> ${destination}`);
@@ -85,3 +69,6 @@ function moveScreenshots(reportFolder) {
 
 const reportsFolder = path.join(__dirname, "reports");
 moveScreenshots(reportsFolder);
+
+
+
