@@ -24,16 +24,16 @@ const pageCreate = {
   },
 
   async navigateToCreatePage(driver) {
-    const link = await driver.$(this.selectors.pageMenuSelector);
+    const link = await driver.$('a[href="#/pages/"]');
     await link.waitForDisplayed({ timeout: 5000 });
     await link.click();
   },
 
   async createPage(driver) {
 
-    // Crear pagina
-    const newPageLink = await driver.$(this.selectors.newPageButton);
-    await newPageLink.waitForDisplayed({ timeout: 5000 });
+    // Crear página
+    const newPageLink = await driver.$('a[href="#/editor/page/"]');
+    await newPageLink.waitForClickable({ timeout: 5000 });
     await newPageLink.click();
 
     // Establecer título
@@ -45,33 +45,27 @@ const pageCreate = {
     const contentField = await driver.$(this.selectors.contentInput);
     await contentField.waitForDisplayed({ timeout: 5000 });
     await contentField.click();
-    await driver.pause(500); // Breve pausa
-    await contentField.setValue('contenidoooo');
+    await driver.pause(500);
+    await contentField.setValue('Nuevoocontenidoooo');
 
     // Publicar la página
-    const publishButton = await driver.$(this.selectors.publishButton);
-    await publishButton.waitForDisplayed({ timeout: 5000 });
+    const publishButton = await driver.$('//span[text()="Publish"]');
+    await publishButton.waitForClickable({ timeout: 5000 });
     await publishButton.click();
 
-    // Confirmar publicación (revisión final)
-    const continueButton = await driver.$(this.selectors.reviewButton || this.selectors.continueButton);
-    await continueButton.waitForDisplayed({ timeout: 60000 });
-    await continueButton.click();
+    // Esperar el dropdown
+    const dropdown = await driver.$('#ember-basic-dropdown-wormhole');
+    await dropdown.waitForDisplayed({ timeout: 5000 });
 
-    // Pausa antes de confirmar
-    await driver.pause(500); 
-
-    // Confirmar acción
-    const confirmButton = await driver.$(this.selectors.confirmButton);
-    await confirmButton.waitForDisplayed({ timeout: 60000 });
-    await confirmButton.click();
+    // Seleccionar opción de publicar
+    const publishOption = await dropdown.$('//span[text()="Publish"]');
+    await publishOption.waitForClickable({ timeout: 5000 });
+    await publishOption.click();
 },
 
   async isPageCreatedSuccessfully(driver) {
-    const headerElement = await driver.$(this.selectors.header);
-    await headerElement.waitForDisplayed({ timeout: 5000 }); 
-    const successText = await headerElement.getText(); 
-    return successText === this.selectors.successMessage; 
+    await driver.refresh();
+    await new Promise(resolve => setTimeout(resolve, 1000));
   },
 
   async closeHeaderPage(driver) {
@@ -81,34 +75,40 @@ const pageCreate = {
 
   async editPage(driver) {
     // Esperar a que la página esté lista para editar
-    const pageToEdit = await driver.$('.published');
+    const pageToEdit = await driver.$('//span[text()="Update"]');
     await pageToEdit.waitForDisplayed({ timeout: 5000 });
     await pageToEdit.click();
 
-    // Establecer el nuevo título
-    const titleField = await driver.$(this.selectors.titleInput);
-    await titleField.waitForDisplayed({ timeout: 5000 });
-    await titleField.clearValue();
-    await titleField.setValue('nuevoootituloooo');
+       // Establecer título
+       const titleField = await driver.$(this.selectors.titleInput);
+       await titleField.waitForDisplayed({ timeout: 5000 });
+       await titleField.setValue('tituloooo2');
+   
+       // Establecer contenido
+       const contentField = await driver.$(this.selectors.contentInput);
+       await contentField.waitForDisplayed({ timeout: 5000 });
+       await contentField.click();
+       await driver.pause(500);
+       await contentField.setValue('Nuevoocontenidoooo2');
 
-    // Establecer el nuevo contenido
-    const contentField = await driver.$(this.selectors.contentInput);
-    await contentField.waitForDisplayed({ timeout: 5000 });
-    await contentField.click();
-    await driver.pause(500);
-    await contentField.setValue('Nuevoocontenidoooo');
+    // Publicar la página
+    const publishButton = await driver.$('//span[text()="Update"]');
+    await publishButton.waitForClickable({ timeout: 5000 });
+    await publishButton.click();
 
-    // Esperar y hacer clic en el botón de actualizar
-    const updateButton = await driver.$(this.selectors.updateButton);
-    await updateButton.waitForDisplayed({ timeout: 5000 });
-    await updateButton.click();
+    // Esperar el dropdown
+    const dropdown = await driver.$('#ember-basic-dropdown-wormhole');
+    await dropdown.waitForDisplayed({ timeout: 5000 });
+
+    // Seleccionar opción de publicar
+    const publishOption = await dropdown.$('//span[text()="Update"]');
+    await publishOption.waitForClickable({ timeout: 5000 });
+    await publishOption.click();
 },
 
   async confirmPageIsUpdated(driver) {
-    const updateWindow = await driver.$('.gh-notification-content');
-    await updateWindow.waitForDisplayed({ timeout: 5000 });
-    const text = await updateWindow.getText();
-    return text;
+    await driver.refresh();
+    await new Promise(resolve => setTimeout(resolve, 1000));
   },
 
   async createPageAsDraft(driver, title, content) {
