@@ -60,11 +60,11 @@ Pruebas de regresión en la versión rc:
 - Guardar los cambios
 - Ejecutar el comando npx playwright test --ui en la terminal (Asegurarse de estar en la carpeta pruebas-playwright al momento de ejecutar este comando)
 - Dentro del directorio "test-results" se habrán generado varios archivos como resultado, que son imágenes de las capturas de pantalla y otras imágenes de comparación.
-- Para generar el reporte HTML de cada prueba, por favor ejecute el comando node index.js, el reporte individual lo podrá conseguir en la misma carpeta de cada escenario individual.
 
 Pruebas de regresión en la versión base:
 
 - Dirigirse a la carpeta **pruebas-playwright-4.5** en la terminal para ejecutar las pruebas en la versión base (4.5.0)
+- Instalar las dependencias con el comando npm install
 - Abrir la carpeta pages
 - Abrir el archivo login.ts y cambiar las credenciales en 
 
@@ -74,4 +74,8 @@ Pruebas de regresión en la versión base:
 - Guardar los cambios
 - Ejecutar el comando npx playwright test --ui en la terminal (Asegurarse de estar en la carpeta pruebas-playwright-4.5 al momento de ejecutar este comando)
 - Dentro del directorio "test-results" se habrán generado varios archivos como resultado, que son imágenes de las capturas de pantalla y otras imágenes de comparación.
-- Para generar el reporte HTML de cada prueba, por favor ejecute el comando node index.js, el reporte individual lo podrá conseguir en la misma carpeta de cada escenario individual.
+- NOTA: EN CASO DE EJECUTAR DESDE DOCKER, POR FAVOR ACTUALIZAR EL PUERTO CON private urlLogin: string = 'http://localhost:3001/ghost/#/signin';
+- Para generar el reporte HTML de cada prueba, por favor dirijase a la carpeta **playwright-rvt-report**
+- Instale los paquetes con el comando npm install
+- Ejecute el comando get_images.js, eso generará una carpeta llamada combined-results en donde podrá observar las diferencias entre la versión base y la versión rc.
+- Ejecute el comando "node index.js" para generar los reportes, en cada subcarpeta de combined-results podrá encontar el reporte individual de cada escenario individual.
