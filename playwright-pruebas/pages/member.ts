@@ -6,6 +6,7 @@ export class Member {
     private ButtonNewMember: string = '[data-test-new-member-button="true"]';
     private InputName: string = '[data-test-input="member-name"]';
     private InputEmail: string = '[data-test-input="member-email"]';
+    private InputNote: string = '[data-test-input="member-note"]';
     private ButtonSaveMember: string = '[data-test-button="save"]';
     private CreatedtextSelector: string = '.gh-member-details-attribution p';
     private MemberSelector: string = '.gh-members-list-name-container';
@@ -22,12 +23,13 @@ export class Member {
     }
 
     
-    async CreateNewMember(name: string, email: string): Promise<void>{
+    async CreateNewMember(name: string, email: string, note: string): Promise<void>{
         await this.page.click(this.ButtonNewMember);
 
         await this.page.waitForSelector(this.InputName, {state: 'visible'});
         await this.page.fill(this.InputName,name);
         await this.page.fill(this.InputEmail,email);
+        await this.page.fill(this.InputNote,note);
 
         await this.page.click(this.ButtonSaveMember);
         await this.page.waitForSelector(this.CreatedtextSelector, {state: 'visible',timeout:50000});
@@ -69,12 +71,13 @@ export class Member {
 
     }
 
-    async CreateMemberInvalid(name: string, email: string): Promise<void>{
+    async CreateMemberInvalid(name: string, email: string,note:string): Promise<void>{
         await this.page.click(this.ButtonNewMember);
 
         await this.page.waitForSelector(this.InputName, {state: 'visible'});
         await this.page.fill(this.InputName,name);
         await this.page.fill(this.InputEmail,email);
+        await this.page.fill(this.InputNote,note);
 
         await this.page.click(this.ButtonSaveMember);
     }
