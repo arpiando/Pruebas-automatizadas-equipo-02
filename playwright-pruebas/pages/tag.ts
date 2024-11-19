@@ -9,6 +9,8 @@ export class Tag {
     private tagNameSelector: string = '.gh-canvas-title';
     private TagSelector = 'a.gh-list-data.gh-tag-list-title.gh-list-cellwidth-70';
     private ButtonFailure: string = '[data-test-button="save"] span[data-test-task-button-state="failure"]';
+    private descriptionSelector: string = '[data-test-input="tag-description"]';
+    private ColorSelector: string = '[data-test-input="accentColor"]';
 
     constructor(page: Page) {
         this.page = page;
@@ -18,11 +20,16 @@ export class Tag {
         await this.page.click(this.tagMenuSelector);
     }
 
-    async CreateNewTag(tagName: string): Promise<void>{
+    async CreateNewTag(tagName: string,description: string, colorhex?:string): Promise<void>{
         await this.page.click(this.newTagButton);
 
         await this.page.waitForSelector(this.nameInputSelector, {state: 'visible'});
         await this.page.fill(this.nameInputSelector,tagName);
+        await this.page.fill(this.descriptionSelector,description);
+
+        if(colorhex){
+            await this.page.fill(this.ColorSelector,colorhex);
+        }
 
         await this.page.click(this.SaveTagButton);
         await this.page.waitForTimeout(500);
