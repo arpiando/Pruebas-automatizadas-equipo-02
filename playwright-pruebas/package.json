@@ -8,6 +8,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@faker-js/faker": "^9.2.0",
     "@playwright/test": "^1.48.2",
     "@types/node": "^22.9.0",
     "@types/pngjs": "^6.0.5"
@@ -15,5 +16,5 @@
   "dependencies": {
     "pixelmatch": "^6.0.0"
   },
-  "type": "module" 
+  "type": "module"
 }

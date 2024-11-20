@@ -5,9 +5,7 @@ import fs from 'fs';
 import { PNG } from 'pngjs';
 import pixelmatch from 'pixelmatch';
 import { options } from "../vrt.config";
-
-const jsonString = fs.readFileSync('datos/data_member.json', 'utf8');
-const data = JSON.parse(jsonString);
+import {faker} from '@faker-js/faker'
 
 test.describe('Crear un miembro', () => {
   let member: Member;
@@ -41,9 +39,9 @@ test.describe('Crear un miembro', () => {
   });
 
   test('CM001 - El usuario debería poder crear un nuevo miembro exitosamente', async ({ page }) => {
-    const memberName = data[0].full_name;
-    const memberEmail = data[0].email;
-    const memberNote = data[0].note
+    const memberName = faker.person.fullName();
+    const memberEmail = faker.internet.email();
+    const memberNote = faker.lorem.paragraph();
     const confirmationText = 'Created';
 
     // When El usuario crea un nuevo miembro.
@@ -66,9 +64,9 @@ test.describe('Crear un miembro', () => {
   });
 
   test('CM002 - El usuario debería recibir un mensaje error al crear un miembro con email invalido', async ({ page }) => {
-    const memberName = data[1].full_name;
-    const memberEmailInvalid = data[1].email;
-    const memberNote = data[1].note;
+    const memberName = faker.person.fullName();
+    const memberEmailInvalid = faker.string.alpha();
+    const memberNote = faker.lorem.paragraph();
     const confirmationText = 'Retry';
 
     // When El usuario trata de crear un nuevo miembro.
@@ -91,9 +89,9 @@ test.describe('Crear un miembro', () => {
   });
 
   test('CM003 - El usuario debería recibir un mensaje error al crear un miembro con nota invalida', async ({ page }) => {
-    const memberName = data[2].full_name;
-    const memberEmail = data[2].email;
-    const memberNoteInvalid = data[2].note;
+    const memberName = faker.person.fullName();
+    const memberEmail = faker.internet.email();
+    const memberNoteInvalid = faker.lorem.paragraphs(5);
     const confirmationText = 'Retry';
 
     // When El usuario trata de crear un nuevo miembro.
@@ -116,9 +114,9 @@ test.describe('Crear un miembro', () => {
   });
 
   test('CM004 - El usuario debería poder crear un nuevo miembro con nombre vacio exitosamente', async ({ page }) => {
-    const memberNameEmpty = data[3].full_name;
-    const memberEmail = data[3].email;
-    const memberNote = data[3].note;
+    const memberNameEmpty = "";
+    const memberEmail = faker.internet.email();
+    const memberNote = faker.lorem.paragraph();
     const confirmationText = 'Created';
 
      // When El usuario crea un nuevo miembro.
@@ -141,9 +139,9 @@ test.describe('Crear un miembro', () => {
   });
 
   test('CM005 - El usuario debería recibir un mensaje error al crear un miembro con email vacio', async ({ page }) => {
-    const memberName = data[4].full_name;
-    const memberEmailInvalid = data[4].email;
-    const memberNote = data[4].note;
+    const memberName = faker.person.fullName();
+    const memberEmailInvalid = "";
+    const memberNote = faker.lorem.paragraphs();
     const confirmationText = 'Retry';
 
     // When El usuario trata de crear un nuevo miembro.
@@ -166,9 +164,9 @@ test.describe('Crear un miembro', () => {
   });
 
   test('CM006 - El usuario debería recibir un mensaje error al crear un miembro con nombre maximo de caracteres', async ({ page }) => {
-    const memberNameInvalid = data[5].full_name;
-    const memberEmail = data[5].email;
-    const memberNote = data[5].note;
+    const memberNameInvalid = faker.lorem.paragraphs();
+    const memberEmail = faker.internet.email();
+    const memberNote = faker.lorem.paragraph();
     const confirmationText = 'Retry';
 
     // When El usuario trata de crear un nuevo miembro.

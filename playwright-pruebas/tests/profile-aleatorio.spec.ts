@@ -5,10 +5,7 @@ import fs from 'fs';
 import { PNG } from 'pngjs';
 import pixelmatch from 'pixelmatch';
 import { options } from "../vrt.config";
-
-const jsonString = fs.readFileSync('datos/data_profile.json', 'utf8');
-const data = JSON.parse(jsonString);
-
+import {faker} from '@faker-js/faker'
 
 test.describe('Modificar el profile', () => {
   let profile: Profile;
@@ -42,7 +39,7 @@ test.describe('Modificar el profile', () => {
   });
 
   test('MPR001 - El usuario deberia modificar el nombre de su profile exitosamente', async ({ page }) => {
-    const NameModified = data[0].full_name;
+    const NameModified = faker.person.fullName();
 
     // When El usuario modifica su nombre.
     await profile.editProfileName(NameModified);
@@ -63,7 +60,7 @@ test.describe('Modificar el profile', () => {
   });
 
   test('MPR002 - El sistema arroja mensaje de error por nombre vacio', async ({ page }) => {
-    const NameInvalid = data[1].full_name;
+    const NameInvalid = "";
     const failureText = 'Retry';
     
     // When El usuario deja el nombre vacio.
@@ -85,7 +82,7 @@ test.describe('Modificar el profile', () => {
   });
 
   test('MPR003 - El usuario modifica el correo con email invalido', async ({ page }) => {
-    const EmailInvalid = data[1].email;
+    const EmailInvalid = faker.string.alpha();
     const failureText = 'Retry';
     
     // When El usuario intenta modificar el email con uno invalido.
@@ -107,7 +104,7 @@ test.describe('Modificar el profile', () => {
   });
 
   test('MPR004 - El usuario modifica el correo con email vacio', async ({ page }) => {
-    const EmailInvalid = data[2].email;
+    const EmailInvalid = "";
     const failureText = 'Retry';
     
     // When El usuario deja el email vacio.
@@ -129,7 +126,7 @@ test.describe('Modificar el profile', () => {
   });
 
   test('MPR005 - El usuario introduce una ubicacion muy extensa', async ({ page }) => {
-    const LocationInvalid = data[2].location;
+    const LocationInvalid = faker.lorem.paragraphs();
     const failureText = 'Retry';
     
     // When El usuario intenta agregar una ubicacion muy larga.
@@ -151,7 +148,7 @@ test.describe('Modificar el profile', () => {
   });
 
   test('MPR006 - El usuario introduce una website invalido', async ({ page }) => {
-    const websiteInvalid = data[0].website;
+    const websiteInvalid = faker.string.alpha();
     const failureText = 'Retry';
     
     // When El usuario ingresa un url invalido.
@@ -173,7 +170,7 @@ test.describe('Modificar el profile', () => {
   });
 
   test('MPR007 - El usuario introduce un perfil de facebook invalido', async ({ page }) => {
-    const URLInvalid = data[0].facebook;
+    const URLInvalid = faker.internet.url();
     const failureText = 'The URL must be in a format like https://www.facebook.com/yourPage';
     
     // When El usuario ingresa un url invalido.
@@ -195,7 +192,7 @@ test.describe('Modificar el profile', () => {
   });
 
   test('MPR008 - El usuario introduce un perfil de twitter invalido', async ({ page }) => {
-    const URLInvalid = data[0].twitter;
+    const URLInvalid = faker.internet.exampleEmail();
     const failureText = 'Your Username is not a valid Twitter Username';
     
     // When El usuario ingresa un usuario invalido.
@@ -217,7 +214,7 @@ test.describe('Modificar el profile', () => {
   });
 
   test('MPR009 - El usuario introduce una biografia superando los caracteres', async ({ page }) => {
-    const bioInvalid = data[0].bio;
+    const bioInvalid = faker.lorem.paragraphs(5);
     const failureText = 'Retry';
     
     // When El usuario ingresa una biografia muy larga.
