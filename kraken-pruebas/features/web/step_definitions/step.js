@@ -123,7 +123,8 @@ Given('El usuario ha navegado al sitio, ha iniciado sesión y ha creado un post 
 });
 
 When('El usuario modifica el título y el contenido del post.', async function () {
-  const edition = await pageCreate.editPage(this.driver)
+  const contenido = datos[3];
+  const edition = await pageCreate.editPage(this.driver, contenido.titulo, contenido.contenido)
 });
 
 Then('El sistema debe mostrar un mensaje de éxito después de la modificación.', async function () {
