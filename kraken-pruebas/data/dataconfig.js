@@ -10,7 +10,9 @@ const datosApriori = [
   //Datos pagina nueva apriori page [3]//
   {titulo: 'Primer titulo', contenido:'Este es el contenido del primer titulo'},
   //Datos pagina edicion apriori page [4]//
-  {titulo: 'otro titulo', contenido:'otro contenido para la pagina'}
+  {titulo: 'otro titulo', contenido:'otro contenido para la pagina'},
+  //Datos login incoherente apriori login [5]//
+  { nombre: 'Juan Pérez', email: 'jshkjhsjdhsjkd',  password: 'kjgsjhdgshj'  },
 
 ];
 
@@ -25,6 +27,8 @@ const datosPseudo = [
   {titulo: faker.lorem.slug(), contenido: faker.lorem.paragraph()},
   //Datos pagina edicion apriori page [4]//
   {titulo: faker.lorem.slug(), contenido: faker.lorem.paragraph()},
+   //Datos login incoherente apriori login [5]//
+   { nombre: faker.lorem.words(), email: faker.lorem.words(), password: faker.lorem.words() }
 ];
 
 const datosAleatorios = [

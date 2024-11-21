@@ -12,3 +12,8 @@ Feature: Inicio de sesión
     When El usuario ingresa credenciales invalidas
     And hace clic en el boton de ingreso
     Then el sistema debe mostrar aviso de error.
+
+    Given I navigate to page "http://localhost:2368/ghost/#/signin"
+    When El usuario ingresa credenciales incoherentes
+    And hace clic en el boton de ingreso
+    Then el sistema debe mostrar aviso de error.

@@ -31,6 +31,11 @@ When('El usuario ingresa credenciales invalidas', async function () {
   await login.enterInvalidCredentials(this.driver, credenciales.email, credenciales.password);
 });
 
+When('El usuario ingresa credenciales incoherentes', async function () {
+  const credenciales = datos[5];
+  await login.enterInvalidCredentials(this.driver, credenciales.email, credenciales.password);
+});
+
 When('hace clic en el boton de ingreso', async function () {
     await login.clickSignIn(this.driver);
 });
