@@ -29,7 +29,7 @@ const pageCreate = {
     await link.click();
   },
 
-  async createPage(driver) {
+  async createPage(driver, titulo, contenido) {
 
     // Crear pagina
     const newPageLink = await driver.$(this.selectors.newPageButton);
@@ -37,16 +37,16 @@ const pageCreate = {
     await newPageLink.click();
 
     // Establecer título
-    const titleField = await driver.$(this.selectors.titleInput);
+    const titleField = await driver.$(this.selectors.titleInput)
     await titleField.waitForDisplayed({ timeout: 5000 });
-    await titleField.setValue('tituloooo');
+    await titleField.setValue(titulo);
 
     // Establecer contenido
     const contentField = await driver.$(this.selectors.contentInput);
     await contentField.waitForDisplayed({ timeout: 5000 });
     await contentField.click();
-    await driver.pause(500); // Breve pausa
-    await contentField.setValue('contenidoooo');
+    await driver.pause(500); 
+    await contentField.setValue(contenido);
 
     // Publicar la página
     const publishButton = await driver.$(this.selectors.publishButton);

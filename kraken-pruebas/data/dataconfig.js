@@ -7,18 +7,20 @@ const datosApriori = [
   { name: 'Juan Pérez', email: 'juan@example.com',  password: '1234luL' },
   //Datos login apriori member edicion [2]//
   { name: 'Pepito Pérez', email: 'pepito@example.com',  password: '1234luL' },
-  //Datos login apriori page [2]//
-  {}
-  //Datos login apriori post [3]//
+  //Datos pagina apriori page [3]//
+  {titulo: 'Primer titulo', contenido:'Este es el contenido del primer titulo'}
+
 ];
 
 const datosPseudo = [
-//Datos login seudo aleatorio//
+  //Datos login seudo aleatorio//
   { nombre: faker.person.firstName(), email: faker.internet.email(), password: faker.internet.password() },
-  //Datos login apriori member inicial [1]//
+  //Datos login seudo member inicial [1]//
   { name: faker.person.firstName(), email: faker.internet.email(),  password: faker.internet.password() },
-  //Datos login apriori member edicion [2]//
+  //Datos login seudo member edicion [2]//
   { name: faker.person.firstName(), email: faker.internet.email(),  password: faker.internet.password() },
+  //Datos pagina seudo page [3]//
+  {titulo: faker.lorem.slug(), contenido: faker.lorem.paragraph()}
 ];
 
 const datosAleatorios = [

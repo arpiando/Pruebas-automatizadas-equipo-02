@@ -5,7 +5,7 @@ const postCreate = require ('../pages/post')
 const member = require ('../pages/member')
 const tagManager = require('../pages/tags')
 const profile = require('../pages/profile')
-const { Given, When, Then, Before, After } = require('@cucumber/cucumber');
+const { Given, When, Then, Before} = require('@cucumber/cucumber');
 const obtenerDatos = require('../../../data/dataconfig');
 
 let datos;
@@ -80,8 +80,9 @@ Then('Verificar que el nuevo modo es el opuesto del actual', async function () {
 //Pagina
 
 When('El usuario crea una pagina y la publica.', async function () {
+    const contenido = datos[3];
     const navigation = await pageCreate.navigateToCreatePage(this.driver)
-    const mewpage = await pageCreate.createPage(this.driver)
+    const mewpage = await pageCreate.createPage(this.driver, contenido.titulo, contenido.contenido)
 });
 
 Then('El sistema debe mostrar un mensaje de éxito al crear la pagina.', async function () {
@@ -99,8 +100,6 @@ When('El usuario modifica el título y el contenido de la pagina.', async functi
 Then('El sistema debe mostrar un mensaje de éxito después de la modificación de la pagina.', async function () {
   const success = await pageCreate.confirmPageIsUpdated(this.driver)
 });
-
-
 
 
 
