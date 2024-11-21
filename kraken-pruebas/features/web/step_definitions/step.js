@@ -24,8 +24,7 @@ When('El usuario ingresa credenciales válidas', async function () {
 
 When('El usuario ingresa credenciales invalidas', async function () {
   const credenciales = datos[0];
-  console.log('Usando credenciales inválidas:', credenciales);
-  await login.enterInvalidCredentials(this.driver, credenciales.email, 'contraseña_invalida');
+  await login.enterInvalidCredentials(this.driver, credenciales.email, credenciales.password);
 });
 
 When('hace clic en el boton de ingreso', async function () {
@@ -110,6 +109,11 @@ Then('El sistema debe mostrar un mensaje de éxito después de la modificación.
   const success = await pageCreate.confirmPageIsUpdated(this.driver)
 });
 
+
+
+
+//Miembros
+
 Then('esta en la sección de miembros', async function () {
   const success = await member.navigateToCreateMember(this.driver)
 });
@@ -126,12 +130,28 @@ Given('El usuario ha navegado al sitio, ha iniciado sesión y ha crea un miembro
   const reload = await pageCreate.reloadPage(this.driver)
 });
 
+Given('El usuario ha navegado al sitio, ha iniciado sesión, ha crea un miembro exitosamente y lo editó.', async function () {
+  const reload = await pageCreate.reloadPage(this.driver)
+});
+
 When('El usuario edita un miembro.', async function () {
   const edition = await member.editMember(this.driver)
 });
 
 Then('El sistema verifica si el nombre del miembro se ha actualizado.', async function () {
   const success = await member.validateMemberIsCreated(this.driver)
+});
+
+When('El usuario elimina el miembro', async function () {
+  const edition = await member.deleteMember(this.driver)
+});
+
+Then('seleciona el primer miembro', async function () {
+  const success = await member.memberSelection(this.driver)
+});
+
+Then('El sistema verifica si se ha eliminado.', async function () {
+  const success = await member.validateMemberIsDeleted(this.driver)
 });
 
 

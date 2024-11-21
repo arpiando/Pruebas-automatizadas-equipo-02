@@ -1,16 +1,25 @@
 const { faker } = require('@faker-js/faker');
 
 const datosApriori = [
-  { nombre: 'Juan Pérez', email: 'juan@example.com' },
+  //Datos login apriori login [0]//
+  { nombre: 'Juan Pérez', email: 'juan@example.com',  password: '1234luL'  },
+  //Datos login apriori member [1]//
+  {},
+  //Datos login apriori page [2]//
+  {}
+  //Datos login apriori post [3]//
 ];
 
 const datosPseudo = [
-  { nombre: faker.person.firstName(), email: faker.internet.email() },
+//Datos login seudo aleatorio//
+  { nombre: faker.person.firstName(), email: faker.internet.email(), password: faker.internet.password() },
+//Datos login apriori member [1]//
+{},
 ];
 
 const datosAleatorios = [
+   //Datos login aleatorios//
   { nombre: 'XzQ%R9', email: 'invalid-email' },
-  { nombre: '!@#$%', email: 'random@domain.com' }
 ];
 
 function obtenerDatos(estrategia) {

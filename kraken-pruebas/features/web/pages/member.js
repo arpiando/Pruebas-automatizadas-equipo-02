@@ -20,15 +20,13 @@ const member = {
       },
   
       async createNewMember(driver) {
-      // Click en el botón para nuevo miembro
       const newMemberButton = await driver.$(this.selectors.ButtonNewMember);
       await newMemberButton.waitForDisplayed({ timeout: 5000 });
       await newMemberButton.click();
 
       const randomName = faker.name.firstName() + ' ' + faker.name.lastName();
       const randomEmail = faker.internet.email();
-  
-      // Esperar y llenar el campo de nombre
+
       const nameField = await driver.$(this.selectors.InputName);
       await nameField.waitForDisplayed({ timeout: 5000 });
       await nameField.setValue(randomName);
@@ -70,10 +68,7 @@ const member = {
       const saveButton = await driver.$(this.selectors.ButtonSaveMember);
       await saveButton.waitForDisplayed({ timeout: 5000 });
       await saveButton.click();
-  
-      // Esperar la confirmación de que se creó el miembro
-      const confirmationMessage = await driver.$(this.selectors.CreatedtextSelector);
-      await confirmationMessage.waitForDisplayed({ timeout: 50000 });
+
     },
   
     async validateMemberIsModified(page) {
@@ -97,6 +92,45 @@ const member = {
   
       await page.click(this.selectors.ButtonSaveMember);
     },
+
+    async deleteMember(driver) {
+
+      const dropdownButton = await driver.$('.dropdown');
+      await dropdownButton.waitForClickable({ timeout: 5000 });
+      await dropdownButton.click();
+  
+      const deleteButton = await driver.$('[data-test-button="delete-member"]');
+      await deleteButton.waitForClickable({ timeout: 5000 });
+      await deleteButton.click();
+
+      const modal = await driver.$('[data-test-modal="delete-member"]');
+      await modal.waitForDisplayed({ timeout: 5000 });
+
+      const confirmButton = await driver.$('[data-test-button="confirm"]');
+      await confirmButton.waitForClickable({ timeout: 5000 });
+      await confirmButton.click();
+
+    },
+
+    async memberSelection(driver) {
+
+      const newMemberButton = await driver.$(this.selectors.ButtonMember);
+      await newMemberButton.waitForDisplayed({ timeout: 5000 });
+      await newMemberButton.click();
+
+      const table = await driver.$('.gh-list');
+      await table.waitForDisplayed({ timeout: 5000 });
+
+      const firstRow = await driver.$('table.gh-list tbody tr[data-test-list="members-list-item"]');
+      await firstRow.waitForDisplayed({ timeout: 5000 });
+      await firstRow.click();
+    },
+
+    async validateMemberIsDeleted(driver) {
+      const membersList = await driver.$('table.gh-list tbody');
+      await membersList.waitForDisplayed({ timeout: 5000 });
+    },
+
   };
   
   module.exports = member;

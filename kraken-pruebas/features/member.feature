@@ -12,3 +12,9 @@ Feature: Creacion miembros
     Given El usuario ha navegado al sitio, ha iniciado sesión y ha crea un miembro exitosamente.
     When El usuario edita un miembro.
     Then El sistema verifica si el nombre del miembro se ha actualizado.
+
+    Given El usuario ha navegado al sitio, ha iniciado sesión, ha crea un miembro exitosamente y lo editó.
+    And seleciona el primer miembro
+    When El usuario elimina el miembro
+    Then El sistema verifica si se ha eliminado.
+

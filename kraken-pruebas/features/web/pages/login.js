@@ -40,8 +40,8 @@ const login = {
     },
 
     async loginNotSuccessful(driver) {
-        const errorElement = await driver.$('.main-error'); 
-        await errorElement.waitForDisplayed({ timeout: 5000 }); 
+        const errorElement = await driver.$('.main-error');
+        await errorElement.waitForDisplayed({ timeout: 5000 });
         return await errorElement.isDisplayed();
     },
 
