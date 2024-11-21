@@ -94,7 +94,8 @@ Given('El usuario ha navegado al sitio, ha iniciado sesión y ha crea una pagina
 });
 
 When('El usuario modifica el título y el contenido de la pagina.', async function () {
-  const edition = await pageCreate.editPage(this.driver)
+  const contenido2 = datos[4];
+  const edition = await pageCreate.editPage(this.driver, contenido2.titulo, contenido2.contenido)
 });
 
 Then('El sistema debe mostrar un mensaje de éxito después de la modificación de la pagina.', async function () {

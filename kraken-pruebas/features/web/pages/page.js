@@ -79,7 +79,7 @@ const pageCreate = {
     await driver.click(this.selectors.headerCloseButton);
   },
 
-  async editPage(driver) {
+  async editPage(driver, titulo, contenido) {
     // Esperar a que la página esté lista para editar
     const pageToEdit = await driver.$('.published');
     await pageToEdit.waitForDisplayed({ timeout: 5000 });
@@ -89,14 +89,14 @@ const pageCreate = {
     const titleField = await driver.$(this.selectors.titleInput);
     await titleField.waitForDisplayed({ timeout: 5000 });
     await titleField.clearValue();
-    await titleField.setValue('nuevoootituloooo');
+    await titleField.setValue(titulo);
 
     // Establecer el nuevo contenido
     const contentField = await driver.$(this.selectors.contentInput);
     await contentField.waitForDisplayed({ timeout: 5000 });
     await contentField.click();
     await driver.pause(500);
-    await contentField.setValue('Nuevoocontenidoooo');
+    await contentField.setValue(contenido);
 
     // Esperar y hacer clic en el botón de actualizar
     const updateButton = await driver.$(this.selectors.updateButton);
