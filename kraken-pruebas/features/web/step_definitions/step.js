@@ -18,6 +18,10 @@ Before(() => {
 });
 
 
+
+
+//Login
+
 When('El usuario ingresa credenciales válidas', async function () {
     await login.enterCredentials(this.driver);
 });
@@ -44,6 +48,12 @@ Then('el sistema debe mostrar aviso de error.', async function () {
   
 });
 
+
+
+
+
+//Background
+
 When('obtenemos el estado actual del fondo', async function () {
     const currentBackgroundState = await background.getCurrentState(this.driver);
 });
@@ -63,6 +73,11 @@ Then('Verificar que el nuevo modo es el opuesto del actual', async function () {
         }
       }
   });
+
+
+
+
+//Pagina
 
 When('El usuario crea una pagina y la publica.', async function () {
     const navigation = await pageCreate.navigateToCreatePage(this.driver)
@@ -84,6 +99,12 @@ When('El usuario modifica el título y el contenido de la pagina.', async functi
 Then('El sistema debe mostrar un mensaje de éxito después de la modificación de la pagina.', async function () {
   const success = await pageCreate.confirmPageIsUpdated(this.driver)
 });
+
+
+
+
+
+//Post
 
 Then('esta en la sección de creación de posts', async function () {
   const success = await postCreate.navigateToCreatePost(this.driver)
@@ -118,8 +139,10 @@ Then('esta en la sección de miembros', async function () {
   const success = await member.navigateToCreateMember(this.driver)
 });
 
-When('El usuario crea un nuevo miembro.', async function () {
-  const edition = await member.createNewMember(this.driver)
+When('El usuario crea un nuevo miembro.', async function () 
+{
+  const datosMiembros = datos[1];
+  const edition = await member.createNewMember(this.driver, datosMiembros.name, datosMiembros.email)
 });
 
 Then('El sistema verifica si el miembro se ha creado exitosamente.', async function () {
@@ -135,7 +158,8 @@ Given('El usuario ha navegado al sitio, ha iniciado sesión, ha crea un miembro 
 });
 
 When('El usuario edita un miembro.', async function () {
-  const edition = await member.editMember(this.driver)
+  const datosMiembro2 = datos[2];
+  const edition = await member.editMember(this.driver, datosMiembro2.name, datosMiembro2.email )
 });
 
 Then('El sistema verifica si el nombre del miembro se ha actualizado.', async function () {

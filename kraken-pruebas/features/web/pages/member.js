@@ -1,5 +1,3 @@
-const { faker } = require('@faker-js/faker');
-
 const member = {
     selectors: {
       ButtonMember: '[data-test-nav="members"]',
@@ -19,22 +17,19 @@ const member = {
         await newMemberButton.click();
       },
   
-      async createNewMember(driver) {
+      async createNewMember(driver, name, email) {
       const newMemberButton = await driver.$(this.selectors.ButtonNewMember);
       await newMemberButton.waitForDisplayed({ timeout: 5000 });
       await newMemberButton.click();
 
-      const randomName = faker.name.firstName() + ' ' + faker.name.lastName();
-      const randomEmail = faker.internet.email();
-
       const nameField = await driver.$(this.selectors.InputName);
       await nameField.waitForDisplayed({ timeout: 5000 });
-      await nameField.setValue(randomName);
+      await nameField.setValue(name);
   
       // Esperar y llenar el campo de correo electrónico
       const emailField = await driver.$(this.selectors.InputEmail);
       await emailField.waitForDisplayed({ timeout: 5000 });
-      await emailField.setValue(randomEmail);
+      await emailField.setValue(email);
   
       // Guardar el miembro
       const saveButton = await driver.$(this.selectors.ButtonSaveMember);
@@ -55,14 +50,12 @@ const member = {
     },
     
   
-    async editMember(driver) {
-
-      const randomName = faker.name.firstName() + ' ' + faker.name.lastName();
+    async editMember(driver, name) {
 
       // Esperar y llenar el campo de nombre
       const nameField = await driver.$(this.selectors.InputName);
       await nameField.waitForDisplayed({ timeout: 5000 });
-      await nameField.setValue(randomName);
+      await nameField.setValue(name);
 
       // Guardar el miembro
       const saveButton = await driver.$(this.selectors.ButtonSaveMember);
