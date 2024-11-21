@@ -15,7 +15,7 @@ const datosApriori = [
 ];
 
 const datosPseudo = [
-  //Datos login seudo aleatorio//
+  //Datos login apriori login [0]//
   { nombre: faker.person.firstName(), email: faker.internet.email(), password: faker.internet.password() },
   //Datos login seudo member inicial [1]//
   { name: faker.person.firstName(), email: faker.internet.email(),  password: faker.internet.password() },
