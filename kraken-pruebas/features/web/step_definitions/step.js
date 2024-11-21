@@ -5,18 +5,44 @@ const postCreate = require ('../pages/post')
 const member = require ('../pages/member')
 const tagManager = require('../pages/tags')
 const profile = require('../pages/profile')
-const { Given, When, Then } = require('@cucumber/cucumber');
+const { Given, When, Then, Before, After } = require('@cucumber/cucumber');
+const obtenerDatos = require('../../../data/dataconfig');
+
+let datos;
+
+Before(() => {
+
+  const estrategia = process.env.ESTRATEGIA || 'aprior';
+  datos = obtenerDatos(estrategia);
+  console.log('Datos cargados para la estrategia', estrategia, ':', datos);
+});
+
 
 When('El usuario ingresa credenciales válidas', async function () {
     await login.enterCredentials(this.driver);
+});
+
+When('El usuario ingresa credenciales invalidas', async function () {
+  const credenciales = datos[0];
+  console.log('Usando credenciales inválidas:', credenciales);
+  await login.enterInvalidCredentials(this.driver, credenciales.email, 'contraseña_invalida');
 });
 
 When('hace clic en el boton de ingreso', async function () {
     await login.clickSignIn(this.driver);
 });
 
-Then('el sistema debe mostrar el menú del panel de administración.', async function () {
+When('el sistema debe mostrar el menú del panel de administración.', async function () {
     const isAdminVisible = await login.isLoginSuccessful(this.driver);
+});
+
+Then('cierro la sesión del navegador', async function () {
+    await login.logout(this.driver);
+});
+
+Then('el sistema debe mostrar aviso de error.', async function () {
+  const isAdminVisible = await login.loginNotSuccessful(this.driver);
+  
 });
 
 When('obtenemos el estado actual del fondo', async function () {
