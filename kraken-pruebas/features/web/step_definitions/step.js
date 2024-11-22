@@ -186,6 +186,16 @@ Then('El sistema verifica si se ha eliminado.', async function () {
   const success = await member.validateMemberIsDeleted(this.driver)
 });
 
+When('El usuario crea un nuevo miembro con datos invalidos.', async function () 
+{
+  const datosMiembros = datos[6];
+  const edition = await member.createNewMember(this.driver, datosMiembros.name, datosMiembros.email)
+});
+
+Then('El sistema informa del error.', async function () {
+  const success = await member.errorMember(this.driver)
+});
+
 
 //Tags
 

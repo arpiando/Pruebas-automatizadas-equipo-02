@@ -13,6 +13,8 @@ const datosApriori = [
   {titulo: 'otro titulo', contenido:'otro contenido para la pagina'},
   //Datos login incoherente apriori login [5]//
   { nombre: 'Juan Pérez', email: 'jshkjhsjdhsjkd',  password: 'kjgsjhdgshj'  },
+  //Datos miembro incoherente apriori login [6]//
+  { name: 'hajshjashdjkashdjkafjhsjkfhjdskhfkjdjhsdkjfhjdskhfsjhfdjkshfjdfhjdshkjfhshdja', email: 'jshkjhsjdhsjkd',  password: 'kjgsjhdgshj'  },
 
 ];
 
@@ -32,7 +34,9 @@ const datosAleatorios = [
   //Datos pagina edicion apriori page [4]//
   {titulo: faker.lorem.slug(), contenido: faker.lorem.paragraph()},
    //Datos login incoherente apriori login [5]//
-   { nombre: faker.lorem.words(), email: faker.lorem.words(), password: faker.lorem.words() }
+   { nombre: faker.lorem.words(), email: faker.lorem.words(), password: faker.lorem.words() },
+     //Datos miembro incoherente apriori login [6]//
+  { name: faker.lorem.paragraph(), email: faker.lorem.words(),  password: faker.lorem.words()  }
 ];
 
 function obtenerDatos(estrategia) {

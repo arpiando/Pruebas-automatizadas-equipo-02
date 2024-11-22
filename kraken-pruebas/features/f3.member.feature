@@ -18,3 +18,7 @@ Feature: Gestión de miembros
     When El usuario elimina el miembro
     Then El sistema verifica si se ha eliminado.
 
+    Given El usuario ha navegado al sitio, ha iniciado sesión y ha crea un miembro exitosamente.
+    When El usuario crea un nuevo miembro con datos invalidos.
+    Then El sistema informa del error.
+

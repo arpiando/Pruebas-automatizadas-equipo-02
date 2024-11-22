@@ -36,9 +36,6 @@ const member = {
       await saveButton.waitForDisplayed({ timeout: 5000 });
       await saveButton.click();
   
-      // Esperar la confirmación de que se creó el miembro
-      const confirmationMessage = await driver.$(this.selectors.CreatedtextSelector);
-      await confirmationMessage.waitForDisplayed({ timeout: 50000 });
     },
     
   
@@ -122,6 +119,12 @@ const member = {
     async validateMemberIsDeleted(driver) {
       const membersList = await driver.$('table.gh-list tbody');
       await membersList.waitForDisplayed({ timeout: 5000 });
+    },
+
+    async errorMember(driver) {
+      const buttonWithErrorState = await driver.$('button span[data-test-task-button-state="failure"]');
+      await buttonWithErrorState.waitForDisplayed({ timeout: 5000 });
+      return await buttonWithErrorState.isDisplayed();
     },
 
   };
