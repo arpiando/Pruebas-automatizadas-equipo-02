@@ -41,15 +41,11 @@ luego cambiar versión de node a superior de 18.
     ejecute: node visual-testing/visualTesting.js
 
 
-2. El paso a paso para la instalación y ejecución de las pruebas de regresión en Playwright con la herramienta Pixelmatch.
+2. El paso a paso para la instalación y ejecución de las pruebas de generación de datos en Playwright.
 
 - Asegurarse de tener Node.js instalado en el sistema, ya que Playwright es una librería de JavaScript.
-- Asegurarse de tener Pixelmatch instalado, puede verificar con el comando npm list pixelmatch
 - Abrir el proyecto
-
-Pruebas de regresión en la versión rc:
-
-- Dirigirse a la carpeta **pruebas-playwright** en la terminal para ejecutar las pruebas en la versión rc (5.96.0)
+- Dirigirse a la carpeta **pruebas-playwright** en la terminal para ejecutar las pruebas.
 - Instalar las dependencias con el comando npm install
 - Abrir la carpeta pages
 - Abrir el archivo login.ts y cambiar las credenciales en 
@@ -59,23 +55,10 @@ Pruebas de regresión en la versión rc:
 
 - Guardar los cambios
 - Ejecutar el comando npx playwright test --ui en la terminal (Asegurarse de estar en la carpeta pruebas-playwright al momento de ejecutar este comando)
-- Dentro del directorio "test-results" se habrán generado varios archivos como resultado, que son imágenes de las capturas de pantalla y otras imágenes de comparación.
+- Cada funcionalidad tiene un archivo que distingue a la estrategia de generación de datos, por ejemplo:
+  
+    - **member-a-priori.spec.ts** para ejecutar las pruebas en las funcionalidades de miembros para la estrategia de generación de datos a-priori
+    - **member-pseudo-aleatorio.spec.ts** para ejecutar las pruebas en las funcionalidades de miembros para la estrategia de generación de datos pseudo aleatorios
+    - **member-aleatorio.spec.ts** para ejecutar las pruebas en las funcionalidades de miembros para la estrategia de generación de datos aleatorios
 
-Pruebas de regresión en la versión base:
-
-- Dirigirse a la carpeta **pruebas-playwright-4.5** en la terminal para ejecutar las pruebas en la versión base (4.5.0)
-- Instalar las dependencias con el comando npm install
-- Abrir la carpeta pages
-- Abrir el archivo login.ts y cambiar las credenciales en 
-
-   private userEmail: string = 'correo@uniandes.edu.co';
-   private password: string = 'contraseña';
-
-- Guardar los cambios
-- Ejecutar el comando npx playwright test --ui en la terminal (Asegurarse de estar en la carpeta pruebas-playwright-4.5 al momento de ejecutar este comando)
-- Dentro del directorio "test-results" se habrán generado varios archivos como resultado, que son imágenes de las capturas de pantalla y otras imágenes de comparación.
-- NOTA: EN CASO DE EJECUTAR DESDE DOCKER, POR FAVOR ACTUALIZAR EL PUERTO CON private urlLogin: string = 'http://localhost:3001/ghost/#/signin';
-- Para generar el reporte HTML de cada prueba, por favor dirijase a la carpeta **playwright-rvt-report**
-- Instale los paquetes con el comando npm install
-- Ejecute el comando get_images.js, eso generará una carpeta llamada combined-results en donde podrá observar las diferencias entre la versión base y la versión rc.
-- Ejecute el comando "node index.js" para generar los reportes, en cada subcarpeta de combined-results podrá encontar el reporte individual de cada escenario individual.
+- Dar click en el botón play de cada prueba para ejecutarlas individualmente (NO CORRERLAS TODAS A LA VEZ, POR FAVOR)
