@@ -17,6 +17,10 @@ const datosApriori = [
 ];
 
 const datosPseudo = [
+
+];
+
+const datosAleatorios = [
   //Datos login apriori login [0]//
   { nombre: faker.person.firstName(), email: faker.internet.email(), password: faker.internet.password() },
   //Datos login seudo member inicial [1]//
@@ -29,11 +33,6 @@ const datosPseudo = [
   {titulo: faker.lorem.slug(), contenido: faker.lorem.paragraph()},
    //Datos login incoherente apriori login [5]//
    { nombre: faker.lorem.words(), email: faker.lorem.words(), password: faker.lorem.words() }
-];
-
-const datosAleatorios = [
-   //Datos login aleatorios//
-  { nombre: 'XzQ%R9', email: 'invalid-email' },
 ];
 
 function obtenerDatos(estrategia) {

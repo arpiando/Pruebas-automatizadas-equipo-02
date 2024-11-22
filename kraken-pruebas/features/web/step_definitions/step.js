@@ -6,7 +6,7 @@ const member = require ('../pages/member')
 const tagManager = require('../pages/tags')
 const profile = require('../pages/profile')
 const { Given, When, Then, Before} = require('@cucumber/cucumber');
-const obtenerDatos = require('../../../data/dataconfig');
+const obtenerDatos = require('../../../data/estrategia');
 
 let datos;
 
@@ -16,8 +16,6 @@ Before(() => {
   datos = obtenerDatos(estrategia);
   console.log('Datos cargados para la estrategia', estrategia, ':', datos);
 });
-
-
 
 
 //Login
@@ -54,9 +52,6 @@ Then('el sistema debe mostrar aviso de error.', async function () {
 });
 
 
-
-
-
 //Background
 
 When('obtenemos el estado actual del fondo', async function () {
@@ -78,8 +73,6 @@ Then('Verificar que el nuevo modo es el opuesto del actual', async function () {
         }
       }
   });
-
-
 
 
 //Pagina
@@ -107,6 +100,13 @@ Then('El sistema debe mostrar un mensaje de éxito después de la modificación 
   const success = await pageCreate.confirmPageIsUpdated(this.driver)
 });
 
+When('El usuario selecciona una pagina', async function () {
+  const edition = await pageCreate.selectPage(this.driver)
+});
+
+Then('elimina la pagina', async function () {
+  const success = await pageCreate.deletePage(this.driver)
+});
 
 
 //Post
@@ -136,7 +136,9 @@ Then('El sistema debe mostrar un mensaje de éxito después de la modificación.
   const success = await pageCreate.confirmPageIsUpdated(this.driver)
 });
 
-
+Then('El sistema debe mostrar un mensaje de éxito después de la elminación.', async function () {
+  const success = await pageCreate.validatePageIsDeleted(this.driver)
+});
 
 
 //Miembros
@@ -185,7 +187,6 @@ Then('El sistema verifica si se ha eliminado.', async function () {
 });
 
 
-
 //Tags
 
 Then('esta en la sección de creación de tags', async function () {
@@ -193,7 +194,7 @@ Then('esta en la sección de creación de tags', async function () {
 });
 
 When('El usuario crea un tag y la publica.', async function () {
-  await tagManager.createNewTag(this.driver); // Llama al método del tagManager
+  await tagManager.createNewTag(this.driver); 
 });
 
 Then('El sistema debe mostrar un mensaje de éxito al crear la tag.', async function () {
@@ -201,8 +202,8 @@ Then('El sistema debe mostrar un mensaje de éxito al crear la tag.', async func
 });
 
 When('El usuario modifica el nombre del tag.', async function () {
-  const tagName = 'Etiqueta Modificada'; // Cambia esto al nombre deseado
-  await tagManager.editTagName(this.driver, tagName); // Llama al método para editar
+  const tagName = 'Etiqueta Modificada'; 
+  await tagManager.editTagName(this.driver, tagName);
 });
 
 Then('El sistema debe mostrar un mensaje de éxito después de la modificación del tag.', async function () {

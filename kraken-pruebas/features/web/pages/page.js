@@ -32,7 +32,7 @@ const pageCreate = {
   async createPage(driver, titulo, contenido) {
 
     // Crear pagina
-    const newPageLink = await driver.$(this.selectors.newPageButton);
+    const newPageLink = await driver.$('a[href="#/editor/page/"]');
     await newPageLink.waitForDisplayed({ timeout: 5000 });
     await newPageLink.click();
 
@@ -146,7 +146,43 @@ const pageCreate = {
   async reloadPage(driver) {
     await driver.refresh();
     await new Promise(resolve => setTimeout(resolve, 1000));
-}
+},
+
+ async selectPage(driver) {
+  const link = await driver.$('a[href="#/pages/"]');
+  await link.waitForDisplayed({ timeout: 5000 });
+  await link.click();
+  const table = await driver.$('.posts-list.gh-list');
+  await table.waitForDisplayed({ timeout: 5000 });
+  const firstRow = await driver.$('.gh-posts-list-item-group');
+  await firstRow.waitForDisplayed({ timeout: 5000 });
+  await firstRow.click();
+},
+
+async deletePage(driver) {
+
+  const settingsButton = await driver.$('button.settings-menu-toggle.gh-btn.gh-btn-editor.gh-btn-icon.icon-only.gh-btn-action-icon');
+  await settingsButton.waitForClickable({ timeout: 5000 });
+  await settingsButton.click();
+
+  const deletePageButton = await driver.$('//span[contains(text(), "Delete")]');
+  await deletePageButton.scrollIntoView();
+  await deletePageButton.waitForClickable({ timeout: 5000 });
+  await deletePageButton.click();
+
+  const modal = await driver.$('.modal-content');
+  await modal.waitForDisplayed({ timeout: 6000 });
+
+  const confirmButton = await driver.$("//button[@data-test-button='delete-post-confirm']");
+  await confirmButton.waitForClickable({ timeout: 5000 });
+  await confirmButton.click();
+
+},
+
+async validatePageIsDeleted(driver) {
+  const membersList = await driver.$('.posts-list.gh-list');
+  await membersList.waitForDisplayed({ timeout: 10000 });
+},
 };
 
 module.exports = pageCreate;

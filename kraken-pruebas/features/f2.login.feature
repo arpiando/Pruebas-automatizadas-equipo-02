@@ -1,4 +1,4 @@
-Feature: Inicio de sesión
+Feature: Login
 
   @user2 @web
   Scenario: LP001 - El usuario debería poder iniciar sesión con credenciales válidas

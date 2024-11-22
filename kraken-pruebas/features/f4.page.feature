@@ -1,4 +1,4 @@
-Feature: Actualización pagina
+Feature: Gestión de Pagina
 
   @user2 @web
   Scenario: MPA001 - El usuario debería poder crear y modificar una pagina
@@ -11,5 +11,10 @@ Feature: Actualización pagina
     Given El usuario ha navegado al sitio, ha iniciado sesión y ha crea una pagina exitosamente.
     When El usuario modifica el título y el contenido de la pagina.
     Then El sistema debe mostrar un mensaje de éxito después de la modificación de la pagina.
+
+    Given El usuario ha navegado al sitio, ha iniciado sesión y ha crea una pagina exitosamente.
+    When El usuario selecciona una pagina
+    And elimina la pagina
+    Then El sistema debe mostrar un mensaje de éxito después de la elminación.
 
 

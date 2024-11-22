@@ -1,4 +1,4 @@
-Feature: Creacion miembros
+Feature: Gestión de miembros
 
   @user2 @web
   Scenario: 'CM001 - El usuario debería poder crear un nuevo miembro exitosamente'
