@@ -46,7 +46,7 @@ const login = {
     },
 
     async logout(driver) {
-        const menuButton = await driver.$('.pe-all');
+        const menuButton = await driver.$('//div[contains(@class, "pe-all")]');
         await menuButton.waitForClickable({ timeout: 5000 });
         await menuButton.click();
 
