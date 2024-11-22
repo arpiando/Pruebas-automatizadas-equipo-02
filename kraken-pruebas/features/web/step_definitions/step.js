@@ -108,6 +108,17 @@ Then('elimina la pagina', async function () {
   const success = await pageCreate.deletePage(this.driver)
 });
 
+When('El usuario crea una pagina y la publica con datos invalidos', async function () {
+  const contenido = datos[7];
+  const navigation = await pageCreate.navigateToCreatePage(this.driver)
+  const mewpage = await pageCreate.createPageInvalid(this.driver, contenido.titulo, contenido.contenido)
+});
+
+Then('El sistema debe mostrar un mensaje de error.', async function () {
+  const isAdminVisible = await pageCreate.NotSuccessful(this.driver);
+
+});
+
 
 //Post
 

@@ -17,4 +17,8 @@ Feature: Gestión de Pagina
     And elimina la pagina
     Then El sistema debe mostrar un mensaje de éxito después de la elminación.
 
+    Given El usuario ha navegado al sitio, ha iniciado sesión y ha crea una pagina exitosamente.
+    When El usuario crea una pagina y la publica con datos invalidos
+    Then El sistema debe mostrar un mensaje de error.
+
 
