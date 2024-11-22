@@ -73,7 +73,7 @@ test.describe('Crear un miembro', () => {
 
   test('CM002 - El usuario debería recibir un mensaje error al crear un miembro con email invalido', async ({ page }) => {
     const memberName = mockarooData[1].first_name;
-    const memberEmailInvalid = mockarooData[1].email;
+    const memberEmailInvalid = `${memberName}gmail.com`;
     const memberNote = mockarooData[1].note;
     const confirmationText = 'Retry';
 
@@ -97,9 +97,9 @@ test.describe('Crear un miembro', () => {
   });
 
   test('CM003 - El usuario debería recibir un mensaje error al crear un miembro con nota invalida', async ({ page }) => {
-    const memberName = mockarooData[18].first_name;
-    const memberEmail = mockarooData[18].email;
-    const memberNoteInvalid = mockarooData[18].note;
+    const memberName = mockarooData[2].first_name;
+    const memberEmail = mockarooData[2].email;
+    const memberNoteInvalid = mockarooData[2].note_larga;
     const confirmationText = 'Retry';
 
     // When El usuario trata de crear un nuevo miembro.
@@ -122,9 +122,9 @@ test.describe('Crear un miembro', () => {
   });
 
   test('CM004 - El usuario debería poder crear un nuevo miembro con nombre vacio exitosamente', async ({ page }) => {
-    const memberNameEmpty = "";
-    const memberEmail = faker.internet.email();
-    const memberNote = faker.lorem.paragraph();
+    const memberNameEmpty = mockarooData[3].nombre_vacio;
+    const memberEmail = mockarooData[3].email;
+    const memberNote = mockarooData[3].note;
     const confirmationText = 'Created';
 
      // When El usuario crea un nuevo miembro.
@@ -147,9 +147,9 @@ test.describe('Crear un miembro', () => {
   });
 
   test('CM005 - El usuario debería recibir un mensaje error al crear un miembro con email vacio', async ({ page }) => {
-    const memberName = faker.person.fullName();
-    const memberEmailInvalid = "";
-    const memberNote = faker.lorem.paragraphs();
+    const memberName = mockarooData[4].first_name;
+    const memberEmailInvalid = mockarooData[4].email_invalido;
+    const memberNote = mockarooData[4].note;
     const confirmationText = 'Retry';
 
     // When El usuario trata de crear un nuevo miembro.
@@ -172,9 +172,9 @@ test.describe('Crear un miembro', () => {
   });
 
   test('CM006 - El usuario debería recibir un mensaje error al crear un miembro con nombre maximo de caracteres', async ({ page }) => {
-    const memberNameInvalid = faker.lorem.paragraphs();
-    const memberEmail = faker.internet.email();
-    const memberNote = faker.lorem.paragraph();
+    const memberNameInvalid = mockarooData[5].first_name.repeat(20);
+    const memberEmail = mockarooData[5].email;
+    const memberNote = mockarooData[5].note;
     const confirmationText = 'Retry';
 
     // When El usuario trata de crear un nuevo miembro.
