@@ -234,3 +234,17 @@ Then('El sistema debe mostrar un mensaje de éxito después de la modificación 
   }
 });
 
+Then('el usuario selecciona una etiqueta', async function () {
+  const success = await tagManager.tagSelection(this.driver)
+});
+
+Then('elimina la etiqueta', async function () {
+  const success = await tagManager.deleteTag(this.driver)
+});
+
+Then('el sistema debe confirmar su eliminación.', async function () {
+  const success = await tagManager.validateTagIsDeleted(this.driver)
+});
+
+
+

@@ -8,5 +8,11 @@ Feature: Crear tags
     And esta en la sección de creación de tags
     When El usuario crea un tag y la publica.
     Then El sistema debe mostrar un mensaje de éxito al crear la tag.
+
     When El usuario modifica el nombre del tag.
     Then El sistema debe mostrar un mensaje de éxito después de la modificación del tag.
+
+    When el usuario selecciona una etiqueta
+    And elimina la etiqueta
+    Then el sistema debe confirmar su eliminación.
+

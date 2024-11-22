@@ -117,7 +117,40 @@ async editTagName(driver, newTagName) {
   async reloadPage(driver) {
     await driver.refresh();
     await new Promise(resolve => setTimeout(resolve, 1000));
-}
+},
+
+async tagSelection(driver) {
+  const tagLink = await driver.$(this.selectors.tagMenuSelector);
+  await tagLink.waitForDisplayed({ timeout: 5000 });
+  await tagLink.click();
+  const table = await driver.$('.tags-list.gh-list');
+  await table.waitForDisplayed({ timeout: 6000 });
+  const firstRow = await driver.$('.gh-list-row.gh-tags-list-item');
+  await firstRow.waitForDisplayed({ timeout: 5000 });
+  await firstRow.click();
+},
+
+async deleteTag(driver) {
+
+  const deletePageButton = await driver.$('//span[contains(text(), "Delete")]');
+  await deletePageButton.scrollIntoView();
+  await deletePageButton.waitForClickable({ timeout: 5000 });
+  await deletePageButton.click();
+
+  const modal = await driver.$('.modal-content');
+  await modal.waitForDisplayed({ timeout: 6000 });
+
+  const confirmButton = await driver.$("//button[@data-test-button='confirm']");
+  await confirmButton.waitForClickable({ timeout: 5000 });
+  await confirmButton.click();
+
+},
+
+async validateTagIsDeleted(driver) {
+  const membersList = await driver.$('.tags-list.gh-list');
+  await membersList.waitForDisplayed({ timeout: 5000 });
+},
+
 };
 
 

@@ -32,7 +32,7 @@ const pageCreate = {
   async createPage(driver, titulo, contenido) {
 
     // Crear pagina
-    const newPageLink = await driver.$('a[href="#/editor/page/"]');
+    const newPageLink = await driver.$('//span[contains(text(), "New page")]');
     await newPageLink.waitForDisplayed({ timeout: 5000 });
     await newPageLink.click();
 
