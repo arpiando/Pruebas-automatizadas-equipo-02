@@ -9,9 +9,11 @@ Feature: Gestión tags
     When El usuario crea un tag y la publica.
     Then El sistema debe mostrar un mensaje de éxito al crear la tag.
 
+    #Scenario: CE002 - El usuario No debería poder modificar una etiqueta con datos invalidos
     When El usuario modifica el nombre del tag.
     Then El sistema debe mostrar un mensaje de éxito después de la modificación del tag.
 
+    #Scenario: CE002 - El usuario No debería poder eliminar una etiqueta
     When el usuario selecciona una etiqueta
     And elimina la etiqueta
     Then el sistema debe confirmar su eliminación.
