@@ -151,6 +151,28 @@ async validateTagIsDeleted(driver) {
   await membersList.waitForDisplayed({ timeout: 5000 });
 },
 
+async editTagInvalid(driver, newTagName) {
+
+  const accentInput = await driver.$('input[name="accent-color"]');
+  await accentInput.waitForDisplayed({ timeout: 5000 }); // Espera a que el campo esté visible
+  await accentInput.setValue(''); // Limpia el campo de entrada antes de escribir el nuevo nombre
+  await accentInput.setValue(newTagName); // Ingresa el nuevo nombre para la etiqueta
+
+  // Selecciona el botón de guardar y espera a que esté visible
+  const saveButton = await driver.$(this.selectors.saveTagButton);
+  await saveButton.waitForDisplayed({ timeout: 1000 });
+  await saveButton.click(); // Hace clic en el botón de guardar
+
+  await driver.pause(500); // Pausa breve para permitir que se procese
+},
+
+async NotSuccessful(driver) {
+  const alertContainer = await driver.$('button span[data-test-task-button-state="failure"]');
+  await alertContainer.waitForDisplayed({ timeout: 5000 });
+  return await alertContainer.isDisplayed();
+},
+
+
 };
 
 

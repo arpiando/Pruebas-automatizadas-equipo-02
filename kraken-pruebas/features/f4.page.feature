@@ -22,4 +22,4 @@ Feature: Gestión de Pagina
     #Scenario: MPA004 - El usuario no debería poder crear una pagina con valores maximos
     Given El usuario ha navegado al sitio, ha iniciado sesión y ha crea una pagina exitosamente.
     When El usuario crea una pagina y la publica con datos invalidos
-    Then El sistema debe mostrar un mensaje de error.
+    Then El sistema debe mostrar un mensaje de error de pagina.

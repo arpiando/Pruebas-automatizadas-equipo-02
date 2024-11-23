@@ -116,7 +116,7 @@ When('El usuario crea una pagina y la publica con datos invalidos', async functi
   const mewpage = await pageCreate.createPageInvalid(this.driver, contenido.titulo, contenido.contenido)
 });
 
-Then('El sistema debe mostrar un mensaje de error.', async function () {
+Then('El sistema debe mostrar un mensaje de error de pagina.', async function () {
   const isAdminVisible = await pageCreate.NotSuccessful(this.driver);
 
 });
@@ -269,6 +269,17 @@ Then('elimina la etiqueta', async function () {
 Then('el sistema debe confirmar su eliminación.', async function () {
   const success = await tagManager.validateTagIsDeleted(this.driver)
 });
+
+When('El usuario modifica el tag con datos invalidos.', async function () {
+  const tagName = 'codigo invalido';
+  await tagManager.editTagInvalid(this.driver, tagName);
+});
+
+Then('El sistema debe mostrar un mensaje de error.', async function () {
+  const success = await tagManager.NotSuccessful(this.driver)
+});
+
+
 
 
 
