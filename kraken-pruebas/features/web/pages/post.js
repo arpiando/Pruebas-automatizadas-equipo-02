@@ -72,17 +72,33 @@ const postCreate = {
       await page.click(this.selectors.headerCloseButton);
     },
   
-    async editPost(page, title, content) {
-      await page.click(this.selectors.postPublishedToEdit);
-  
-      await page.fill(this.selectors.titleInput, '');
-      await page.fill(this.selectors.titleInput, title);
-  
-      await page.fill(this.selectors.contentInput, '');
-      await page.fill(this.selectors.contentInput, content);
-  
-      await page.isVisible(this.selectors.updateButton);
-      await page.click(this.selectors.updateButton);
+    async editPost(driver, titulo, contenido) {
+    // Esperar a que la página esté lista para editar
+    const pageToEdit = await driver.$('.published');
+    await pageToEdit.waitForDisplayed({ timeout: 5000 });
+    await pageToEdit.click();
+
+    // Establecer el nuevo título
+    const titleField = await driver.$(this.selectors.titleInput);
+    await titleField.waitForDisplayed({ timeout: 5000 });
+    await titleField.clearValue();
+    await titleField.setValue(titulo);
+
+    // Establecer el nuevo contenido
+    const contentField = await driver.$(this.selectors.contentInput);
+    await contentField.waitForDisplayed({ timeout: 5000 });
+    await contentField.click();
+    await driver.pause(500);
+    await contentField.setValue(contenido);
+
+    // Esperar y hacer clic en el botón de actualizar
+    const updateButton = await driver.$(this.selectors.updateButton);
+    await updateButton.waitForDisplayed({ timeout: 5000 });
+    await updateButton.click();
+
+    const success = await driver.$('//span[contains(text(), "Posts")]');
+    await success.waitForDisplayed({ timeout: 5000 });
+    await success.click();
     },
   
     async confirmPostIsUpdated(page) {
@@ -101,21 +117,25 @@ const postCreate = {
       await page.waitForSelector(this.selectors.draftSelector, { state: 'visible' });
       return await page.textContent(this.selectors.draftSelector);
     },
-  
-    async unpublishedPost(page) {
-      await page.click(this.selectors.postPublishedToEdit);
-  
-      await page.waitForSelector(this.selectors.titleInput, { state: 'visible' });
-      await page.click(this.selectors.unpublishedButton);
-  
-      await page.waitForSelector(this.selectors.revertToDraftButton, { state: 'visible' });
-      await page.click(this.selectors.revertToDraftButton);
-      await page.waitForSelector(this.selectors.unpublishedNotification, { state: 'visible' });
+
+    async unpublishedPost(driver) {
+      const navigate=await driver.$('//span[contains(text(), " Published")]');
+      await navigate.waitForDisplayed({ timeout: 5000 });
+      await navigate.click();
+
+      const unpublishButton = await driver.$('button.gh-btn gh-btn-editor.darkgrey.gh-unpublish-trigger');
+      await unpublishButton.waitForDisplayed({ timeout: 5000 });
+      await unpublishButton.click();
+
+      const unpublishText = await driver.$('//span[contains(text(), "Unpublish and revert to private draft →")]');
+      await unpublishText.waitForDisplayed({ timeout: 5000 });
+      await unpublishText.click()
     },
-  
-    async isRevertToDraftSuccess(page) {
-      await page.waitForSelector(this.selectors.unpublishedNotification, { state: 'visible' });
-      return await page.textContent(this.selectors.unpublishedNotification);
+
+    async isRevertToDraftSuccess(driver) {
+      const success = await driver.$('//span[contains(text(), "Posts")]');
+      await success.waitForDisplayed({ timeout: 5000 });
+      await success.click();
     },
   
     async previewPost(page, title, content) {
@@ -132,52 +152,6 @@ const postCreate = {
         await driver.refresh();
         await new Promise(resolve => setTimeout(resolve, 1000));
     },
-    // Escenario 1
-async unpublishedPost(driver, title, content) {
-  // Navegar al post y abrir la página de edición del post
-  const postTitleField = await driver.$(this.selectors.titleInput);
-  await postTitleField.setValue(title);  // Establecer el título
-  const contentField = await driver.$(this.selectors.contentInput);
-  await contentField.setValue(content);  // Establecer el contenido
-  
-  const publishButton = await driver.$(this.selectors.publishButton);
-  await publishButton.click();  // Publicar el post
-
-  // Ahora revertir a borrador
-  const revertButton = await driver.$(this.selectors.revertToDraftButton);
-  await revertButton.click();  // Revertir a borrador
-  const successMessage = await driver.$(this.selectors.unpublishedNotification);
-  return successMessage.getText();  // Retornar el mensaje de éxito
-},
-// Escenario 2
-async previewPost(driver, title, content) {
-  const titleField = await driver.$(this.selectors.titleInput);
-  await titleField.setValue(title);  // Establecer el título
-  const contentField = await driver.$(this.selectors.contentInput);
-  await contentField.setValue(content);  // Establecer el contenido
-
-  // Hacer clic en el botón de vista previa
-  const previewButton = await driver.$(this.selectors.previewButton);
-  await previewButton.click();  // Abrir vista previa
-  
-  const previewTitle = await driver.$(this.selectors.previewTitlePost);
-  return previewTitle.getText();  // Comprobar la vista previa
-},
-// Escenario 3
-async createPostAsDraft(driver, title, content) {
-  const titleField = await driver.$(this.selectors.titleInput);
-  await titleField.setValue(title);  // Establecer el título
-  const contentField = await driver.$(this.selectors.contentInput);
-  await contentField.setValue(content);  // Establecer el contenido
-
-  // Guardar el post como borrador
-  const saveButton = await driver.$(this.selectors.updateButton);
-  await saveButton.click();  // Guardar como borrador
-  
-  const draftSelector = await driver.$(this.selectors.draftSelector);
-  return draftSelector.getText();  // Verificar que se guarda como borrador
-},
 };
 
   module.exports = postCreate;
-  

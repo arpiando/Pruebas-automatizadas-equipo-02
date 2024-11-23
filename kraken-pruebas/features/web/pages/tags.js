@@ -1,6 +1,6 @@
 const tagManager = {
   selectors: {
-    tagMenuSelector: 'a[href*="tags"]',//'a:has-text("Tags")', // Selector ajustado para mayor precisión
+    tagMenuSelector: 'a[href="#/tags/"]',//'a:has-text("Tags")', // Selector ajustado para mayor precisión
     newTagButton: 'a[href*="new"]',//'a:has-text("New tag")',// Selector ajustado para identificar el botón de "New tag"
     nameInputSelector: 'input.gh-input',
     saveTagButton: 'button.gh-btn.gh-btn-primary', // Más específico para botones de guardar

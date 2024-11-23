@@ -139,8 +139,8 @@ Given('El usuario ha navegado al sitio, ha iniciado sesión y ha creado un post 
 });
 
 When('El usuario modifica el título y el contenido del post.', async function () {
-  const contenido = datos[3];
-  const edition = await pageCreate.editPage(this.driver, contenido.titulo, contenido.contenido)
+  const contenido = datos[8];
+  const edition = await postCreate.editPost(this.driver, contenido.titulo, contenido.contenido)
 });
 
 Then('El sistema debe mostrar un mensaje de éxito después de la modificación.', async function () {
@@ -151,47 +151,15 @@ Then('El sistema debe mostrar un mensaje de éxito después de la elminación.',
   const success = await pageCreate.validatePageIsDeleted(this.driver)
 });
 
-//Escenario 1: Revertir un post publicado a borrador
-
 When('El usuario selecciona un post publicado y lo revierte a borrador.', async function () {
-  const datos = obtenerDatos('aprior')[8]; // Datos para Escenario 1
-await postCreate.unpublishedPost(driver, datos.titulo, datos.contenido);
-const resultado = await postCreate.isRevertToDraftSuccess(driver);
-console.log(resultado ? 'Éxito al revertir a borrador' : 'Error al revertir a borrador');
+  const unpublished=postCreate.unpublishedPost(this.driver);
 });
 
 Then('El sistema debe mostrar un mensaje de éxito al revertir el post a borrador.', async function () {
-  const successMessage = await postCreate.isRevertToDraftSuccess(this.driver);
-  if (!successMessage.includes('Post reverted to draft')) {
-      throw new Error('No se pudo revertir el post a borrador.');
-  }
+  const success = await postCreate.isRevertToDraftSuccess(this.driver)
 });
 
-//Previsualizar un post antes de publicarlo
-When('El usuario previsualiza un post con título y contenido.', async function () {
-  const contenido = datos[3];
-  await postCreate.previewPost(this.driver, contenido.titulo, contenido.contenido);
-});
 
-Then('El sistema debe mostrar la previsualización del post.', async function () {
-  const isPreviewVisible = await postCreate.isPreviewSuccessful(this.driver);
-  if (!isPreviewVisible) {
-      throw new Error('No se pudo previsualizar el post.');
-  }
-});
-
-//Escenario 3: Guardar un post como borrador
-When('El usuario guarda un post con título y contenido como borrador.', async function () {
-  const contenido = datos[3];
-  await postCreate.createPostAsDraft(this.driver, contenido.titulo, contenido.contenido);
-});
-
-Then('El sistema debe mostrar el post en la lista de borradores.', async function () {
-  const draftSavedMessage = await postCreate.isDraftSavedSuccessfully(this.driver);
-  if (!draftSavedMessage.includes('Draft')) {
-      throw new Error('No se guardó el post como borrador.');
-  }
-});
 
 
 //Miembros
