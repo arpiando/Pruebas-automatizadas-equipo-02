@@ -131,8 +131,53 @@ const postCreate = {
     async reloadPage(driver) {
         await driver.refresh();
         await new Promise(resolve => setTimeout(resolve, 1000));
-    }
-  };
+    },
+    // Escenario 1
+async unpublishedPost(driver, title, content) {
+  // Navegar al post y abrir la página de edición del post
+  const postTitleField = await driver.$(this.selectors.titleInput);
+  await postTitleField.setValue(title);  // Establecer el título
+  const contentField = await driver.$(this.selectors.contentInput);
+  await contentField.setValue(content);  // Establecer el contenido
   
+  const publishButton = await driver.$(this.selectors.publishButton);
+  await publishButton.click();  // Publicar el post
+
+  // Ahora revertir a borrador
+  const revertButton = await driver.$(this.selectors.revertToDraftButton);
+  await revertButton.click();  // Revertir a borrador
+  const successMessage = await driver.$(this.selectors.unpublishedNotification);
+  return successMessage.getText();  // Retornar el mensaje de éxito
+},
+// Escenario 2
+async previewPost(driver, title, content) {
+  const titleField = await driver.$(this.selectors.titleInput);
+  await titleField.setValue(title);  // Establecer el título
+  const contentField = await driver.$(this.selectors.contentInput);
+  await contentField.setValue(content);  // Establecer el contenido
+
+  // Hacer clic en el botón de vista previa
+  const previewButton = await driver.$(this.selectors.previewButton);
+  await previewButton.click();  // Abrir vista previa
+  
+  const previewTitle = await driver.$(this.selectors.previewTitlePost);
+  return previewTitle.getText();  // Comprobar la vista previa
+},
+// Escenario 3
+async createPostAsDraft(driver, title, content) {
+  const titleField = await driver.$(this.selectors.titleInput);
+  await titleField.setValue(title);  // Establecer el título
+  const contentField = await driver.$(this.selectors.contentInput);
+  await contentField.setValue(content);  // Establecer el contenido
+
+  // Guardar el post como borrador
+  const saveButton = await driver.$(this.selectors.updateButton);
+  await saveButton.click();  // Guardar como borrador
+  
+  const draftSelector = await driver.$(this.selectors.draftSelector);
+  return draftSelector.getText();  // Verificar que se guarda como borrador
+},
+};
+
   module.exports = postCreate;
   
