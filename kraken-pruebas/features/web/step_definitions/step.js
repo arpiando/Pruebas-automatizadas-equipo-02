@@ -212,11 +212,23 @@ Then('El sistema verifica si se ha eliminado.', async function () {
 When('El usuario crea un nuevo miembro con datos invalidos.', async function () 
 {
   const datosMiembros = datos[6];
-  const edition = await member.createNewMember(this.driver, datosMiembros.ilogic, datosMiembros.email)
+  const edition = await member.createNewMember(this.driver, datosMiembros.ilogicName, datosMiembros.email)
 });
 
 Then('El sistema informa del error.', async function () {
   const success = await member.errorMember(this.driver)
+});
+
+When('El usuario crea un nuevo miembro con datos invalidos en el email.', async function () 
+{
+  const datosMiembros = datos[9];
+  const edition = await member.editMemberEmail(this.driver, datosMiembros.name, datosMiembros.email)
+});
+
+When('El usuario crea un nuevo miembro con datos validos en el email pero sin nombre.', async function () 
+{
+  const datosMiembros = datos[10];
+  const edition = await member.editMemberEmailNoName(this.driver, datosMiembros.name, datosMiembros.email)
 });
 
 

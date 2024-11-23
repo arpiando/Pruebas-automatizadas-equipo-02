@@ -26,6 +26,12 @@ Feature: Gestión de miembros
     Then El sistema informa del error.
 
     #Scenario: CM005 - El usuario debería recibir un mensaje error al crear un miembro con email invalido
+    Given El usuario ha navegado al sitio, ha iniciado sesión y ha crea un miembro exitosamente.
+    When El usuario crea un nuevo miembro con datos invalidos en el email.
+    Then El sistema informa del error.
 
     #Scenario: CM006 - El usuario debería poder crear un nuevo miembro con nombre vacio exitosamente
+    Given El usuario ha navegado al sitio, ha iniciado sesión y ha crea un miembro exitosamente.
+    When El usuario crea un nuevo miembro con datos validos en el email pero sin nombre.
+    Then El sistema verifica si el miembro se ha creado exitosamente.
 

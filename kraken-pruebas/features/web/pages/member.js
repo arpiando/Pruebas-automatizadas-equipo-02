@@ -127,6 +127,38 @@ const member = {
       return await buttonWithErrorState.isDisplayed();
     },
 
+    async editMemberEmail(driver, email) {
+
+      // Esperar y llenar el campo de nombre
+      const nameField = await driver.$(this.selectors.InputEmail);
+      await nameField.waitForDisplayed({ timeout: 5000 });
+      await nameField.setValue(email);
+
+      // Guardar el miembro
+      const saveButton = await driver.$(this.selectors.ButtonSaveMember);
+      await saveButton.waitForDisplayed({ timeout: 5000 });
+      await saveButton.click();
+
+    },
+
+    async editMemberEmailNoName(driver,name, email) {
+
+      const nameField = await driver.$(this.selectors.InputName);
+      await nameField.waitForDisplayed({ timeout: 5000 });
+      await nameField.setValue(name);
+
+      // Esperar y llenar el campo de nombre
+      const emailField = await driver.$(this.selectors.InputEmail);
+      await emailField .waitForDisplayed({ timeout: 5000 });
+      await emailField .setValue(email);
+
+      // Guardar el miembro
+      const saveButton = await driver.$(this.selectors.ButtonSaveMember);
+      await saveButton.waitForDisplayed({ timeout: 5000 });
+      await saveButton.click();
+
+    },
+
   };
   
   module.exports = member;
