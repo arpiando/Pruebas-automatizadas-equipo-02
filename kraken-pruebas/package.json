@@ -16,6 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "@faker-js/faker": "^9.2.0",
+    "axios": "^1.7.7",
     "canvas": "^2.11.2",
     "chai": "^5.1.2",
     "dotenv": "^16.4.5",

@@ -6,13 +6,15 @@ const member = require ('../pages/member')
 const tagManager = require('../pages/tags')
 const profile = require('../pages/profile')
 const { Given, When, Then, Before} = require('@cucumber/cucumber');
-const obtenerDatos = require('../../../data/estrategia');
+const { obtenerDatos, cargarDatosPseudo } = require('../../../data/estrategia');
 
 let datos;
 
-Before(() => {
-
+Before(async () => {
   const estrategia = process.env.ESTRATEGIA || 'aprior';
+  if (estrategia === 'pseudo') {
+    await cargarDatosPseudo();
+  }
   datos = obtenerDatos(estrategia);
   console.log('Datos cargados para la estrategia', estrategia, ':', datos);
 });
@@ -210,7 +212,7 @@ Then('El sistema verifica si se ha eliminado.', async function () {
 When('El usuario crea un nuevo miembro con datos invalidos.', async function () 
 {
   const datosMiembros = datos[6];
-  const edition = await member.createNewMember(this.driver, datosMiembros.name, datosMiembros.email)
+  const edition = await member.createNewMember(this.driver, datosMiembros.ilogic, datosMiembros.email)
 });
 
 Then('El sistema informa del error.', async function () {

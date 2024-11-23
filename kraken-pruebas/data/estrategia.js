@@ -1,4 +1,5 @@
 const { faker } = require('@faker-js/faker');
+const axios = require('axios');
 
 const datosApriori = [
   //Datos login apriori login [0]//
@@ -22,9 +23,8 @@ const datosApriori = [
 
 ];
 
-const datosPseudo = [
+const datosPseudo = [];
 
-];
 
 const datosAleatorios = [
   //Datos login apriori login [0]//
@@ -49,6 +49,17 @@ const datosAleatorios = [
 
 ];
 
+async function cargarDatosPseudo() {
+  try {
+    const response = await axios.get('https://my.api.mockaroo.com/pseudo.json?key=69e95960'); 
+    const datosMockaroo = response.data;
+    datosMockaroo.forEach((dato) => datosPseudo.push(dato));
+    console.log('Datos cargados desde Mockaroo:', datosPseudo);
+  } catch (error) {
+    console.error('Error al cargar datos desde Mockaroo:', error.message);
+  }
+}
+
 function obtenerDatos(estrategia) {
   if (estrategia === 'aprior') {
     return datosApriori;
@@ -59,4 +70,4 @@ function obtenerDatos(estrategia) {
   }
 }
 
-module.exports = obtenerDatos;
+module.exports = { obtenerDatos, cargarDatosPseudo };
