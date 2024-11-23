@@ -1,7 +1,7 @@
 Feature: Gestión de Pagina
 
   @user2 @web
-  Scenario: MPA001 - El usuario debería poder crear y modificar una pagina
+  Scenario: MPA001 - El usuario debería poder crear
     Given I navigate to page "http://localhost:2368/ghost/#/signin"
     When El usuario ingresa credenciales válidas
     And hace clic en el boton de ingreso

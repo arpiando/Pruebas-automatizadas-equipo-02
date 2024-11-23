@@ -9,7 +9,7 @@ Feature: Crear post
     When El usuario crea un post y lo publica.
     Then El sistema debe mostrar un mensaje de éxito al crear el post.
 
-    #Scenario: MP002 - El usuario deberia poder moficiar un post
+    #Scenario: MP002 - El usuario deberia poder modificar un post
     Given El usuario ha navegado al sitio, ha iniciado sesión y ha creado un post exitosamente.
     When El usuario modifica el título y el contenido del post.
     Then El sistema debe mostrar un mensaje de éxito después de la modificación.
