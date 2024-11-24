@@ -19,3 +19,8 @@ Feature: Crear post
     When El usuario selecciona un post publicado y lo revierte a borrador.
     Then El sistema debe mostrar un mensaje de éxito al revertir el post a borrador.
 
+    #Scenario: MP004 - El usuario deberia poder crear un borrador
+    Given El usuario ha navegado al sitio, ha iniciado sesión y ha creado un post exitosamente.
+    When El usuario crea un post y no lo publica.
+    Then El sistema debe mostrar un mensaje de éxito.
+

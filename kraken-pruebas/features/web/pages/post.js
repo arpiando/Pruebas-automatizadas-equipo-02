@@ -152,6 +152,27 @@ const postCreate = {
         await driver.refresh();
         await new Promise(resolve => setTimeout(resolve, 1000));
     },
+
+    async editNoPublish(driver) {
+      // Establecer el nuevo título
+      const titleField = await driver.$(this.selectors.titleInput);
+      await titleField.waitForDisplayed({ timeout: 5000 });
+      await titleField.clearValue();
+      await titleField.setValue('otro');
+  
+      // Establecer el nuevo contenido
+      const contentField = await driver.$(this.selectors.contentInput);
+      await contentField.waitForDisplayed({ timeout: 5000 });
+      await contentField.click();
+      await driver.pause(500);
+      await contentField.setValue('contenido');
+
+      },
+
+      async isDraftSavedSuccessfully(driver) {
+        const success = await driver.$('//span[contains(text(), "Draft")]');
+        await success.waitForDisplayed({ timeout: 5000 });
+      },
 };
 
   module.exports = postCreate;
