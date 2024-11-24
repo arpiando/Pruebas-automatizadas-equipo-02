@@ -161,6 +161,13 @@ Then('El sistema debe mostrar un mensaje de éxito al revertir el post a borrado
   const success = await postCreate.isRevertToDraftSuccess(this.driver)
 });
 
+When('El usuario crea un post y no lo publica.', async function () {
+  const unpublished=postCreate.editNoPublish(this.driver);
+});
+
+Then('El sistema debe mostrar un mensaje de éxito.', async function () {
+  const success = await postCreate.isDraftSavedSuccessfully(this.driver)
+});
 
 
 
