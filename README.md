@@ -28,17 +28,24 @@ Ahora, pasos para correr pruebas:
     cd kraken-pruebas
     npm install
 
-ejecute las pruebas:
+1. ejecute las pruebas:
     Vaya al archivo .env y cambie sus credenciales del administrador de Ghost
     npx kraken-node run
 
-Si desea correr pruebas y luego guardar imagenes para pruebas de regresión visual debe ejecutar:
+2. Si desea correr pruebas con distintas base de datos:
+
+    base apriori: npm run test:aprior
+    base pseudo aleatorio: npm run test:pseudo
+    base aleatoria: npm run test:aleatorio
+
+
+3. Si desea correr pruebas y luego guardar imagenes para pruebas de regresión visual debe ejecutar:
 
     npm run test
 
-luego cambiar versión de node a superior de 18.
-    nvm use 18
-    ejecute: node visual-testing/visualTesting.js
+    luego cambiar versión de node a superior de 18.
+        nvm use 18
+        ejecute: node visual-testing/visualTesting.js
 
 
 2. El paso a paso para la instalación y ejecución de las pruebas de generación de datos en Playwright.

@@ -29,24 +29,24 @@ const pageCreate = {
     await link.click();
   },
 
-  async createPage(driver) {
+  async createPage(driver, titulo, contenido) {
 
     // Crear pagina
-    const newPageLink = await driver.$(this.selectors.newPageButton);
+    const newPageLink = await driver.$('//span[contains(text(), "New page")]');
     await newPageLink.waitForDisplayed({ timeout: 5000 });
     await newPageLink.click();
 
     // Establecer título
-    const titleField = await driver.$(this.selectors.titleInput);
+    const titleField = await driver.$(this.selectors.titleInput)
     await titleField.waitForDisplayed({ timeout: 5000 });
-    await titleField.setValue('tituloooo');
+    await titleField.setValue(titulo);
 
     // Establecer contenido
     const contentField = await driver.$(this.selectors.contentInput);
     await contentField.waitForDisplayed({ timeout: 5000 });
     await contentField.click();
-    await driver.pause(500); // Breve pausa
-    await contentField.setValue('contenidoooo');
+    await driver.pause(500); 
+    await contentField.setValue(contenido);
 
     // Publicar la página
     const publishButton = await driver.$(this.selectors.publishButton);
@@ -79,7 +79,7 @@ const pageCreate = {
     await driver.click(this.selectors.headerCloseButton);
   },
 
-  async editPage(driver) {
+  async editPage(driver, titulo, contenido) {
     // Esperar a que la página esté lista para editar
     const pageToEdit = await driver.$('.published');
     await pageToEdit.waitForDisplayed({ timeout: 5000 });
@@ -89,14 +89,14 @@ const pageCreate = {
     const titleField = await driver.$(this.selectors.titleInput);
     await titleField.waitForDisplayed({ timeout: 5000 });
     await titleField.clearValue();
-    await titleField.setValue('nuevoootituloooo');
+    await titleField.setValue(titulo);
 
     // Establecer el nuevo contenido
     const contentField = await driver.$(this.selectors.contentInput);
     await contentField.waitForDisplayed({ timeout: 5000 });
     await contentField.click();
     await driver.pause(500);
-    await contentField.setValue('Nuevoocontenidoooo');
+    await contentField.setValue(contenido);
 
     // Esperar y hacer clic en el botón de actualizar
     const updateButton = await driver.$(this.selectors.updateButton);
@@ -146,7 +146,73 @@ const pageCreate = {
   async reloadPage(driver) {
     await driver.refresh();
     await new Promise(resolve => setTimeout(resolve, 1000));
-}
+},
+
+ async selectPage(driver) {
+  const link = await driver.$('a[href="#/pages/"]');
+  await link.waitForDisplayed({ timeout: 5000 });
+  await link.click();
+  const table = await driver.$('.posts-list.gh-list');
+  await table.waitForDisplayed({ timeout: 5000 });
+  const firstRow = await driver.$('.gh-posts-list-item-group');
+  await firstRow.waitForDisplayed({ timeout: 5000 });
+  await firstRow.click();
+},
+
+async deletePage(driver) {
+
+  const settingsButton = await driver.$('button.settings-menu-toggle.gh-btn.gh-btn-editor.gh-btn-icon.icon-only.gh-btn-action-icon');
+  await settingsButton.waitForClickable({ timeout: 5000 });
+  await settingsButton.click();
+
+  const deletePageButton = await driver.$('//span[contains(text(), "Delete")]');
+  await deletePageButton.scrollIntoView();
+  await deletePageButton.waitForClickable({ timeout: 5000 });
+  await deletePageButton.click();
+
+  const modal = await driver.$('.modal-content');
+  await modal.waitForDisplayed({ timeout: 6000 });
+
+  const confirmButton = await driver.$("//button[@data-test-button='delete-post-confirm']");
+  await confirmButton.waitForClickable({ timeout: 5000 });
+  await confirmButton.click();
+
+},
+
+async validatePageIsDeleted(driver) {
+  const membersList = await driver.$('.posts-list.gh-list');
+  await membersList.waitForDisplayed({ timeout: 10000 });
+},
+
+async createPageInvalid(driver, titulo, contenido) {
+   // Esperar a que la página esté lista para editar
+   const pageToEdit = await driver.$('.published');
+   await pageToEdit.waitForDisplayed({ timeout: 5000 });
+   await pageToEdit.click();
+
+   // Establecer el nuevo título
+   const titleField = await driver.$(this.selectors.titleInput);
+   await titleField.waitForDisplayed({ timeout: 5000 });
+   await titleField.clearValue();
+   await titleField.setValue(titulo);
+
+   // Establecer el nuevo contenido
+   const contentField = await driver.$(this.selectors.contentInput);
+   await contentField.waitForDisplayed({ timeout: 5000 });
+   await contentField.click();
+   await driver.pause(500);
+   await contentField.setValue(contenido);
+
+   // Esperar y hacer clic en el botón de actualizar
+   const updateButton = await driver.$(this.selectors.updateButton);
+   await updateButton.waitForDisplayed({ timeout: 5000 });
+   await updateButton.click();
+},
+
+async NotSuccessful(driver) {
+  const alertContainer = await driver.$('aside.gh-alerts');
+  return await alertContainer.waitForDisplayed({ timeout: 5000 });
+},
 };
 
 module.exports = pageCreate;
