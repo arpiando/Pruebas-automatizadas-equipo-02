@@ -41,10 +41,11 @@ test.describe('Crear un miembro', () => {
     const memberName = 'John Doe';
     const memberEmail = 'john.doe@example.com';
     const confirmationText = 'Created';
+    const note = 'this is a note';
 
     // When El usuario crea un nuevo miembro.
     await member.navigateToCreateMember()
-    await member.CreateNewMember(memberName, memberEmail);
+    await member.CreateNewMember(memberName, memberEmail,note);
 
     // Then El sistema verifica si el miembro se ha creado exitosamente.
     const createdText = await member.ValidateMemberIsCreated();
@@ -65,10 +66,11 @@ test.describe('Crear un miembro', () => {
     const memberName = 'Patrick Jordan';
     const memberEmailInvalid = 'patrick.doeexample.com';
     const confirmationText = 'Retry';
+    const note = 'this is a note';
 
     // When El usuario trata de crear un nuevo miembro.
     await member.navigateToCreateMember()
-    await member.CreateMemberInvalid(memberName, memberEmailInvalid);
+    await member.CreateMemberInvalid(memberName, memberEmailInvalid, note);
 
     // Then El sistema impide la creacion de un nuevo miembro.
     const createdText = await member.ValidateMemberIsInvalid();
@@ -110,6 +112,7 @@ test.describe('Modificar un miembro', () => {
 
     const memberName = 'Carlos Turk';
     const memberEmail = 'carlos.turk@example.com';
+    const note = 'this is a note';
 
     // Given El usuario está autenticado en la aplicación  y va al menu de miembros.
     await loginPage.navigateToLoginPage();
@@ -120,7 +123,7 @@ test.describe('Modificar un miembro', () => {
   
 
     // And Crea un miembro exitosamente
-    await memberPage.CreateNewMember(memberName, memberEmail);
+    await memberPage.CreateNewMember(memberName, memberEmail, note);
     const createdText = await memberPage.ValidateMemberIsCreated();
     expect(createdText).toContain('Created');
     await page.screenshot({ path: beforePath });
