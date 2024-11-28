@@ -37,6 +37,10 @@ test.describe('Crear un miembro', () => {
     await page.screenshot({ path: beforePath });
   });
 
+  test.afterEach(async ({})=>{
+    await member.deleteMember()
+  })
+
   test('CM001 - El usuario debería poder crear un nuevo miembro exitosamente', async ({ page }) => {
     const memberName = 'John Doe';
     const memberEmail = 'john.doe@example.com';
@@ -51,31 +55,7 @@ test.describe('Crear un miembro', () => {
     const createdText = await member.ValidateMemberIsCreated();
     expect(createdText).toContain(confirmationText);
     await page.screenshot({ path: afterPath });
-
-    const img1 = PNG.sync.read(fs.readFileSync(beforePath));
-    const img2 = PNG.sync.read(fs.readFileSync(afterPath));
-
-    const { width, height } = img1;
-    const diff = new PNG({ width, height });
-
-    pixelmatch(img1.data, img2.data, diff.data, width, height, options);
-    fs.writeFileSync(comparePath, PNG.sync.write(diff));
-  });
-
-  test('CM002 - El usuario debería recibir un mensaje error al crear un miembro datos invalidos', async ({ page }) => {
-    const memberName = 'Patrick Jordan';
-    const memberEmailInvalid = 'patrick.doeexample.com';
-    const confirmationText = 'Retry';
-    const note = 'this is a note';
-
-    // When El usuario trata de crear un nuevo miembro.
     await member.navigateToCreateMember()
-    await member.CreateMemberInvalid(memberName, memberEmailInvalid, note);
-
-    // Then El sistema impide la creacion de un nuevo miembro.
-    const createdText = await member.ValidateMemberIsInvalid();
-    expect(createdText).toContain(confirmationText);
-    await page.screenshot({ path: afterPath });
 
     const img1 = PNG.sync.read(fs.readFileSync(beforePath));
     const img2 = PNG.sync.read(fs.readFileSync(afterPath));
@@ -129,6 +109,10 @@ test.describe('Modificar un miembro', () => {
     await page.screenshot({ path: beforePath });
   });
 
+  test.afterEach(async ({})=>{
+    await memberPage.deleteMember()
+  })
+
   test('MM001 - El usuario debería poder editar la información del miembro', async ({ page }) => {
     const editedName = 'Carlos Turks';
 
@@ -139,6 +123,33 @@ test.describe('Modificar un miembro', () => {
     const modifiedName = await memberPage.ValidateMemberIsModified();
     expect(modifiedName).toBe(editedName);
     await page.screenshot({ path: afterPath });
+    await memberPage.navigateToCreateMember()
+
+    const img1 = PNG.sync.read(fs.readFileSync(beforePath));
+    const img2 = PNG.sync.read(fs.readFileSync(afterPath));
+
+    const { width, height } = img1;
+    const diff = new PNG({ width, height });
+
+    pixelmatch(img1.data, img2.data, diff.data, width, height, options);
+    fs.writeFileSync(comparePath, PNG.sync.write(diff));
+  });
+
+  test('CM002 - El usuario debería recibir un mensaje error al crear un miembro datos invalidos', async ({ page }) => {
+    const memberName = 'Patrick Jordan';
+    const memberEmailInvalid = 'patrick.doeexample.com';
+    const confirmationText = 'Retry';
+    const note = 'this is a note';
+
+    // When El usuario trata de crear un nuevo miembro.
+    await memberPage.navigateToCreateMember()
+    await memberPage.EditAMember(memberName, memberEmailInvalid, note);
+
+    // Then El sistema impide la creacion de un nuevo miembro.
+    const createdText = await memberPage.ValidateMemberIsInvalid();
+    expect(createdText).toContain(confirmationText);
+    await page.screenshot({ path: afterPath });
+    await memberPage.navigateToMemberInvalid();
 
     const img1 = PNG.sync.read(fs.readFileSync(beforePath));
     const img2 = PNG.sync.read(fs.readFileSync(afterPath));

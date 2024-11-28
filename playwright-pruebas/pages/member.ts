@@ -12,7 +12,10 @@ export class Member {
     private MemberSelector: string = '.gh-members-list-name-container';
     private memberNameSelector: string = '.gh-members-list-name-container .gh-members-list-name';
     private ButtonFailure: string = '[data-test-button="save"] span[data-test-task-button-state="failure"]';
-
+    private leaveButton: string = 'button.gh-btn.gh-btn-red[data-test-leave-button]';
+    private memberActionsButton: string = '[data-test-button="member-actions"]';
+    private deleteMemberButton: string = 'button[data-test-button="delete-member"]';
+    private deleteButtonCofirmation: string = '[data-test-button="confirm"]';
 
     constructor(page: Page) {
         this.page = page;
@@ -42,7 +45,7 @@ export class Member {
 
     }
 
-    async EditAMember(name: string): Promise<void>{
+    async EditAMember(name: string, email?:string, note?:string): Promise<void>{
         await this.navigateToCreateMember();
 
         await this.page.click(this.MemberSelector);
@@ -51,7 +54,17 @@ export class Member {
         await this.page.fill(this.InputName,'');
         await this.page.fill(this.InputName,name);
 
+        if (email){
+            await this.page.fill(this.InputEmail,'');
+            await this.page.fill(this.InputEmail,email);
+        }
+        if(note){
+            await this.page.fill(this.InputNote,'');
+            await this.page.fill(this.InputNote,note);
+        }
+
         await this.page.click(this.ButtonSaveMember);
+        await this.page.waitForTimeout(500);
 
     }
 
@@ -64,7 +77,6 @@ export class Member {
     }
 
     async ValidateMemberIsInvalid(): Promise<string | null>{
-        await this.navigateToCreateMember();
 
         const memberName = await this.page.locator(this.ButtonFailure).textContent();
         return memberName;
@@ -80,5 +92,25 @@ export class Member {
         await this.page.fill(this.InputNote,note);
 
         await this.page.click(this.ButtonSaveMember);
+    }
+
+    async navigateToMemberInvalid(): Promise<void> {
+        await this.navigateToCreateMember();
+        await this.page.click(this.leaveButton);
+    }
+
+    async deleteMember(): Promise<void> {
+        await this.page.click(this.MemberSelector);
+
+        await this.page.click(this.memberActionsButton);
+
+        await this.page.waitForSelector(this.deleteMemberButton);
+
+        await this.page.click(this.deleteMemberButton);
+
+        await this.page.waitForSelector(this.deleteButtonCofirmation);
+
+        await this.page.click(this.deleteButtonCofirmation);
+
     }
 }
