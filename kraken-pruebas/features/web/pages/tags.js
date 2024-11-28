@@ -1,6 +1,6 @@
 const tagManager = {
   selectors: {
-    tagMenuSelector: 'a[href*="tags"]',//'a:has-text("Tags")', // Selector ajustado para mayor precisión
+    tagMenuSelector: 'a[href="#/tags/"]',//'a:has-text("Tags")', // Selector ajustado para mayor precisión
     newTagButton: 'a[href*="new"]',//'a:has-text("New tag")',// Selector ajustado para identificar el botón de "New tag"
     nameInputSelector: 'input.gh-input',
     saveTagButton: 'button.gh-btn.gh-btn-primary', // Más específico para botones de guardar
@@ -117,7 +117,62 @@ async editTagName(driver, newTagName) {
   async reloadPage(driver) {
     await driver.refresh();
     await new Promise(resolve => setTimeout(resolve, 1000));
-}
+},
+
+async tagSelection(driver) {
+  const tagLink = await driver.$(this.selectors.tagMenuSelector);
+  await tagLink.waitForDisplayed({ timeout: 5000 });
+  await tagLink.click();
+  const table = await driver.$('.tags-list.gh-list');
+  await table.waitForDisplayed({ timeout: 6000 });
+  const firstRow = await driver.$('.gh-list-row.gh-tags-list-item');
+  await firstRow.waitForDisplayed({ timeout: 5000 });
+  await firstRow.click();
+},
+
+async deleteTag(driver) {
+
+  const deletePageButton = await driver.$('//span[contains(text(), "Delete")]');
+  await deletePageButton.scrollIntoView();
+  await deletePageButton.waitForClickable({ timeout: 5000 });
+  await deletePageButton.click();
+
+  const modal = await driver.$('.modal-content');
+  await modal.waitForDisplayed({ timeout: 6000 });
+
+  const confirmButton = await driver.$("//button[@data-test-button='confirm']");
+  await confirmButton.waitForClickable({ timeout: 5000 });
+  await confirmButton.click();
+
+},
+
+async validateTagIsDeleted(driver) {
+  const membersList = await driver.$('.tags-list.gh-list');
+  await membersList.waitForDisplayed({ timeout: 5000 });
+},
+
+async editTagInvalid(driver, newTagName) {
+
+  const accentInput = await driver.$('input[name="accent-color"]');
+  await accentInput.waitForDisplayed({ timeout: 5000 }); // Espera a que el campo esté visible
+  await accentInput.setValue(''); // Limpia el campo de entrada antes de escribir el nuevo nombre
+  await accentInput.setValue(newTagName); // Ingresa el nuevo nombre para la etiqueta
+
+  // Selecciona el botón de guardar y espera a que esté visible
+  const saveButton = await driver.$(this.selectors.saveTagButton);
+  await saveButton.waitForDisplayed({ timeout: 1000 });
+  await saveButton.click(); // Hace clic en el botón de guardar
+
+  await driver.pause(500); // Pausa breve para permitir que se procese
+},
+
+async NotSuccessful(driver) {
+  const alertContainer = await driver.$('button span[data-test-task-button-state="failure"]');
+  await alertContainer.waitForDisplayed({ timeout: 5000 });
+  return await alertContainer.isDisplayed();
+},
+
+
 };
 
 
