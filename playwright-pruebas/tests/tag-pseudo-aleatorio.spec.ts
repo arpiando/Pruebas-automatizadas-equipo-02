@@ -83,7 +83,7 @@ test.describe('Modificar una etiqueta (tag)', () => {
     await tagPage.deleteTag()
   })
 
-  test('CE002 - El usuario No debería poder crear una etiqueta con nombre vacio', async ({ page }) => {
+  test('ME001 - El usuario No debería poder modificar una etiqueta con nombre vacio', async ({ page }) => {
     const tagName = mockarooData[1].nombre_vacio;
     const tagDescription = mockarooData[1].note;
     const failureText = 'Retry';
@@ -91,27 +91,27 @@ test.describe('Modificar una etiqueta (tag)', () => {
     // When El usuario ingresa el nombre vacio.
     await tagPage.editTag(tagName,tagDescription);
 
-    // Then El sistema impide la creacion de la etiqueta.
+    // Then El sistema impide la modificacion de la etiqueta.
     const createdTagNameInvalid = await tagPage.confirmedNewTagIsNotCreated();
     expect(createdTagNameInvalid).toContain(failureText);
     await tagPage.navigateToCreateTagInvalid();
   });
 
-  test('CE003 - El usuario No debería poder crear una etiqueta con nombre muy largo', async ({ page }) => {
+  test('ME002 - El usuario No debería poder modificar una etiqueta con nombre muy largo', async ({ page }) => {
     const tagName = mockarooData[2].first_name.repeat(20);
     const tagDescription = mockarooData[2].note;
     const failureText = 'Retry';
 
-    // When El usuario ingrea un nombre muy largo.
+    // When El usuario ingresa un nombre muy largo.
     await tagPage.editTag(tagName,tagDescription);
 
-    // Then El sistema impide la creacion de la etiqueta.
+    // Then El sistema impide la modificacion de la etiqueta.
     const createdTagNameInvalid = await tagPage.confirmedNewTagIsNotCreated();
     expect(createdTagNameInvalid).toContain(failureText);
     await tagPage.navigateToCreateTagInvalid();
   });
 
-  test('CE004 - El usuario No debería poder crear una etiqueta con descripcion muy larga', async ({ page }) => {
+  test('ME003  - El usuario No debería poder modificar una etiqueta con descripcion muy larga', async ({ page }) => {
     const tagName = mockarooData[3].first_name;
     const tagDescription = mockarooData[3].note_larga;
     const failureText = 'Retry';
@@ -119,13 +119,13 @@ test.describe('Modificar una etiqueta (tag)', () => {
     // When El usuario ingresa una descripcion muy larga.
     await tagPage.editTag(tagName,tagDescription);
 
-    // Then El sistema impide la creacion de la etiqueta.
+    // Then El sistema impide la modificacion de la etiqueta.
     const createdTagNameInvalid = await tagPage.confirmedNewTagIsNotCreated();
     expect(createdTagNameInvalid).toContain(failureText);
     await tagPage.navigateToCreateTagInvalid();
   });
 
-  test('CE005 - El usuario No debería poder crear una etiqueta con color invalido', async ({ page }) => {
+  test('ME004 - El usuario No debería poder modificar una etiqueta con color invalido', async ({ page }) => {
     const tagName = mockarooData[4].first_name;
     const tagDescription = mockarooData[4].note;
     const tagColor = mockarooData[4].color;
@@ -134,7 +134,7 @@ test.describe('Modificar una etiqueta (tag)', () => {
     // When El usuario ingresa un color invalido.
     await tagPage.editTag(tagName,tagDescription,tagColor);
 
-    // Then El sistema impide la creacion de la etiqueta.
+    // Then El sistema impide la modificacion de la etiqueta.
     const createdTagNameInvalid = await tagPage.confirmedNewTagIsNotCreated();
     expect(createdTagNameInvalid).toContain(failureText);
     await tagPage.navigateToCreateTagInvalid();

@@ -69,65 +69,66 @@ test.describe('Modificar un miembro', () => {
   test.afterEach(async ({})=>{
     await memberPage.deleteMember()
   })
-  test('CM002 - El usuario debería recibir un mensaje error al crear un miembro con email invalido', async ({ page }) => {
+
+  test('MM001 - El usuario debería recibir un mensaje error al modificar un miembro con email invalido', async ({ page }) => {
     const memberName = faker.person.fullName();
     const memberEmailInvalid = faker.string.alpha();
     const memberNote = faker.lorem.paragraph();
     const confirmationText = 'Retry';
 
-    // When El usuario trata de crear un nuevo miembro.
+    // When El usuario trata de modificar un miembro.
     await memberPage.navigateToCreateMember()
     await memberPage.EditAMember(memberName, memberEmailInvalid,memberNote);
 
-    // Then El sistema impide la creacion de un nuevo miembro.
+    // Then El sistema impide la modificacion de un miembro.
     const createdText = await memberPage.ValidateMemberIsInvalid();
     expect(createdText).toContain(confirmationText);
     await memberPage.navigateToMemberInvalid();
   });
 
-  test('CM003 - El usuario debería recibir un mensaje error al crear un miembro con nota invalida', async ({ page }) => {
+  test('MM002 - El usuario debería recibir un mensaje error al modificar un miembro con nota invalida', async ({ page }) => {
     const memberName = faker.person.fullName();
     const memberEmail = faker.internet.email();
     const memberNoteInvalid = faker.lorem.paragraphs(5);
     const confirmationText = 'Retry';
 
-    // When El usuario trata de crear un nuevo miembro.
+    // When El usuario trata de modificar un miembro.
     await memberPage.navigateToCreateMember()
     await memberPage.EditAMember(memberName, memberEmail,memberNoteInvalid);
 
-    // Then El sistema impide la creacion de un nuevo miembro.
+    // Then El sistema impide la modificacion de un miembro.
     const createdText = await memberPage.ValidateMemberIsInvalid();
     expect(createdText).toContain(confirmationText);
     await memberPage.navigateToMemberInvalid();
   });
 
-  test('CM004 - El usuario debería poder crear un nuevo miembro con nombre vacio exitosamente', async ({ page }) => {
+  test('MM003 - El usuario debería poder modificar un miembro con nombre vacio exitosamente', async ({ page }) => {
     const memberNameEmpty = "";
     const memberEmail = faker.internet.email();
     const memberNote = faker.lorem.paragraph();
     const confirmationText = 'Created';
 
-     // When El usuario crea un nuevo miembro.
+     // When El usuario modifica un miembro.
      await memberPage.navigateToCreateMember()
      await memberPage.EditAMember(memberNameEmpty, memberEmail,memberNote);
  
-     // Then El sistema verifica si el miembro se ha creado exitosamente.
+     // Then El sistema verifica si el miembro se ha modificado exitosamente.
      const createdText = await memberPage.ValidateMemberIsCreated();
      expect(createdText).toContain(confirmationText);
      await memberPage.navigateToCreateMember();
   });
 
-  test('CM006 - El usuario debería recibir un mensaje error al crear un miembro con nombre maximo de caracteres', async ({ page }) => {
+  test('MM004 - El usuario debería recibir un mensaje error al modificar un miembro con nombre maximo de caracteres', async ({ page }) => {
     const memberNameInvalid = faker.lorem.paragraphs();
     const memberEmail = faker.internet.email();
     const memberNote = faker.lorem.paragraph();
     const confirmationText = 'Retry';
 
-    // When El usuario trata de crear un nuevo miembro.
+    // When El usuario trata de modificar un miembro.
     await memberPage.navigateToCreateMember()
     await memberPage.EditAMember(memberNameInvalid, memberEmail,memberNote);
 
-    // Then El sistema impide la creacion de un nuevo miembro.
+    // Then El sistema impide la modificacion de un miembro.
     const createdText = await memberPage.ValidateMemberIsInvalid();
     expect(createdText).toContain(confirmationText);
     await memberPage.navigateToMemberInvalid();

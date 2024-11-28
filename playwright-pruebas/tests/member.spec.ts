@@ -116,7 +116,7 @@ test.describe('Modificar un miembro', () => {
   test('MM001 - El usuario debería poder editar la información del miembro', async ({ page }) => {
     const editedName = 'Carlos Turks';
 
-    // When El usuario edita un miembro.
+    // When El usuario modifica un miembro.
     await memberPage.EditAMember(editedName);
 
     // Then El sistema verifica si el nombre del miembro se ha actualizado.
@@ -135,17 +135,17 @@ test.describe('Modificar un miembro', () => {
     fs.writeFileSync(comparePath, PNG.sync.write(diff));
   });
 
-  test('CM002 - El usuario debería recibir un mensaje error al crear un miembro datos invalidos', async ({ page }) => {
+  test('MM002 - El usuario debería recibir un mensaje error al modificar un miembro datos invalidos', async ({ page }) => {
     const memberName = 'Patrick Jordan';
     const memberEmailInvalid = 'patrick.doeexample.com';
     const confirmationText = 'Retry';
     const note = 'this is a note';
 
-    // When El usuario trata de crear un nuevo miembro.
+    // When El usuario trata de modificar un nuevo miembro.
     await memberPage.navigateToCreateMember()
     await memberPage.EditAMember(memberName, memberEmailInvalid, note);
 
-    // Then El sistema impide la creacion de un nuevo miembro.
+    // Then El sistema impide la modificacion de un nuevo miembro.
     const createdText = await memberPage.ValidateMemberIsInvalid();
     expect(createdText).toContain(confirmationText);
     await page.screenshot({ path: afterPath });
