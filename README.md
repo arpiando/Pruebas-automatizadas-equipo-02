@@ -48,11 +48,12 @@ Debe tener corriendo Ghost en el puerto: localhost:2368
             ejecute: node visual-testing/visualTesting.js
 
 
-2. El paso a paso para la instalación y ejecución de las pruebas en Playwright.
+
+2. El paso a paso para la instalación y ejecución de las pruebas de generación de datos en Playwright.
 
 - Asegurarse de tener Node.js instalado en el sistema, ya que Playwright es una librería de JavaScript.
 - Abrir el proyecto
-- Dirigirse a la carpeta pruebas-playwright en la terminal
+- Dirigirse a la carpeta **pruebas-playwright** en la terminal para ejecutar las pruebas.
 - Instalar las dependencias con el comando npm install
 - Abrir la carpeta pages
 - Abrir el archivo login.ts y cambiar las credenciales en 
@@ -62,6 +63,12 @@ Debe tener corriendo Ghost en el puerto: localhost:2368
 
 - Guardar los cambios
 - Ejecutar el comando npx playwright test --ui en la terminal (Asegurarse de estar en la carpeta pruebas-playwright al momento de ejecutar este comando)
+- Cada funcionalidad tiene un archivo que distingue a la estrategia de generación de datos, por ejemplo:
+  
+    - **member-a-priori.spec.ts** para ejecutar las pruebas en las funcionalidades de miembros para la estrategia de generación de datos a-priori
+    - **member-pseudo-aleatorio.spec.ts** para ejecutar las pruebas en las funcionalidades de miembros para la estrategia de generación de datos pseudo aleatorios
+    - **member-aleatorio.spec.ts** para ejecutar las pruebas en las funcionalidades de miembros para la estrategia de generación de datos aleatorios
+
 - Dar click en el botón play de cada prueba para ejecutarlas individualmente (NO CORRERLAS TODAS A LA VEZ, POR FAVOR)
 
 3. Ejecución de Monkey:

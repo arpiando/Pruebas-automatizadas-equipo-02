@@ -37,40 +37,22 @@ test.describe('Crear una etiqueta (tag)', () => {
     await page.screenshot({ path: beforePath });
   });
 
+  test.afterEach(async ({})=>{
+      await tagPage.deleteTag()
+  })
+
   test('CE001 - El usuario debería poder crear una nueva etiqueta', async ({ page }) => {
     const tagName = 'Etiqueta de Prueba';
+    const description = 'This is a description';
     
     // When El usuario crea una nueva etiqueta.
-    await tagPage.CreateNewTag(tagName);
+    await tagPage.CreateNewTag(tagName,description);
 
     // Then El sistema debe mostrar que la etiqueta ha sido creada.
     const createdTagName = await tagPage.confirmedNewTagIsCreated();
     expect(createdTagName).toContain(tagName);
     await page.screenshot({ path: afterPath });
-
-    const img1 = PNG.sync.read(fs.readFileSync(beforePath));
-    const img2 = PNG.sync.read(fs.readFileSync(afterPath));
-
-    const { width, height } = img1;
-    const diff = new PNG({ width, height });
-
-    pixelmatch(img1.data, img2.data, diff.data, width, height, options);
-    fs.writeFileSync(comparePath, PNG.sync.write(diff));
-  });
-
-  test('CE002 - El usuario No debería poder modificar una etiqueta con datos invalidos', async ({ page }) => {
-    const failureText = 'Retry';
-    
-    // Given El usuario está autenticado y en la página de administración de etiquetas.
     await tagPage.navigateToCreateTag();
-    
-    // When El usuario trata de crear una etiqueta invalida.
-    await tagPage.CreateInvalidTag();
-
-    // Then El sistema impide la creacion de la etiqueta.
-    const createdTagNameInvalid = await tagPage.confirmedNewTagIsNotCreated();
-    expect(createdTagNameInvalid).toContain(failureText);
-    await page.screenshot({ path: afterPath });
 
     const img1 = PNG.sync.read(fs.readFileSync(beforePath));
     const img2 = PNG.sync.read(fs.readFileSync(afterPath));
@@ -102,6 +84,7 @@ test.describe('Modificar una etiqueta (tag)', () => {
   });
 
   const tagName = 'Etiqueta de Prueba';
+  const description = 'This is a description';
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
@@ -115,22 +98,53 @@ test.describe('Modificar una etiqueta (tag)', () => {
     await tagPage.navigateToCreateTag();
 
     // And crea un tag exitosamente.
-    await tagPage.CreateNewTag(tagName);
+    await tagPage.CreateNewTag(tagName,description);
     const createdTagName = await tagPage.confirmedNewTagIsCreated();
     expect(createdTagName).toContain(tagName);
     await page.screenshot({ path: beforePath });
   });
 
-  test('ME001 - El usuario debería poder modificar una etiqueta', async ({ page }) => {
+  test.afterEach(async ({})=>{
+    await tagPage.deleteTag()
+  })
+
+  test('ME001 - El usuario debería poder modificar una etiqueta exitosamente', async ({ page }) => {
     const TagModified: string = 'Tag Modificado';
+    const description = 'This is a description';
     
     // When El usuario modifica una etiqueta.
-    await tagPage.editTag(TagModified);
+    await tagPage.editTag(TagModified,description);
 
     // Then El sistema debe mostrar que la etiqueta ha sido modificada.
     const createdTagName = await tagPage.confirmedNewTagIsCreated();
     expect(createdTagName?.trim()).toContain(TagModified);
     await page.screenshot({ path: afterPath });
+    await tagPage.navigateToCreateTag();
+
+    const img1 = PNG.sync.read(fs.readFileSync(beforePath));
+    const img2 = PNG.sync.read(fs.readFileSync(afterPath));
+
+    const { width, height } = img1;
+    const diff = new PNG({ width, height });
+
+    pixelmatch(img1.data, img2.data, diff.data, width, height, options);
+    fs.writeFileSync(comparePath, PNG.sync.write(diff));
+  });
+
+  test('ME002 - El usuario No debería poder modificar una etiqueta con datos invalidos', async ({ page }) => {
+    const failureText = 'Retry';
+    
+    // Given El usuario está autenticado y en la página de administración de etiquetas.
+    await tagPage.navigateToCreateTag();
+    
+    // When El usuario trata de crear una etiqueta invalida.
+    await tagPage.CreateInvalidTag();
+
+    // Then El sistema impide la modificacion de la etiqueta.
+    const createdTagNameInvalid = await tagPage.confirmedNewTagIsNotCreated();
+    expect(createdTagNameInvalid).toContain(failureText);
+    await page.screenshot({ path: afterPath });
+    await tagPage.navigateToCreateTagInvalid();
 
     const img1 = PNG.sync.read(fs.readFileSync(beforePath));
     const img2 = PNG.sync.read(fs.readFileSync(afterPath));
